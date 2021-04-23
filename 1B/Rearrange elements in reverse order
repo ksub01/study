@@ -23,3 +23,105 @@ for i in range(len(mas)//2):
     mas[len(mas) - i - 1] = z
 for i in mas:
     print(i, end = ' ')
+
+
+Найди ошибку: Переставить элементы в обратном порядке
+#include <iostream>
+#include <vector>
+using namespace std;
+int main()
+{
+    int n,elem = 0, space = 0,m=0;
+    cin >> n;
+    vector <int> arr;
+    for (int i = 0; i < n; i++) {
+        cin >> elem;
+        arr.push_back(elem);
+    }
+    for (int i = 0; i <= (n / 2);i++) {
+        m = n - i - 1;
+        space = arr[i];
+        arr[i] = arr[m];
+        arr[m] = space;
+    }
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+    return 0;
+}
+
+
+
+Хорошие решения
+n = int(input())
+a = list(map(int, input().split()))
+for i in range (len(a) // 2):
+    z = a[i]
+    a[i] = a[-i - 1]
+    a[-i - 1] = z
+print (*a)
+    
+Кодировка: 
+Скачать
+n=int(input())
+a=list(map(int, input().split()))
+for i in range(n//2):
+    k=a[i]
+    a[i]=a[-(i+1)]
+    a[-(i+1)]=k
+for h in range(n):
+    print(a[h], end = " " )
+print()
+Кодировка: 
+Скачать
+//#include "stdafx.h"
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+	short n;
+	int temp;
+	cin >> n;
+	vector<int> arr(n);
+	for (short i = 0; i < n; i++) 
+		cin >> arr[i];
+	for (short i = 0; i < n / 2; i++) {
+		temp = arr[n - i - 1];
+		arr[n - i - 1] = arr[i];
+		arr[i] = temp;
+	}
+	for (short i = 0; i < n; i++)
+		cout << arr[i] << " ";
+	return 0;
+}
+Кодировка: 
+Скачать
+{$mode delphi}
+var
+n,i,x:integer;
+a:array[1..35] of integer;
+begin
+read(n);
+for i:=1 to n do
+read(a[i]);
+for i:=1 to n div 2 do
+begin
+x:=a[i];
+a[i]:=a[n-i+1];
+a[n-i+1]:=x;
+end;
+for i:=1 to n do
+write(a[i],' ');
+end.
+Кодировка: 
+Скачать
+a = int(input())
+b = list(map(int, input().split()))
+for i in range(a // 2):
+    c = b[i]
+    b[i] = b[-i - 1]
+    b[-i - 1] = c
+for i in range(a):
+    print(b[i], end = ' ')
