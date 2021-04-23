@@ -1,0 +1,25 @@
+#algoprog comments
+В условии написано
+Примечание
+Надо не просто вывести числа хитрым образом — 
+надо реально в вашем массиве их переставить как требуется; 
+при этом нельзя использовать дополнительные массивы.
+
+b1 = int(input())
+mas = input().split(' ')
+mas = [int(x) for x in mas]
+for i in range(len(mas)-1, -1, -1):
+    print(mas[i], end = ' ')
+
+
+
+#ready
+
+b1 = int(input())
+mas = input().split(' ')
+for i in range(len(mas)//2):
+    z = mas[i]
+    mas[i] = mas[len(mas) - i - 1]
+    mas[len(mas) - i - 1] = z
+for i in mas:
+    print(i, end = ' ')
