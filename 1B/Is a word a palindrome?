@@ -1,0 +1,20 @@
+while a1 != z1 and a1 < z1:
+кажется, первая проверка не нужна,
+ведь вторая (a1<z1) более общая
+
+k = input()
+a1 = 0
+z1 = len(k)-1
+cos = True
+while a1 != z1 and a1 < z1:
+    # print(a1, z1)
+    if k[a1] != k[z1]:
+        cos = False
+        break
+    a1 += 1
+    z1 -= 1
+
+if cos:
+    print('yes')
+else:
+    print('no')
