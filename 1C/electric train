@@ -1,0 +1,67 @@
+a, b = map(int, input().split(' '))
+if a != b:
+    print(a + b - 1)
+else:
+    print(0)
+    
+    
+    
+Найди ошибку: Электричка
+i, j = map(int, input().split())
+if i < j:
+	i += (j - 1)
+else:
+	i = 0
+print(i)
+
+
+
+
+Хорошие решения
+var 
+  i, j, r: integer;
+begin
+  
+  readln(i, j);
+  
+  if ( i = j ) then
+    r:= 0
+  else
+    r:= i + ( j - 1 );
+    
+  writeln(r);
+  
+end.
+Кодировка: 
+Скачать
+i, j = map(int, input().split())
+if i == j:
+    print(0)
+else:
+    print(i+j-1)
+Кодировка: 
+Скачать
+i,j=map(int,input().split())
+if i==j:
+    print(0)
+else:
+    print(i+j-1)
+Кодировка: 
+Скачать
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	int i, j;
+	cin >> i >> j;
+	if (i != j)
+	{
+		cout << i + j - 1 << endl;
+	}
+	else
+	{
+		cout << 0 << endl;
+	}
+}
