@@ -1,0 +1,40 @@
+if not(ans[i] < (a/100)*7 - eps):
+не надо использовать вещественные числа 
+там, где они не нужны.
+Пишите типа ans[i] * 100 > a * 7
+
+party, number = map(int, input().rstrip().split())
+eps = 1e-12
+ans = [0] * (party+1)
+a = 0
+for i in range(number):
+    vote = input()
+    if vote.count('+') == 1:
+        a += 1
+        for i in range(len(vote)):
+            if vote[i] == '+':
+                ans[i+1] += 1
+for i in range(len(ans)):
+    if not(ans[i] < (a/100)*7 - eps):
+        print(i, end = ' ')
+        
+        
+
+Я зачту, но я бы не проходился бы
+по строке два раза (в count и потом в цикле),
+а сделал бы все в одном цикле.
+
+party, number = map(int, input().rstrip().split())
+eps = 1e-12
+ans = [0] * (party+1)
+a = 0
+for i in range(number):
+    vote = input()
+    if vote.count('+') == 1:
+        a += 1
+        for i in range(len(vote)):
+            if vote[i] == '+':
+                ans[i+1] += 1
+for i in range(len(ans)):
+    if ans[i] * 100 >= a * 7:
+        print(i, end = ' ')
