@@ -1,0 +1,51 @@
+a1 = int(input())
+b1 = int(input())
+if a1 > b1:
+    print(a1)
+else:
+    print(b1)
+    
+
+Найди ошибку: Максимум из двух чисел
+a = int(input())
+b = int(input())
+if a > b:
+    print(a)
+if b > a:
+    print(b)
+    
+    
+    
+Хорошие решения
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <cstring>
+#include <string>
+#include <cstdlib>
+#include <cstdio>
+#include <vector>
+#include <fstream>
+
+using namespace std;
+
+
+int main()
+{
+    int a,b;
+    cin >> a >> b;
+    if (a < b) cout << b;
+    else cout << a;
+    return 0;
+}
+
+
+
+Кодировка: 
+Скачать
+a = int(input())
+b = int(input())
+if a > b:
+    print(a)
+else:
+    print(b)
