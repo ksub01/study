@@ -1,0 +1,17 @@
+mas1, mas2 = input().split(' ')
+mas1 = int(mas1)
+mas2 = int(mas2)
+mas = []
+i1 = 0
+k1 = 0
+for i in range(mas1):
+    mas.append([int(x) for x in input().split(' ')])
+max1 = -1
+for i in range(mas1):
+    for k in range(mas2):
+        if mas[i][k] > max1:
+            max1 = mas[i][k]
+            i1 = i
+            k1 = k
+print(max1)
+print(i1, k1)
