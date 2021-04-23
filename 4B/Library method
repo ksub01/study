@@ -1,0 +1,135 @@
+Да, но у вас три присваивания во внутреннем цикле, 
+можно обойтись одним, см. "хорошие решения".
+
+n = int(input())
+mas = [int(x) for x in input().rstrip().split()]
+flag = False
+for i in range(len(mas)):
+    j = i
+    flag = False
+    while j > 0 and mas[j] < mas[j-1]:
+        mas[j-1], mas[j] = mas[j], mas[j-1]
+        j -= 1
+        flag = True
+    if flag:
+        print(*mas)
+        
+Хорошие решения
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <math.h>
+
+// ������ �� ���������. �������� � ��������� � �� �����. ������� ��, ��� ����.
+
+int main()
+{
+
+	int n, *a;
+	int buf,min,min_i,i,j;
+	scanf("%d", &n);
+	a = (int*)malloc(n * sizeof(int));
+	for (i = 0; i < n; i++)
+	{
+		scanf("%d", &a[i]);
+	}
+	for (i = 1; i < n; i++)
+	{
+		buf = a[i];
+		j = i - 1;
+		while (buf < a[j]&&j>=0)
+		{
+			a[j + 1] = a[j];
+			j--;
+		}
+		if (j < i - 1)
+		{
+			a[j+1] = buf;
+			for (int k = 0; k < n; k++)
+				printf("%d ", a[k]);
+			printf("\n");
+		}
+		else
+			continue;
+	}
+
+	return 0;
+}
+Кодировка: 
+Скачать
+var k,n,tmp,i,j:integer;
+mas:array [1..100] of integer;
+begin
+readln(n);
+for i:=1 to n do
+  read(mas[i]);
+for i:=2 to n do begin
+  tmp:=mas[i];
+  j:=i-1;
+  while (j>0) and (mas[j]>tmp) do begin
+    mas[j+1]:=mas[j];
+    dec(j);
+  end;
+  mas[j+1]:=tmp;
+  if (j+1)<>i then begin
+    for j:=1 to n do
+      write(mas[j],' ');
+    writeln;
+  end;     
+end;
+end.
+Кодировка: 
+Скачать
+var
+  a: array[1..100] of integer;
+  i, n, j, c: integer;
+
+begin
+  read(n);
+  for i := 1 to n do read(a[i]);
+  for i := 2 to n do
+  begin
+    c := a[i];
+    j := i - 1;
+    if c < a[j] then
+    begin
+      while (j > 0) and (c < a[j])  do
+      begin
+        a[j + 1] := a[j];
+        j := j - 1;
+      end;
+      a[j + 1] := c;
+      for j := 1 to n do write(a[j] + ' ');
+      writeln;
+    end;
+  end;
+end.
+Кодировка: 
+Скачать
+def sort(a):
+    for i in range(1,len(a)):
+        x = a[i]
+        j = i-1
+        while j>=0 and a[j]>x:
+            a[j+1] = a[j]
+            j-=1
+        a[j+1] = x
+        if j!=i-1:
+            print(*a)
+n = int(input())
+a = list(map(int, input().split()))
+sort(a)
+Кодировка: 
+Скачать
+a=int(input())
+mas=list(map(int, input().split()))
+for i in range(1, a): 
+    k = mas[i]  
+    j = i - 1 
+    while j >= 0 and mas[j] > k:  
+        mas[j + 1] = mas[j] 
+        j -= 1 
+    if mas[j + 1] != k:
+        mas[j + 1] = k
+        print(* mas)
+        #xxxxxxx
