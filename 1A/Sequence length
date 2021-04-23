@@ -1,0 +1,81 @@
+b1 = 2
+sum1 = 0
+while 1:
+    b = int(input())
+    if b == 0:
+        break
+    sum1 += 1
+print(sum1)
+
+
+Найди ошибку: Длина последовательности
+f = 0 
+i=0
+a=1
+while(a!=0):
+    a = int(input())
+    i= i+a
+print(i)
+
+
+
+Хорошие решения
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int a, res = 0;
+	cin >> a;
+
+	while (a != 0)
+	{
+		res++;
+		cin >> a;
+		if (a == 0) break;
+	}
+
+	cout << res;
+
+	return 0;
+}
+Кодировка: 
+Скачать
+b = 0
+while True:
+    a = input()
+    if a == "0":
+        break
+    b += 1
+print(b)
+Кодировка: 
+Скачать
+s = 0
+while True:
+    x  = int(input())
+    if x == 0:
+        break
+    s += 1
+print(s)
+    
+Кодировка: 
+Скачать
+m = 0
+while int(input()) != 0:
+    m = m + 1
+print(m)  
+Кодировка: 
+Скачать
+var
+  n, i: integer;
+
+begin
+  i := 0;
+  while true do 
+  begin
+    read(n);
+    if n = 0 then break;
+    i := i + 1;
+  end;
+  writeln(i);
+end.
