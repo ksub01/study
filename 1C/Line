@@ -27,4 +27,81 @@ print(m)
    
    
    
-   
+Хорошие решения
+n = int(input())
+a = list(map(int, input().split()))
+x = int(input())
+a.append(0)
+for i in range(len(a)):
+    if a[i] < x:
+        r = i+1
+        break
+print(r)
+Кодировка: 
+Скачать
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+  int n, m, p;
+  cin >> n;
+  p = n + 1;
+  int a[n] = {};
+  for (int i = 0; i < n; i += 1) {
+    cin >> a[i];
+  }
+  cin >> m;
+  for (int i = 0; i < n; i += 1) {
+    if (m > a[i]) {
+      p = i + 1;
+      break;
+    }
+  }
+  cout << p << endl;
+}
+Кодировка: 
+Скачать
+var i,n,r,k: integer;
+    a: array [1..110] of integer;
+    
+begin
+  
+  read(n);
+  for i:=1 to n do
+    read(a[i]);
+  read(r);
+  k:=1;
+  for i:=1 to n do 
+    if r <= a[i] then inc(k);
+  writeln(k);
+
+end.
+Кодировка: 
+Скачать
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+    int n, height, place = 1;
+    cin >> n;
+    int h[n];
+    for (int i = 0; i < n; i++) cin >> h[i];
+    cin >> height;
+    for (int i = 0; i < n; i++) if (h[i] >= height) place++;
+    cout << place;
+    return 0;
+}
+Кодировка: 
+Скачать
+n = int(input())
+a = list(map(int, input().split()))
+b = int(input())
+c = 1
+for i in range(n):
+    if a[i] >= b:
+        c += 1
+print(c)
