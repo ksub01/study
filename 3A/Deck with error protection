@@ -1,0 +1,305 @@
+Кажется, у вас указатели могут выйти
+за пределы массива
+
+from typing import Sized
+
+
+file1 = open('input.txt')
+file2 = open('output.txt', 'w')
+
+mas = []
+for i in file1.readlines():
+    mas.append(i.rstrip())
+
+left = 0
+right = 0
+queue = [0]*100
+number = -100000
+for i in mas:
+    command = i.split()[0]
+    if len(i.split()) == 2:
+        number = i.split()[1]
+
+    right = right % 100
+
+    if right < left:
+        size = right + 100 - left - 1
+    else:
+        size = max(right - left - 1, 0)
+
+        
+    if command == 'push_front':
+        if size == 0:
+            right += 1
+        queue[left] = number
+        left -= 1
+        file2.write('ok\n')
+    elif command == 'push_back':
+        if size == 0:
+            left -= 1
+        queue[right] = number
+        right += 1
+        file2.write('ok\n')
+    elif command == 'pop_front':
+        if size:
+            file2.write(str(queue[left+1]) + '\n')
+            left += 1
+        else:
+            file2.write('error' + '\n')
+    elif command == 'pop_back':
+        if size:
+            file2.write(str(queue[right-1]) + '\n')
+            right -=1
+        else:
+            file2.write('error' + '\n')
+    elif command == 'front':
+        if size:
+            file2.write(str(queue[left+1]) + '\n')
+        else:
+            file2.write('error' + '\n')
+    elif command == 'back':
+        if size:
+            file2.write(str(queue[right-1]) + '\n')
+        else:
+            file2.write('error' + '\n')
+    elif command == 'size':
+        file2.write(str(size) + '\n')
+    elif command == 'clear':
+        left = 0
+        right = 0
+        file2.write('ok\n')
+    elif command == 'exit':
+        file2.write('bye\n')
+        break
+        
+        
+Как минимум, кажется,
+у вас пустой дек и дек размера 100
+не отличаются.
+from typing import Sized
+
+
+file1 = open('input.txt')
+file2 = open('output.txt', 'w')
+
+mas = []
+for i in file1.readlines():
+    mas.append(i.rstrip())
+
+left = 0
+right = 0
+queue = [0]*100
+number = -100000
+for i in mas:
+    command = i.split()[0]
+    if len(i.split()) == 2:
+        number = i.split()[1]
+
+    right = right % 100
+    left = left % 100
+    if right < left:
+        size = right + 100 - left - 1
+    else:
+        size = max(right - left - 1, 0)
+
+        
+    if command == 'push_front':
+        if size == 0:
+            right += 1
+        queue[left] = number
+        left -= 1
+        file2.write('ok\n')
+    elif command == 'push_back':
+        if size == 0:
+            left -= 1
+        queue[right] = number
+        right += 1
+        file2.write('ok\n')
+    elif command == 'pop_front':
+        if size:
+            file2.write(str(queue[(left+1)%100]) + '\n')
+            left += 1
+        else:
+            file2.write('error' + '\n')
+    elif command == 'pop_back':
+        if size:
+            file2.write(str(queue[(right-1)%100]) + '\n')
+            right -=1
+        else:
+            file2.write('error' + '\n')
+    elif command == 'front':
+        if size:
+            file2.write(str(queue[(left+1)%100]) + '\n')
+        else:
+            file2.write('error' + '\n')
+    elif command == 'back':
+        if size:
+            file2.write(str(queue[(right-1)%100]) + '\n')
+        else:
+            file2.write('error' + '\n')
+    elif command == 'size':
+        file2.write(str(size) + '\n')
+    elif command == 'clear':
+        left = 0
+        right = 0
+        file2.write('ok\n')
+    elif command == 'exit':
+        file2.write('bye\n')
+        break
+           if size == 0:
+            right += 1
+это что-то очень странное.
+Это не будет работать либо изначально,
+либо после пары push_front/pop_back и т.п.
+Непонятно, почему при нулевом размере
+надо двигать указатели как-то особо.
+Основной код должен работать всегда.
+(Возможно, надо поменять исходные значения left/right
+и значения после clear)
+file1 = open('input.txt')
+file2 = open('output.txt', 'w')
+
+mas = []
+for i in file1.readlines():
+    mas.append(i.rstrip())
+
+left = 0
+right = 0
+queue = [0]*100
+number = -100000
+size = 0
+for i in mas:
+    command = i.split()[0]
+    if len(i.split()) == 2:
+        number = i.split()[1]
+
+    right = right % 100
+    left = left % 100
+
+    if command == 'push_front':
+        if size == 0:
+            right += 1
+        queue[left] = number
+        left -= 1
+        size += 1
+        file2.write('ok\n')
+    elif command == 'push_back':
+        if size == 0:
+            left -= 1
+        queue[right] = number
+        right += 1
+        size += 1
+        file2.write('ok\n')
+    elif command == 'pop_front':
+        if size:
+            file2.write(str(queue[(left+1) % 100]) + '\n')
+            left += 1
+            size -= 1
+        else:
+            file2.write('error' + '\n')
+    elif command == 'pop_back':
+        if size:
+            file2.write(str(queue[(right-1) % 100]) + '\n')
+            right -= 1
+            size -= 1
+        else:
+            file2.write('error' + '\n')
+    elif command == 'front':
+        if size:
+            file2.write(str(queue[(left+1) % 100]) + '\n')
+        else:
+            file2.write('error' + '\n')
+    elif command == 'back':
+        if size:
+            file2.write(str(queue[(right-1) % 100]) + '\n')
+        else:
+            file2.write('error' + '\n')
+    elif command == 'size':
+        file2.write(str(size) + '\n')
+    elif command == 'clear':
+        left = 0
+        right = 0
+        size = 0
+        file2.write('ok\n')
+    elif command == 'exit':
+        file2.write('bye\n')
+        break
+
+
+    right = right % 100
+    left = left % 100
+я бы это делал не в начале цикла,
+а после изменения индексов.
+А еще лучше -- сделал бы функции типа
+def prev(x):
+    return (x - 1) % 100 
+и аналогично next
+и писал бы типа
+left = prev(left)
+или 
+file2.write(str(queue[next(left)]) + '\n')
+
+file1 = open('input.txt')
+file2 = open('output.txt', 'w')
+
+mas = []
+for i in file1.readlines():
+    mas.append(i.rstrip())
+
+left = 0
+right = 1
+queue = [0]*100
+number = -100000
+size = 0
+for i in mas:
+    command = i.split()[0]
+    if len(i.split()) == 2:
+        number = i.split()[1]
+
+    right = right % 100
+    left = left % 100
+
+    if command == 'push_front':
+        queue[left] = number
+        left -= 1
+        size += 1
+        file2.write('ok\n')
+    elif command == 'push_back':
+        queue[right] = number
+        right += 1
+        size += 1
+        file2.write('ok\n')
+    elif command == 'pop_front':
+        if size:
+            file2.write(str(queue[(left+1) % 100]) + '\n')
+            left += 1
+            size -= 1
+        else:
+            file2.write('error' + '\n')
+    elif command == 'pop_back':
+        if size:
+            file2.write(str(queue[(right-1) % 100]) + '\n')
+            right -= 1
+            size -= 1
+        else:
+            file2.write('error' + '\n')
+    elif command == 'front':
+        if size:
+            file2.write(str(queue[(left+1) % 100]) + '\n')
+        else:
+            file2.write('error' + '\n')
+    elif command == 'back':
+        if size:
+            file2.write(str(queue[(right-1) % 100]) + '\n')
+        else:
+            file2.write('error' + '\n')
+    elif command == 'size':
+        file2.write(str(size) + '\n')
+    elif command == 'clear':
+        left = 0
+        right = 1
+        size = 0
+        file2.write('ok\n')
+    elif command == 'exit':
+        file2.write('bye\n')
+        break
