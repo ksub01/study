@@ -6,3 +6,85 @@ for i in range(int(b1)-1):
     if mas[i+1] > mas[i]:
         sum1 += 1
 print(sum1)
+
+
+
+Хорошие решения
+#include <iostream>
+#include <vector>
+using namespace std;
+int main()
+{
+    int n;
+    cin >> n;
+    vector <int> a(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+    int count=0;
+    for (int i=1;i<n;i++)
+    {
+        if (a[i]>a[i-1])
+        {
+            count++;
+        }
+    }
+    cout << count;
+}
+Кодировка: 
+Скачать
+n = int(input())
+a = list(map(int, input().split()))
+cnt = 0
+for i in range(1,n):
+    if a[i - 1] < a[i]:
+        cnt += 1
+print(cnt)        
+Кодировка: 
+Скачать
+{$mode delphi}
+var
+n,i,k:integer;
+a:array[0..10000] of integer;
+begin
+k:=0;
+read(n);
+for i:=0 to n-1 do
+read(a[i]);
+for i:=0 to n-2 do
+begin
+if a[i+1]>a[i] then
+k:=k+1;
+end;
+write(k);
+end.
+Кодировка: 
+Скачать
+cnt = int(input())
+
+array = [int(x) for x in input().split()]
+
+old_answer = 0
+
+for index in range(1, len(array)):
+    if array[index] > array[index - 1]:
+        old_answer += 1
+
+print(old_answer)
+
+Кодировка: 
+Скачать
+{$mode delphi}
+var a:array[0..9999] of integer;
+    i,N,S:integer;
+begin
+read(N);
+S:=0;
+for i:=0 to (N-1) do 
+ read(a[i]);
+for i:=1 to (N-1) do
+ if a[i]>a[i-1] then 
+  S:=S+1;
+writeln(S);
+end.
