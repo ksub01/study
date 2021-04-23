@@ -1,0 +1,136 @@
+n = int(input())
+people = [(0, 0)] + [(int(x), y) for x, y in zip(input().rstrip().split(), range(1, 1001))]
+cars = [(0, 0)] + [(int(x), y) for x, y in zip(input().rstrip().split(), range(1, 1001))]
+people.sort()
+cars.sort()
+ans = [0] * (n+1)
+for i in range(1, len(people)):
+    idx = people[i][1]
+    ans[idx] = cars[len(people) - i][1]
+print(*ans[1:])
+
+
+Хорошие решения
+#include <iostream>
+#include <vector>
+#include <map>
+#include <queue>
+#include <algorithm>
+#include <cstdio>
+
+using namespace std;
+typedef long long ll;
+
+const ll INF = 1000000000000000;
+
+int main()
+{
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+
+	ll n;
+	cin >> n;
+	vector<pair<ll, ll>> costs(n), people(n);
+	for (ll i = 0; i < n; i++) {
+		cin >> people[i].first;
+		people[i].second = i;
+	}
+	for (ll i = 0; i < n; i++) {
+		cin >> costs[i].first;
+		costs[i].second = i;
+	}
+	sort(people.begin(), people.end());
+	sort(costs.rbegin(), costs.rend());
+	vector<ll> res(n);
+	for (ll i = 0; i < n; i++)
+		res[people[i].second] = costs[i].second + 1;
+	for (ll i = 0; i < n; i++)
+		cout << res[i] << " ";
+	return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <cmath>
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <set>
+#include <map>
+#include <deque>
+using namespace std;
+
+struct list {
+	int num;
+	int value;
+};
+
+bool compareByNum(const list &a, const list &b)
+{
+	return a.num < b.num;
+}
+bool compareByValue(const list &a, const list &b)
+{
+	return a.value < b.value;
+}
+int main()
+{
+	int n;
+	cin >> n;
+	vector<list> a;
+	vector<list> b;
+	int j;
+	for (int i = 0; i < n; i++)
+	{
+		cin >> j;
+		a.push_back({ i + 1,j });
+	}
+	for (int i = 0; i < n; i++)
+	{
+		cin >> j;
+		b.push_back({ i + 1,j });
+	}
+	sort(a.begin(), a.end(), compareByValue);
+	sort(b.begin(), b.end(), compareByValue);
+	reverse(b.begin(),b.end());
+	vector<list> c;
+	for (int i = 0; i < n; i++)
+		c.push_back({ b[i].num,a[i].num });
+	sort(c.begin(), c.end(), compareByValue);
+	for (int i = 0; i < n; i++)
+		cout << c[i].num << ' ';
+	cout << '\n';
+
+	return 0;
+}
+Кодировка: 
+Скачать
+#include<iostream>
+#include<algorithm>
+
+using namespace std;
+
+int n;
+pair<int, int> arr[1000], cost[1000];
+int ans[1000];
+
+int main(){
+    cin >> n;
+    for(int i = 0; i < n; ++i){
+        int num;
+        cin >> num;
+        arr[i] = {num, i};
+    }
+    for(int i = 0; i < n; ++i){
+        int num;
+        cin >> num;
+        cost[i] = {num, i};
+    }
+    sort(arr, arr + n);
+    sort(cost, cost + n, greater<pair<int, int> >());
+    for(int i = 0; i < n; ++i)
+        ans[arr[i].second] = cost[i].second;
+    for(int i = 0; i < n; ++i)
+        cout << ans[i]+1 << ' ';
+}
