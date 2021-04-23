@@ -12,3 +12,127 @@ a = abs(x1 - x2)
 b = abs(y1 - y2)
 d = nod(a, b)
 print(d * (a // d + b // d - 1))
+
+
+
+Хорошие решения
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int gcd(int a, int b)
+{
+    while(b != 0)
+    {
+        int t = a % b;
+        a = b;
+        b = t;
+    }
+
+    return a;
+}
+
+int main()
+{
+    int a, b, c, d;
+    cin >> a >> b >> c >> d;
+    a = abs(a - c);
+    b = abs(b - d);
+
+    cout << a + b - gcd(a, b) << endl;
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int gcd(int a, int b) {
+	while (a != 0) {
+		b %= a;
+		swap(a, b);
+	}
+	return b;
+}
+
+int main() {
+	int a, b, c, d;
+	cin >> a >> b >> c >> d;
+	a = abs(a - c);
+	b = abs(b - d);
+	cout << a + b - gcd(a, b);
+}
+Кодировка: 
+Скачать
+a,b,c,d= map(int, input().split())
+e=abs(c-a)
+f=abs(d-b)
+g=1
+while f!=0:
+        g=e%f
+        e=f
+        f=g
+m=e
+n=abs(c-a)+abs(d-b)-m
+print(n)
+    
+Кодировка: 
+Скачать
+#include <iostream>
+#include <cmath>
+using namespace std;
+long long gcd(long long a,long long b)
+{
+    while (b!=0)
+    {
+        int t=a%b;
+        a=b;
+        b=t;
+    }
+    return a;
+}
+int main()
+{
+	long long a,b,c,d,x,y;
+	cin>>a;
+	cin>>b;
+	cin>>c;
+	cin>>d;
+	x=abs(c-a);
+	y=abs(d-b);
+	cout<<x+y-gcd(x,y)<<endl;
+}
+
+
+
+Найди ошибку: Отрезок
+#include <iostream>                
+using namespace std;
+int main()
+{
+	int	a, b, c, d, x, y, m, n, f, iop;
+	cin >> a >> b >> c >> d;
+	x = abs(a - c);
+	y = abs(b - d);
+	m = x;
+	n = y;
+	if (x == 0 || y == 0) { 
+		iop = x + y;
+	}
+	else {
+		while (x != 0 && y != 0) {
+			if (x > y){ 
+				x -= y;
+			}
+			else {
+				y -= x;
+			}
+		f = x + y;
+		}
+		iop = (m / f + n / f - 1) * f;
+	}
+	cout << iop;
+	return 0;
+}
