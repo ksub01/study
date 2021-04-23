@@ -1,0 +1,47 @@
+if c > k:
+не надо, у тебя же основной while сразу тогда заметит,
+что c**c % n == 0
+
+while c**c % n != 0:
+тут ты используешь встроенную длинную арифметику.
+Не надо так. Лучше возводить в степень вручную
+и по ходу дела брать постоянно остаток.
+
+
+
+def factor(n):
+    A = []
+    d = 2
+    z = 1
+    t = 0
+    p = -1
+    while d*d <= n:
+        if n % d == 0:
+            A.append(d)
+            n //= d
+            t += 1
+            p = d
+        else:
+            d += 1
+            z = max(z, t)
+            t = 0
+    if n != 1:
+        A.append(n)
+        if n == p:
+            t += 1
+    z = max(t, z)
+    return A, z
+
+
+n = int(input())
+b, k = factor(n)
+b = set(b)
+c = 1
+for i in b:
+    c *= i
+if c > k:
+    print(c)
+else:
+    while c**c % n != 0:
+        c += 1
+    print(c)
