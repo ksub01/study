@@ -1,0 +1,5 @@
+# https://algoprog.ru/material/p2938
+
+N = int(input())
+K = int(input())
+print(K // N)
