@@ -4,3 +4,66 @@ mas = [int(x) for x in mas]
 for i in range(int(b1)):
     if i % 2 == 0:
         print(mas[i], end = ' ')
+
+
+Найди ошибку: A[0], A[2], A[4], ...
+#include <iostream>
+#include <vector>
+
+int main()
+{
+	int n;
+	std::cin >> n;
+
+	std::vector<int> a(n);
+
+	for (int i = 0; i < n; i++) std::cin >> a[i];
+	for (int i = 0; i < n; i += 2) std::cout << a[i];
+
+	return 0;
+}
+
+
+
+Хорошие решения
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+    int N;
+    cin>>N;
+    int A[N];
+    for(int i=0; i<N; i++){
+            cin>>A[i];
+    }
+    for(int i=0; i<N; i++){
+        if(i%2==0)
+            cout<<A[i]<<" ";
+    }
+    return 0;
+}
+Кодировка: 
+Скачать
+var
+n,i:integer;
+a:array[0..100] of integer;
+begin
+read(n);
+for i:=0 to n-1 do
+read(a[i]);
+for i:=0 to n-1 do
+begin
+if i mod 2=0 then
+write(a[i],' ');
+end;
+end.
+Кодировка: 
+Скачать
+N = int(input())
+a = list(map(int, input().split()))
+
+for i in range(len(a)):
+    if i % 2 == 0:
+        print(a[i],end = ' ')
