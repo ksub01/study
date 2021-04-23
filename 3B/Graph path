@@ -1,0 +1,384 @@
+        for j in range(1, len(mas[end])):
+            if mas[end][j] != 0 and dist[end] == dist[j] + 1:
+не надо при восстановлении ответа опять искать,
+откуда вы пришли. Сохраняйте нужную информацию 
+в основном коде bfs:
+            queue.append(v)
+            dist[v] = dist[parent] + 1
+            from[v] = parent  
+
+from collections import deque
+
+n = int(input())
+mas = [[0]*(n+1)]
+for i in range(n):
+    mas.append([0] + [int(x) for x in input().rstrip().split()])
+
+
+start, end = map(int, input().rstrip().split())
+
+dist = [-1] * (n+1)
+dist[start] = 0
+
+
+queue = deque()
+queue.append(start)
+
+while queue:
+    parent = queue.popleft()
+    for v in range(1, len(mas[parent])):
+        if mas[parent][v] == 1 and dist[v] == -1:
+            queue.append(v)
+            dist[v] = dist[parent] + 1
+
+
+print(dist[end])
+if dist[end] != -1 and dist[end] != 0:
+    print(end, end = ' ')
+    for i in range(dist[end]):
+        for j in range(1, len(mas[end])):
+            if mas[end][j] != 0 and dist[end] == dist[j] + 1:
+                print(j, end = ' ')
+                end = j
+                break
+                
+from collections import deque
+
+n = int(input())
+mas = [[0]*(n+1)]
+for i in range(n):
+    mas.append([0] + [int(x) for x in input().rstrip().split()])
+
+
+start, end = map(int, input().rstrip().split())
+
+dist = [-1] * (n+1)
+p = [-1] * (n+1)
+p[start] = -100
+dist[start] = 0
+
+
+queue = deque()
+queue.append(start)
+
+while queue:
+    parent = queue.popleft()
+    for v in range(1, len(mas[parent])):
+        if mas[parent][v] == 1 and dist[v] == -1:
+            queue.append(v)
+            dist[v] = dist[parent] + 1
+            p[v] = parent
+
+print(dist[end])
+if dist[end] != 0 and dist[end] != -1:
+    ans = [end]
+    while p[end] != -100:
+        ans.append(p[end])
+        end = p[end]
+    ans.reverse()
+    print(*ans)
+
+
+Найди ошибку: Путь в графе
+def bfs(i):
+    global r, v, p
+    queue=[i]
+    v[i]=0
+    while len(queue)>0:
+        for j in range(n):
+            if r[queue[0]][j]==1 and v[j]==-1:
+                v[j]=v[queue[0]]+1
+                queue.append(j)
+                p[j]=queue[0]
+        queue.pop(0)
+
+    
+n=int(input())
+r=[ list(map(int, input().split())) for i in range(n)]
+s, f=map(int, input().split())
+s-=1
+f-=1
+p=[-1 for i in range(n)]
+v=[-1 for i in range(n)]
+bfs(s)
+#print(v, p)
+#print(v[f])
+i=f
+ans=[]
+while i>-1:
+    #print(i)
+    ans.append(i+1)
+    i=p[i]
+    
+if v[f]==-1:
+    print(-1)
+elif len(ans)==0:
+    print(0)
+else:
+    print(v[f])
+    ans.reverse()
+    print(*ans)
+    
+Хорошие решения
+from collections import deque
+
+n = int(input())
+mas = []
+
+
+for i in range(n):
+    mas.append(list(map(int, input().split())))
+v, z = map(int, input().split())
+v -= 1
+z -= 1
+q = deque()
+q.append(v)
+colors = [-1]*n
+pred = [-1]*n
+colors[v] = 0
+while q :      #is empty
+    f = q.popleft()
+    for i in range(n):
+        if mas[f][i]==1:
+            if colors[i] == -1 :
+                colors[i] = (colors[f]+1)
+                pred[i] = f
+                q.append(i)
+answer = colors[z]
+print(answer)
+if answer > 0 :
+    ind = z
+    answermas = []
+    while ind != -1 :
+        answermas.append(ind + 1)
+        ind = pred[ind]
+    print( *reversed(answermas) )
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <set>
+#include <algorithm>
+#include <queue>
+
+using namespace std;
+
+void solve();
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    solve();
+}
+
+int n, a[101][101], d[101], t[101], s, f, inf = 1000000000;
+bool used[101];
+queue < int > q;
+
+void solve() {
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cin >> a[i][j];
+        }
+    }
+    cin >> s >> f;
+    if (f == s) {
+        cout << 0;
+        return;
+    }
+    s--, f--;
+    t[s] = -1;
+    used[s] = true;
+    q.push(s);
+    while(!q.empty()) {
+        int cur = q.front();
+        q.pop();
+        for (int i = 0; i < n; i++) {
+            if (a[cur][i] && !used[i]) {
+                q.push(i);
+                d[i] = d[cur] + 1;
+                used[i] = true;
+                t[i] = cur;
+            }
+        }
+    }
+    if (d[f] == 0) {
+        cout << -1;
+    } else {
+        vector < int > ans;
+        int r = f;
+        cout << d[r] << '\n';
+        ans.push_back(r);
+        while (t[r] != -1) {
+            ans.push_back(t[r]);
+            r = t[r];
+        }
+        reverse(ans.begin(), ans.end());
+        for (int i = 0; i < ans.size(); i++) {
+            cout << ans[i] + 1 << " ";
+        }
+    }
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+#include <stack>
+#include <queue>
+using namespace std;
+
+typedef long long ll;
+
+int main() {
+	ll k_versh, dop;
+	cin >> k_versh;
+	vector<vector<ll>> adj(k_versh + 1);
+	for (ll i = 1; i <= k_versh; i++) {
+		for (ll j = 1; j <= k_versh; j++) {
+			cin >> dop;
+			if (dop) adj[i].push_back(j);
+		}
+	}
+	ll otk, kud, v;
+	cin >> otk >> kud;
+	vector<ll> dist(k_versh + 1, -1);
+	queue<ll> q;
+	q.push(kud);
+	dist[kud] = 0;
+	vector<ll> pred(k_versh + 1, -1);
+	while (!q.empty()) {
+		v = q.front();
+		q.pop();
+		for (auto u : adj[v]) {
+			if (dist[u] != -1) continue;
+			dist[u] = dist[v] + 1;
+			pred[u] = v;
+			q.push(u);
+		}
+	}
+	cout << dist[otk];
+	v = otk;
+	if (dist[otk] != -1 && dist[otk] != 0) {
+		cout << "\n";
+		while (v != kud) {
+			cout << v << " ";
+			v = pred[v];
+		}
+		cout << kud;
+	}
+	return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <queue>
+using namespace std;
+
+int main()
+{
+	int n, start, finish;
+	bool flag = true;
+	cin >> n;
+	vector<vector<int>> graf(n, vector<int>(n));
+	vector<int> dist(n, -1), parent(n);
+	queue<int> nodes;
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			cin >> graf[i][j];
+		}
+	}
+	cin >> finish >> start;
+
+	finish--;
+	start--;
+	nodes.push(start);
+	dist[start] = 0;
+	while (!nodes.empty() && flag)
+	{
+		int t = nodes.front();
+		for (int i = 0; i < n; i++)
+		{
+			if (graf[t][i] == 1 && dist[i] == -1) {
+				dist[i] = dist[t] + 1;
+				parent[i] = t;
+				if (i == finish) {
+					flag = false;
+					break;
+				}
+				nodes.push(i);
+			}
+
+		}
+		nodes.pop();
+	}
+
+	cout << dist[finish] << '\n';
+	if (dist[finish] > 0) {
+		int t = finish;
+		while (t != start)
+		{
+			cout << t+1 << ' ';
+			t = parent[t];
+		}
+		cout << start+1;
+	}
+
+
+
+	return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <queue>
+
+using namespace std;
+
+int main() {
+    int n, x, y, t;
+    cin >> n;
+    vector<int> c(n), b(n, -1), p(n);
+    vector<vector<int>> a(n, c);
+    queue<int> q;
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            cin >> a[i][j];
+    cin >> x >> y;
+    x--;
+    y--;
+    b[x] = 0;
+    if (x != y)
+        q.push(x);
+    while ((b[y] == -1) && (q.size() > 0))
+    {
+        t = q.front();
+        for (int i = 0; i < n; i++)
+            if ((a[i][t] == 1) && (b[i] == -1)) {
+                q.push(i);
+                b[i] = b[t] + 1;
+                p[i] = t;
+            }
+        q.pop();
+    }
+    cout << b[y] << endl;
+    if (b[y] > 0) {
+        c.clear();
+        c.push_back(y + 1);
+        t = y;
+        for (int i = 0; i < b[y]; i++) {
+            c.push_back(p[t] + 1);
+            t = p[t];
+        }
+        for (int i = (int)c.size() - 1; i >= 0; i--)
+            cout << c[i] << " ";
+    }
+    return 0;
+}
