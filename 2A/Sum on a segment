@@ -1,0 +1,13 @@
+def num():
+    import itertools
+
+
+    n, m = map(int, input().split())
+    list1 = [int(x) for x in input().split()]
+    list2 = [0] + list(itertools.accumulate(list1))
+
+
+    for i in range(m):
+        a1, a2, = map(int, input().split(' '))
+        print(list2[a2] - list2[a1-1])
+num()
