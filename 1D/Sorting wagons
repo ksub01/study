@@ -1,0 +1,18 @@
+number = int(input())
+wagons = [int(x) for x in input().rstrip().split()]
+max_wag = number
+min_wag = 1
+angle = []
+ans = []
+for i in range(len(wagons)):
+    angle.append(wagons[i])
+    ans.append((1, 1))
+    while angle and angle[-1] == min_wag:
+        min_wag += 1
+        ans.append((2, 1))
+        angle.pop()
+if not angle:
+    for i in ans:
+        print(i[0], i[1])
+else:
+    print(0)
