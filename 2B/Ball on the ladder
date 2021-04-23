@@ -1,0 +1,84 @@
+n = int(input())
+list2 = [None] * (n+1)
+list2[0] = 0
+list2[1] = 1
+if n >= 2:
+    list2[2] = 2
+if n >= 3:
+    list2[3] = 4
+for i in range(4, n + 1):
+    list2[i] = list2[i-3] + list2[i-2] + list2[i-1]
+print(list2[n])
+
+
+
+
+
+
+#include <iostream>
+#include <vector>
+using namespace std;
+int main(){
+    int n;
+    cin >> n;
+    vector<int> a(n + 1, 0);
+    a[n] = 1;
+    for(int i = n; i > 0;--i){
+
+        a[i-1] += a[i];
+        if(i > 1)a[i-2] += a[i];
+        if(i>2)a[i-3]+= a[i];
+    }
+    cout << a[0];
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <vector>
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int len;
+    cin >> len;
+    vector<int> nums(len);
+    nums[0] = 1;
+    nums[1] = 1;
+    nums[2] = 2;
+
+    for(int i = 3; i <= len; i++)
+    {
+        nums[i] = nums[i-1] + nums[i-2] + nums[i-3];
+    }
+
+    cout << nums[len];
+
+    return 0;
+}
+
+Кодировка: 
+Скачать
+n = int(input())
+a = [1,1,2]
+for i in range(3, n+1):
+    a.append(a[i-1]+a[i-2]+a[i-3])
+print(a[n])
+Кодировка: 
+Скачать
+n=int(input())
+v = [0]*(n+5)
+v[1] = 1
+v[2] = 2
+v[3] = 4
+for i in range(4,n+1):
+    v[i] = v[i-1]+v[i-2]+v[i-3]
+print(v[n])
+Кодировка: 
+Скачать
+n = int(input())
+a = [0,1,2,4]
+for i in range(4,n+1):
+    a.append(a[i-1] + a[i-2] + a[i-3])
+print(a[n])
