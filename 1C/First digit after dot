@@ -1,2 +1,95 @@
 d = float(input())
 print(int(d * 10 % 10))
+
+
+Найди ошибку: Первая цифра после точки
+x = float(input())
+uns = (x - x % 0.1) % 1 * 10
+uns -= uns % 1
+print(int(uns))
+
+
+Хорошие решения
+#include <iostream>
+#include <cmath>
+#include <fstream>
+using namespace std;
+
+int main()
+{
+	long double a;
+	cin >> a;  // 13.64
+
+	long double a_ceil;  
+	a_ceil = floor(a);  // 13
+
+	a *= 10; // 136.4
+
+	long double result = floor(a - a_ceil*10);  // floor(136.4 - 13*10) = floor(6.4) = 6
+	cout << result;
+}
+Кодировка: 
+Скачать
+#include<bits/stdc++.h>
+
+using namespace std;
+const double eps = 1e-8;
+
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cout.tie(NULL);
+    cin.tie(NULL);
+    double k;
+    cin >> k;
+    cout << int((k + eps) * 10) % 10;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main() {
+	double a, b, x, y;
+	
+	cin >> x;
+	
+	a = floor(x);
+	b = x-a;
+	y = b*10;
+	x = floor(y);
+	
+	cout << x;
+	
+	return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <cstring>
+#include <string>
+#include <cstdlib>
+#include<cstdio>
+using namespace std;
+
+
+int main() {
+    double a;
+    int f;
+    cin >> a;
+    f = trunc(a * 10);
+    f = f % 10;
+    cout << f;
+    return 0;
+}
+
+
+
+Кодировка: 
+Скачать
+a = float(input())
+print(int(((a / 0.1) % 10)))
