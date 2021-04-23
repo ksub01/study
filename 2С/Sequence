@@ -1,0 +1,29 @@
+n = int(input())
+print(bin(n-1).count('1') % 3)
+
+
+Хорошие решения
+#include <iostream>
+#include <vector>
+#include <cassert>
+
+using namespace std;
+
+long long f(long long n) {
+    int z = 0;
+    
+    while (n) { 
+        if (n & 1) {
+            z = (z + 1) % 3;
+        }   
+        n >>= 1;
+    }       
+    return z;     
+}
+
+int main() {
+    long long k;
+    cin >> k;
+    std::cout << f(k - 1); 
+    return 0;         
+}
