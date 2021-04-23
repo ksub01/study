@@ -1,0 +1,120 @@
+n = int(input())
+mas = [int(x) for x in input().rstrip().split()]
+mas.sort()
+cou = 0
+ans = 0
+for i in range(len(mas) - 1, -1, -1):
+    if cou < 2:
+        ans += mas[i]
+        cou += 1
+    else:
+        cou = 0
+print(ans)
+
+Хорошие решения
+def bubble_sort(arr):
+    for i in range(1, len(arr)):
+        for j in range(len(arr) - i):
+            if arr[j + 1] > arr[j]:
+                arr[j + 1], arr[j] = arr[j], arr[j + 1]
+
+
+kolvo = int(input())
+mass = list(map(int, input().split()))
+bubble_sort(mass)
+result = 0
+for i in range(kolvo):
+    if (i + 1) % 3 != 0:
+        result += mass[i]
+print(result)
+Кодировка: 
+Скачать
+var a: array [1..1005] of integer;
+    n,i,j,k,s: integer;
+begin
+  read(n);
+  for i:=1 to n do 
+    read(a[i]);
+  for i:=1 to n-1 do 
+    for j:=1 to n-i do
+      if a[j]<a[j+1] then begin
+        k:=a[j];
+        a[j]:=a[j+1];
+        a[j+1]:=k;
+      end;
+  for i:=1 to n do begin
+     if i mod 3 <> 0  then 
+      s:=s+a[i];
+  end;
+  writeln(s);
+end. 
+Кодировка: 
+Скачать
+N=int(input())
+a = [int(s) for s in input().split()]
+for i in range(N-1)  :
+    g=0
+    b=a[i]
+    for j in range(i, len(a)):
+        if a[j]<b :
+            b=a[j]
+            g=j
+    if g>i :
+        a[i], a[g]=a[g], a[i]
+g=0
+for i in range(1, N+1):
+    if i%3>0  :
+        g=g+a[-i]
+print(g)
+Кодировка: 
+Скачать
+#include <iostream>
+#include <stdio.h>
+#include <vector>
+using namespace std;
+int main()
+{
+    int n, i, j, a;
+    cin >> n;
+    int *arr = new int[n];
+    for(i = 0;i < n; i++)
+	 cin>>arr[i];
+    for(i = 0; i < n; i++)
+    {
+        for(j = 0; j < n-1; j++)
+        {
+            if(arr[j]  <arr[j+1])
+            {
+                a = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = a;
+            }
+        }
+    }
+    for(i =a = 0; i<n; i++)
+    {
+        if((i + 1) %3)
+        {
+            a+= arr[i];
+        }
+    }
+    cout << endl << a <<endl;
+    return 0;
+}
+Кодировка: 
+Скачать
+n = input()
+current_data = map(int, raw_input().split())
+
+step = 1
+need_money = 0
+for item in sorted(current_data, reverse=True):
+    if step % 3 != 0:
+        need_money += item
+    step += 1
+
+print need_money
+
+
+
+
