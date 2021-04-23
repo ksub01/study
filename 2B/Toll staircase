@@ -1,0 +1,139 @@
+n = int(input())
+mas = [0] + list(map(int, input().rstrip().split()))
+
+ans = [0, mas[1]]
+for i in range(2, n+1):
+    ans.append(min(ans[i-1], ans[i-2]) + mas[i])
+print(ans[-1])
+
+
+
+
+
+
+
+
+
+
+
+
+
+var 
+a:array [1..100] of integer;
+otv:array[1..100] of integer;
+i,n:integer;
+begin
+read(n);
+for i:=1 to n do 
+  read(a[i]);
+otv[1]:=a[1];
+otv[2]:=a[2];
+for i:=3 to n do
+  otv[i]:=a[i]+min(otv[i-2],otv[i-1]);
+write(otv[n]);
+end.
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <cmath>
+
+using namespace std;
+
+int main(){
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    for (int i = 0; i < n; i++)
+        cin >> a[i];
+    for (int i = 2; i < n; i++)
+        a[i] += min(a[i - 1], a[i - 2]);
+    cout << a[n - 1];
+}
+Кодировка: 
+Скачать
+#include <vector>
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int len, t;
+    cin >> len;
+    vector<int> n(len);
+
+    cin >> n[0] >> n[1];
+    for(int i = 2; i < len; i++)
+    {
+        cin >> t;
+        n[i] = min(n[i-1], n[i-2]) + t;
+    }
+
+    cout << n[len - 1];
+
+    return 0;
+}
+
+Кодировка: 
+Скачать
+a=int(input())
+b=list(map(int,input().split()))
+for i in range(2,a,1):
+    if(b[i-1]<b[i-2]):
+        b[i]+=b[i-1]
+    else:
+        b[i]+=b[i-2]
+print(b[a-1])
+Кодировка: 
+Скачать
+#include <iostream>
+using namespace std;
+int main()
+{
+	int a[101];
+	long long b[101];
+	int n,i,j; cin>>n;
+	for (i=1;i<=n;++i)
+	{
+		cin>>a[i];
+	}
+	b[0]=0;
+	b[1]=a[1];
+	for (i=2; i<=n;++i)
+	{
+		b[i]=min(b[i-2],b[i-1])+a[i];
+	}
+	cout<<b[n];
+}
+
+
+
+
+#найти ошибку
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int min(int a, int b)
+{
+    return a > b ? b : a;
+}
+
+int main()
+{
+    int n;
+    cin >> n;
+    
+    vector<int> a(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+        if (i - 2 >= 0) a[i] += min(a[i - 1], a[i - 2]);
+    }
+    
+    cout << min(a[n - 1], a[n- 2]);
+    
+    return 0;
+}
