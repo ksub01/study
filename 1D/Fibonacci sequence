@@ -1,0 +1,6 @@
+n = int(input()) + 1
+a, b = map(int, input().split(' '))
+list1 = [b, a]
+for i in range(n - 2):
+    list1.append(list1[i] - list1[i+1])
+print(list1[-1], list1[-2])
