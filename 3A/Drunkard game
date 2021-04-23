@@ -1,0 +1,26 @@
+if a > b and (b, a) != (0, 9) or (a, b) == (0, 9):
+когда вы пишете and и or в одном условии,
+настоятельно рекомендуется ставить скобки
+для указания порядка действий
+
+q1 = list(map(int, input().rstrip().split(' ')))
+q2 = list(map(int, input().rstrip().split(' ')))
+n = 0
+#print(q1, q2)
+while len(q1) >= 1 and len(q2) >= 1 and n < 1000000:
+    n += 1
+    a = q1.pop(0)
+    b = q2.pop(0)
+    if a > b and (b, a) != (0, 9) or (a, b) == (0, 9):
+        q1.append(a)
+        q1.append(b)
+    else:
+        q2.append(a)
+        q2.append(b)
+if n < 1000000:
+    if len(q2) == 0:
+        print('first', n)
+    elif len(q1) == 0:
+        print('second', n)
+else:
+    print('botva')
