@@ -33,3 +33,380 @@ for i in mas:
     elif command == 'exit':
         file2.write('bye\n')
         break
+
+
+file1 = open('input.txt')
+file2 = open('output.txt', 'w')
+
+mas = []
+for i in file1.readlines():
+    mas.append(i.rstrip())
+
+m = 0
+stack = [0]*100
+number = -100000
+for i in mas:
+    command = i.split()[0]
+    if len(i.split()) == 2:
+        number = i.split()[1]
+    
+    if command == 'push':
+        stack[m] = number
+        m += 1
+        file2.write('ok\n')
+    elif command == 'pop':
+        file2.write(str(stack[m-1]) + '\n')
+        m -= 1
+    elif command == 'back':
+        file2.write(str(stack[m-1]) + '\n')
+    elif command == 'size':
+        file2.write(str(len(stack[:m])) + '\n')
+    elif command == 'clear':
+        m = 0
+        file2.write('ok\n')
+    elif command == 'exit':
+        file2.write('bye\n')
+        break
+        
+Найди ошибку: Простой стек
+#include <iostream>
+#include <stack>
+#include <map>
+#include <queue>
+#include <string>
+#include <vector>
+using namespace std;
+int main() {
+	bool uop = true;
+	int n, top = -1;
+	string s;
+	int a[101];
+	while (true) {
+		cin >> s;
+		if (s == "push") {
+			cin >> n;
+			top++;
+			a[top] = n;
+			cout << "ok" << "\n";
+		}
+		if (s == "back") {
+			cout << a[top] << "\n";
+		}
+		if (s == "pop") {
+			cout << a[top] << "\n";
+			top--;
+		}
+		if (s == "size") {
+			cout << top + 1 << "\n";
+		}
+		if (s == "clear") {
+			cout << "ok" << "\n";
+			top = 0;
+		}
+		if (s == "exit") {
+			cout << "bye" << "\n";
+			break;
+		}
+	}
+	return 0;
+}
+
+class stack():
+    array = []
+    
+    def push_n(self, array, n):
+        self.array.append(n)
+        return array
+    
+    def pop_last_element(self, array):
+        print(self.array[-1])
+        self.array.pop()
+        return array
+    
+    def back(self, array):
+        print(array[-1])
+        return array
+    
+    def size(self, array):
+        print(len(array))
+        return array
+    
+    def clear(self, array):
+        self.array = []
+        return array
+
+
+my_stack = stack()
+my_stack.array = []
+while True:
+    command = input()
+    if (command[0:4] == "push"):
+        n = int(command[-1])
+        my_stack.push_n(my_stack.array, n)
+        print("ok")
+    elif (command == "pop"):
+        my_stack.pop_last_element(my_stack.array)
+    elif (command == "back"):
+        my_stack.back(my_stack.array)
+    elif (command == "size"):
+        my_stack.size(my_stack.array)
+    elif (command == "clear"):
+        my_stack.clear(my_stack.array)
+        print("ok")
+    elif (command == "exit"):
+        print("bye")
+        break
+        
+        
+  st=[0]*100
+i=0
+s=''
+while s!='exit':
+    s=input()
+    n=len(s)
+    if s=='pop':
+        print(st[i])
+        i-=1
+    elif s=='back':
+        print(st[i])
+    elif s=='size':
+        print(i)
+    elif s=='clear':
+        i=0
+        print('ok')
+    elif s[0:4]=='push':
+        i+=1
+        st[i]=int(s[5:])
+        print('ok')
+else:
+    print('bye')
+
+Хорошие решения
+class Stack:
+    def __init__(self, alloc):
+        self.arr = [None]*alloc
+        self.clear()
+    
+    def push(self, elem):
+        self.ptr += 1
+        self.arr[self.ptr] = elem
+    
+    def pop(self):
+        ret = self.arr[self.ptr]
+        self.ptr -= 1
+        return ret
+    
+    def back(self):
+        return self.arr[self.ptr]
+    
+    def size(self):
+        return self.ptr + 1
+    
+    def clear(self):
+        self.ptr = -1
+
+
+stack = Stack(100)
+while True:
+    cmd = input().split()
+    if cmd[0] == 'push':
+        stack.push(cmd[1])
+        print('ok')
+    elif cmd[0] == 'pop':
+        print(stack.pop())
+    elif cmd[0] == 'back':
+        print(stack.back())
+    elif cmd[0] == 'size':
+        print(stack.size())
+    elif cmd[0] == 'clear':
+        stack.clear()
+        print('ok')
+    elif cmd[0] == 'exit':
+        print('bye')
+        break
+Кодировка: 
+Скачать
+//#include "stdafx.h"
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main() {
+	string str("");
+	int stack[100];
+	int num;
+	size_t ind_to_insert = 0;
+
+	while (str != "exit") {
+		cin >> str;
+
+		if (str == "push") {
+			cin >> num;
+			cout << "ok" << endl;
+			stack[ind_to_insert] = num;
+			ind_to_insert++;
+		}
+		else if (str == "pop") {
+			cout << stack[ind_to_insert - 1] << endl;
+			ind_to_insert--;
+		}
+
+		else if (str == "back") {
+			cout << stack[ind_to_insert - 1] << endl;
+		}
+
+		else if (str == "size") {
+			cout << ind_to_insert << endl;
+		}
+
+		else if (str == "clear") {
+			ind_to_insert = 0;
+			cout << "ok" << endl;
+		}
+
+		else if (str == "exit") {
+			cout << "bye" << endl;
+		}
+	}
+	return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+
+using namespace std;
+
+int stack[1000];
+int res, i = 0;
+string inp = "";
+
+int main()
+{
+	while(inp != "exit")
+	{
+		cin >> inp;
+		if(inp == "push")
+		{
+		    i++;
+			cin >> res;
+			stack[i] = res;
+			cout << "ok" << endl;
+		} else if(inp == "pop")
+		{
+			cout << stack[i] << endl;
+			i--;
+		} else if(inp == "back")
+		{
+			cout << stack[i] << endl;
+		} else if(inp == "size")
+		{
+			cout << i << endl;
+		} else if(inp == "clear")
+		{
+			i = 0;
+			cout << "ok" << endl;
+		} else if(inp == "exit")
+		{
+			cout << "bye";
+		}
+	}
+}
+Кодировка: 
+Скачать
+#include<bits/stdc++.h>
+using namespace std;
+
+const int N = 100001;
+
+class Stack{
+    int p;
+    int a[N];
+
+    public:
+        void push(int x){
+            a[p++] = x;
+        }
+        int pop(){
+            return a[--p];
+        }
+        int back(){
+            return a[p-1];
+        }
+        int size(){
+            return p;
+        }
+        void clear(){
+            p = 0;
+        }
+};
+int main() {
+    Stack stack;
+
+    string s;
+    int x;
+    while (cin >> s){
+        if (s == "push"){
+          cin >> x;
+          stack.push(x);
+          cout << "ok" << endl;
+        }
+        if (s == "pop"){
+            cout << stack.pop() << endl;
+        }
+        if (s == "back"){
+            cout << stack.back() << endl;
+        }
+        if (s == "size"){
+            cout << stack.size() << endl;
+        }
+        if (s == "clear"){
+            stack.clear();
+            cout << "ok" << endl;
+        }
+        if (s == "exit"){
+            cout << "bye" << endl;
+            break;
+        }
+    }
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <string>
+
+
+using namespace std;
+
+int main(){
+	int counter = 0;
+	string command;
+	int arr[101];
+	while (true) {
+		cin >> command;
+		if (command == "exit"){
+			cout << "bye";
+			exit(0);
+		}
+		else if (command == "push"){
+			counter++;
+			cin >> arr[counter];
+			cout << "ok" << endl;
+		}
+		else if (command == "pop"){
+			cout << arr[counter] << endl;
+			counter--;
+		}
+		else if (command == "back"){
+			cout << arr[counter] << endl;
+		}
+		else if (command == "size"){
+			cout << counter << endl;
+		}
+		else if (command == "clear"){
+			counter = 0;
+			cout << "ok" << endl;
+		}
+	}
+}
