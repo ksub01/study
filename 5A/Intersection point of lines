@@ -1,0 +1,97 @@
+x1, y1, x2, y2 = map(int, input().rstrip().split())
+x3, y3, x4, y4 = map(int, input().rstrip().split())
+A1 = x2 - x1
+A2 = y2 - y1
+B1 = x4 - x3
+B2 = y4 - y3
+C1 = x1 - x3
+C2 = y1 - y3
+
+e = 1e-7
+
+if A1*B2 - B1*A2 != 0:
+    x = A1*B2 - A2*B1
+    t = -(C1*B2 - C2*B1) / x
+    ansx = x1 + t*A1
+    ansy = y1 + t*A2
+    print(1, ansx, ansy)
+elif A1*(-C2) - A2*(-C1) == 0:
+    print(2)
+else:
+    print(0)
+    
+ 
+Хорошие решения
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main() {
+    cout.precision(15);
+    int x1, y1, x2, y2, x3, y3, x4, y4;
+    cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3 >> x4 >> y4;
+    long long a1 = y1 - y2, b1 = x2 - x1;
+    long long c1 = a1 * x1 + b1 * y1;
+    long long a2 = y3 - y4, b2 = x4 - x3;
+    long long c2 = a2 * x3 + b2 * y3;
+    long long d = a1 * b2 - a2 * b1;
+    long long dx = c1 * b2 - c2 * b1;
+    long long dy = a1 * c2 - a2 * c1;
+    if (d == 0) {
+        if (dx == 0 && dy == 0) cout << 2;
+        else cout << 0;
+    }
+    else
+        cout << 1 << " " << (long double)dx / d << " " << (long double)dy / d;
+	return 0;
+}
+Кодировка: 
+Скачать
+#include<iostream>
+#include<iomanip>
+#include<cmath>
+
+using namespace std;
+
+struct line
+{
+    double a, b, c;
+    line(double a, double b, double c):a(a), b(b), c(c) {}
+    line(double x1, double y1, double x2, double y2)
+    {
+        a = y2 - y1;
+        b = x1 - x2;
+        c = -(a*x1 + b*y1);
+    }
+    line perpendicular(double x, double y)
+    {
+        return line(b, -a, -(b*x - a*y));
+    }
+    void intersect(line l, double& x, double& y)
+    {
+        x = (b*l.c - l.b*c)/(a*l.b - l.a*b);
+        y = (a*l.c - l.a*c)/(b*l.a - l.b*a);
+    }
+};
+
+
+int main()
+{
+    cout << setprecision(20);
+    int x1, y1, x2, y2, x3, y3, x4, y4;
+    cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3 >> x4 >> y4;
+    line l1(x1, y1, x2, y2);
+    line l2(x3, y3, x4, y4);
+    if(l1.a * l2.b == l2.a * l1.b){
+        if(l1.a * l2.c == l2.a * l1.c && l1.b * l2.c == l2.b * l1.c)
+            cout << 2 << endl;
+        else
+            cout << 0 << endl;
+    }
+    else{
+        double px, py;
+        l1.intersect(l2, px, py);
+        cout << 1 << ' ' << px << ' ' << py << endl;
+    }
+}
+
