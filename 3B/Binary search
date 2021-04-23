@@ -1,0 +1,208 @@
+if mas1[left] == i:
+если left == -1, будет почти что выход за пределы массива.
+В данной задаче, да и на питоне, это отработает,
+но вообще это опасно.
+
+
+m, n = map(int, input().rstrip().split())
+mas1 = [int(x) for x in input().rstrip().split()]
+mas2 = [int(x) for x in input().rstrip().split()]
+for i in mas2:
+    left = -1
+    right = len(mas1)
+    while right - left > 1:
+        middle = (left + right)//2
+        if i < mas1[middle]:
+            right = middle
+        else:
+            left = middle
+    if mas1[left] == i:
+        print('YES')
+    else:
+        print('NO')
+        
+        
+ Найди ошибку: Двоичный поиск
+ #include <iostream>
+#include <string>
+#include <algorithm>
+#include <vector>
+using namespace std;
+vector<int> a;
+bool bin(int n, int f)
+{
+	int l = 0, r = n - 1, m;
+
+	while (r - l > 1) {
+	m = (r + l) / 2;
+	if (a[m] < f)
+		l = m;
+	else
+		r = m;
+	}
+	if (a[r] == f) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+int main() {
+	int n, k, f;
+	cin >> n >> k;
+	vector<int> b(k);
+	for (int i = 0; i < n; i++) {
+		cin >> f;
+		a.push_back(f);
+	}
+	for (int i = 0; i < k; i++) {
+		cin >> b[i];
+	}
+	for (int i = 0; i < k; i++) {
+		if (bin(n, b[i]) == true) {
+			cout << "YES";
+		}
+		else {
+			cout << "NO";
+		}
+		cout << "\n";
+	}
+	return 0;
+}
+
+
+n,k=map(int,input().split())
+na=list(map(int,input().split()))
+ka=list(map(int,input().split()))
+for i in range(k):
+    l=-1
+    r=n
+    while r-l!=1:
+        m=(r+l)//2
+        if na[m]<ka[i]:
+            l=m
+        else:
+            r=m
+    if na[r]==ka[i]:
+        print("YES")
+    else:
+        print("NO")
+        
+        
+Хорошие решения
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+#include <stack>
+#include <queue>
+#include <string>
+
+using namespace std;
+
+typedef long long ll;
+
+#define f first
+#define s second
+
+double EPS = 0.000000001;
+
+bool check(double &mid, ll &st, double &num) {
+	double dop = 1;
+	for (ll i = 0; i < st; i++) dop *= mid;
+	return dop >= num;
+}
+
+int main() {
+	double num, left, right;
+	ll st;
+	cin >> num >> st;
+	left = 0; 
+	right = max(1.0, num);
+	double mid, dop;
+	while(right - left > EPS) {
+		mid = (right + left) / 2;
+		if (check(mid, st, num)) right = mid;
+		else left = mid;
+	}
+	cout.precision(10);
+	cout << right;
+	return 0;
+}
+Кодировка: 
+Скачать
+def st(n,s,p):
+    r = n ** s
+    return(r > p)
+eps = 0.0000001
+a = float(input())
+b = int(input())
+ma = max(a,1)
+mi = 0
+while ma - mi > eps:
+    mt = mi + ((ma - mi) / 2)
+    if st(mt,b,a):
+        ma = mt
+    else:
+        mi = mt
+print(mi)
+Кодировка: 
+Скачать
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main() {
+    double a,l,r,m;
+    int n;
+    cin >> a >> n;
+    l = 0; r = a;
+    if (r < 1) r = 1;
+    while (r-l > 1e-7) {
+        m = (r+l)/2;
+        if (pow(m,n) < a) {
+            l = m;
+        } else {
+            r = m;
+        }
+    }
+    cout.precision(7);
+    cout << l;
+    return 0;
+}
+Кодировка: 
+Скачать
+number = float(input())
+sqrt = int(input())
+
+left = 0
+
+right = max(number, 1)
+eps = 10 ** (-12)
+while right - left > eps:
+    middle = (left + right) / 2.0
+    if middle ** sqrt > number:
+        right = middle
+    else:
+        left = middle
+
+print middle
+Кодировка: 
+Скачать
+a=float(input())
+n=int(input())
+if a<1:
+    l=a
+    r=1000
+else:
+    l=0
+    r=a
+eps=1e-8
+while r-l>eps:
+    m=(r+l)/2
+    if m**n>a:
+        r=m
+    else:
+        l=m
+print(l)
