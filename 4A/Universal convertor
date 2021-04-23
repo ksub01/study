@@ -69,3 +69,228 @@ b = b[::-1]
 while b.startswith('0') and len(b) > 1:
     b = b[1:]
 print(b)
+
+
+Найди ошибку: Universal convertor
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+typedef long long ll;
+
+#define f first
+#define s second
+
+int per_sym(char sym) {
+	if (sym >= '0' && sym <= '9') return int(sym) - int('0');
+	else return int(sym) - int('A');
+}
+
+ll per_v_des(string num, ll sis) {
+	ll res = 0, st = 1;
+	while (num.size() != 0) {
+		res += per_sym(num.back()) * st;
+		num.pop_back();
+		st *= sis;
+	}
+	return res;
+}
+
+string per_iz_des(ll num, ll sis, vector<char> &per) {
+	string res = "";
+	while (num != 0) {
+		res = per[num % sis] + res;
+		num /= sis;
+	}
+	return res;
+}
+
+
+int main() {
+	vector<char> per = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+	for (ll i = 0; i < 26; i++) per.push_back(char(int('A') + i));
+	ll sis_1, sis_2;
+	string num;
+	cin >> sis_1 >> num >> sis_2;
+	cout << per_iz_des(per_v_des(num, sis_1), sis_2, per);
+	return 0;
+}
+
+
+Хорошие решения
+def HexToInt(n):
+    if n <= "9" and n >= "0":
+        return(int(n))
+    else:
+        return(ord(n) - ord("A") + 10)
+def hexChar(n):
+    if n < 10:
+        return(str(n))
+    else:
+        return(chr(ord("A") - 10 + n))
+s1 = int(input())
+a = input()
+s2 = int(input())
+r = ""
+cof = 1
+i = 0
+for x in range(len(a) - 1,-1,-1):
+    i = (cof * HexToInt(a[x])) + i
+    cof = cof * s1
+while i > 0:
+    r = r + hexChar(i % s2)
+    i = i // s2
+for x in range(len(r) - 1,-1,-1):
+    print(r[x],end = "")
+    
+Кодировка: 
+Скачать
+#include <iostream>
+#include <list>
+
+using namespace std;
+
+string chislo;
+int stepen = 1, res = 0, xx, yy;
+list<char> otvet;
+
+int main()
+{
+    cin >> xx >> chislo >> yy;
+    const int len = chislo.length();
+    for(int i = 0; i < len; i++)
+    {
+        if('0' <= chislo[len-i-1] && chislo[len-i-1] <= '9')
+        {
+           res += (chislo[len-i-1]-'0')*stepen;
+        } else
+        {
+           res += (chislo[len-i-1]-'A'+10)*stepen; 
+        }
+        stepen *= xx;
+    }
+    while(res > 0)
+    {
+        if(0 <= res%yy && res%yy <= 9)
+        {
+            otvet.push_back(char((res%yy)+'0'));
+        } else
+        {
+            otvet.push_back(char((res%yy)+'A')-10);   
+        }
+        res /= yy;
+    }
+    while(!otvet.empty())
+    {
+        cout << otvet.back();
+        otvet.pop_back();
+    }
+}
+Кодировка: 
+Скачать
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    string numb_first, numb_res = "";
+    int n, k, numb10 = 0; cin >> n >> numb_first >> k;
+    int pow_now = 1;
+    for (int i = numb_first.size() - 1; i >= 0; i--){
+        char now = numb_first[i];
+        int now_numb = now - '0' < 10 ? now - '0' : now - 'A' + 10;
+        numb10 += now_numb * pow_now;
+        pow_now *= n;
+
+    }
+    while (numb10 > 0){
+        int now_numb = numb10 % k;
+        char now_plus = (now_numb < 10) ? (char)(now_numb + '0') : (char)((int)'A' + now_numb - 10);
+        numb_res += now_plus;
+        numb10 /= k;
+    }
+    for (int i = numb_res.size() - 1; i >= 0; i--) cout << numb_res[i];
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef unsigned long long ll;
+int main() {
+    string s;
+    ll num,toNum;
+    ll base10 = 0;
+    cin >> num >> s >> toNum;
+
+    ll deg = 1;
+    for (int i = s.length() - 1; i >= 0; --i) {
+        ll x = 0;
+        if (isalpha(s[i])){
+             x = s[i] - 'A' + 10;
+        } else {
+             x = s[i] - '0';
+        }
+
+        base10 += x * deg;
+        deg *= num;
+    }
+
+    string ans;
+    while(base10 > 0){
+        ll x = base10 % toNum;
+        if (x > 9){
+            ans += char('A' + x - 10);
+        }else {
+            ans += char('0' + x);
+        }
+        base10 /= toNum;
+    }
+
+    reverse(ans.begin(),ans.end());
+    cout << ans << endl;
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+	string s, ans;
+	int n, k, t;
+	long long sum = 0, d = 1;
+	cin >> n >> s >> k;
+	if (k == n)
+	{
+		cout << s;
+		return 0;
+	}
+	int l = s.length();
+	for (int i = l; i >= 1; i--)
+	{
+		if ('A' <= s[i - 1] && s[i - 1] <= 'Z')
+			t = s[i - 1] - 'A' + 10;
+		else
+			t = s[i - 1] - '0';
+		sum += t * d;
+		d *= n;
+	}
+	while (sum != 0)
+	{
+		int s2 = sum % k;
+		sum /= k;
+		if (s2 > 9)
+			ans = char(s2 + 'A' - 10) + ans;
+		else
+			ans = char(s2 + '0') + ans;
+	}
+	cout << ans;
+	return 0;
+}
