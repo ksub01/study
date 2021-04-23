@@ -33,3 +33,174 @@ def f(k):
    return i
 
 print(f(int(input())))
+
+
+Хорошие решения
+#include <iostream>
+#include <cmath>
+#include <memory.h>
+const int size = 20'000'001;
+using namespace std;
+long long  k = 0, ch = 0;
+bool a[size];
+
+ int main(){
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    cin >> k;
+    memset(a, true , size);
+    long long g = 0;
+    for (long long i = 2; i < size; ++i){
+        if (a[i]){
+            ++g;
+            if (g == k){
+                ch = i;
+                break;
+            }
+            for (long long j = i*i; j < size; j += i){
+                a[j] = false;
+            }
+        }
+    }
+    cout << ch << endl;
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+using namespace std;
+//constexpr auto max = 16000000;
+int main(void)
+{
+	vector<bool> comp(16000000,true);
+	int k;
+	long long int j, i = 2;
+	int count = 0;
+	cin >> k;
+	while (1)
+	{
+		if (comp[i] && count == k - 1)
+			break;
+		else if (comp[i])
+		{
+			if (i*i < k * 16)
+				for (j = i * i; j < k*16; j += i)
+					comp[j] = false;
+			count++;
+		}
+		i++;
+	}
+	cout << i;
+	return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <cmath>
+using namespace std;
+
+int main() {
+	int k = 0;
+	cin >> k;
+	int lim = k * 20;
+	vector<bool> prime(lim, true);
+	int n = 0;
+	int i = 2;
+	while (true)
+	{
+		if (prime[i])
+		{
+			for (int j = i; j < lim; j += i)
+			{
+				prime[j] = 0;
+			}
+			n++;
+		}
+		if (n == k)
+		{
+			cout << i << '\n';
+			cin >> k;
+			return 0;
+		}
+		i++;
+	}
+	return 0;
+}
+Кодировка: 
+Скачать
+#include <cstdlib>
+#include <cstdio>
+#include <vector>
+#include <cmath>
+#include <iostream>
+using namespace std;
+
+bool m[16500000];
+
+int main()
+{
+    int A = 16000000;
+    long long cnt = 0, ind = 0;
+
+    for(int i = 2; i <= A; i++)
+        m[i] = true;
+
+    for(int i = 2; i * i <= A; i++)
+        if(m[i] == true)
+            for(int j = i * i; j <= A; j += i)
+                m[j] = false;
+
+    int n;
+    cin >> n;
+
+    for(int i = 0; i <= A; i++)
+    {
+        if(m[i] == true)
+        {
+            cnt++;
+            ind = i;
+        }
+
+        if(cnt == n)
+        {
+            cout << ind << endl;
+            return 0;
+        }
+    }
+}
+
+Кодировка: 
+Скачать
+#include <iostream>
+#include <math.h>
+#include <vector>
+
+using namespace std;
+
+int main(){
+	unsigned long int a;
+	cin >> a;
+	unsigned long int counter = 0;
+	vector<bool> resheto(20 * a + 1);
+	for (unsigned long int i = 2; i < 20 * a + 1; i++){
+		resheto[i] = true;
+	}
+	for (unsigned long int i = 2; i*i < 20 * a + 2; i++){
+		if (resheto[i]){
+			for (unsigned long int j = i * i; j < 20 * a + 1; j += i){
+				resheto[j] = false;
+			}
+		}
+	}
+	for (unsigned long int i = 2; i < 20 * a + 1; i++){
+		if (resheto[i]){
+			counter++;
+		}
+		if (counter == a){
+			cout << i;
+			exit(0);
+		}
+	}
+}
