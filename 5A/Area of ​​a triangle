@@ -1,0 +1,304 @@
+x1, y1, x2, y2, x3, y3 = map(int, input().rstrip().split())
+ABx = x2 - x1
+ABy = y2 - y1
+ACx = x3 - x1
+ACy = y3 - y1
+s = ABx * ACy - ABy * ACx
+print(0.5 * abs(s))
+
+
+Найди ошибку: Площадь треугольника
+from math import sqrt, sin, cos, pi
+
+
+class Vector:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def dot(self, other):
+        return self.x * other.x + self.y * other.y
+
+    def cross(self, other):
+        return self.x * other.y - self.y * other.x
+
+    def len(self):
+        return sqrt(self.x ** 2 + self.y ** 2)
+
+    def normal(self):
+        length = self.len()
+        if length == 0:
+            return Vector(0, 0, 0)
+        else:
+            return Vector(self.x / length, self.y / length)
+
+    def proection(self, other):
+        return self.normal() * self.dot(other.normal()) * other.len()
+
+    def to_ints(self):
+        return Vector(int(self.x), int(self.y))
+
+    def __add__(self, other):
+        return Vector(self.x + other.x, self.y + other.y)
+
+    def __sub__(self, other):
+        return Vector(self.x - other.x, self.y - other.y)
+
+    def __mul__(self, other):
+        return Vector(self.x * other, self.y * other)
+
+    def __truediv__(self, other):
+        return Vector(self.x / other, self.y / other)
+
+    def __pow__(self, other):
+        return Vector(self.x ** other, self.y ** other)
+
+    def __repr__(self):
+        return '{' + '{}, {}, {}'.format(self.x, self.y) + '}'
+
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+
+    def __lt__(self, other):
+        return self.x < other.x or self.y < other.y
+
+
+x1, y1, x2, y2, x3, y3 = map(int, input().split())
+p1 = Vector(x1, y1)
+p2 = Vector(x2, y2)
+p3 = Vector(x3, y3)
+print((p3 - p1).cross(p2 - p1) / 2)
+
+ï»¿#pragma optimization_level 3
+#pragma GCC optimize("Ofast,no-stack-protector")
+#pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,avx2,tune=native")
+#pragma GCC optimize("unroll-loops")
+#pragma GCC optimize("fast-math")
+#include <iostream>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <math.h>
+#include <map>
+#include <unordered_map>
+#include <tuple>
+#include <cmath>
+#include <algorithm>
+#include <set>
+#include <deque>
+#include <numeric>
+using namespace std;
+
+struct vectr {
+	double x, y;
+
+	double len() {
+		return hypot(x, y);
+	}
+};
+
+istream& operator >>(istream& s, vectr& a){
+	cin >> a.x >> a.y;
+	return s;
+}
+
+double vectrmulti(vectr a, vectr b) {
+	return a.x * b.y - a.y * b.x;
+}
+
+double skalarmulti(vectr a, vectr b) {
+	return a.x * b.x + b.y * a.y;
+}
+
+signed main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(0);
+
+	vectr a, b, c;
+	cin >> a >> b >> c;
+	
+	a.x -= b.x;
+	c.x -= b.x;
+	a.y -= b.y;
+	c.y -= b.y;
+
+	cout << fixed << setprecision(5) << vectrmulti(a, c) / 2;
+
+//	system("pause");
+	return 0;
+}
+
+
+#include <iostream>
+#include <cmath>
+
+using Number = float;
+
+class Point
+{
+public:
+	Number x, y;
+
+	Point()
+		: x(0)
+		, y(0)
+	{}
+};
+
+Number distance(Point A, Point B)
+{
+	return std::sqrt(Number(A.x - B.x) * Number(A.x - B.x) + Number(A.y - B.y) * Number(A.y - B.y));
+}
+
+int main()
+{
+	Point A, B, C;
+	std::cin
+		>> A.x
+		>> A.y
+		>> B.x
+		>> B.y
+		>> C.x
+		>> C.y;
+
+	Number
+		AB = distance(A, B),
+		AC = distance(A, C),
+		BC = distance(B, C),
+
+		p = (AB + AC + BC) / 2,
+		S = std::sqrt(p * (p - AB) * (p - AC) * (p - BC));
+	std::cout << S << std::endl;
+}
+
+
+Хорошие решения
+#include <iostream>
+#include <fstream>
+#include <algorithm>
+#include <vector>
+#include <map>
+#include <list>
+#include <string>
+#include <queue>
+#include <cmath>
+
+using namespace std;
+
+using ll = long long;
+using ld = long double;
+
+struct vec {
+    ll x, y;
+    vec() : x(0), y(0) {}
+    vec(ll x, ll y) : x(x), y(y) {}
+};
+
+vec operator +(vec a, const vec& b) {
+    return vec(a.x + b.x, a.y + b.y);
+}
+
+vec operator -(vec a, const vec& b) {
+    return vec(a.x - b.x, a.y - b.y);
+}
+
+ll operator *(vec a, const vec& b) {
+    return 1;
+}
+
+ll operator ^(vec a, vec b) {
+    return a.x * b.y - b.x * a.y;
+}
+
+istream& operator >>(istream& in, vec& a) {
+    in >> a.x >> a.y;
+    return in;
+}
+
+ld tarea(const vec& a, const vec& b, const vec& c) {
+    return abs((a - b) ^ (a - c)) / 2.0;
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(nullptr); cout.tie(nullptr);
+    
+    vec a, b, c;
+    cin >> a >> b >> c;
+    cout.precision(8);
+    cout << fixed << tarea(a, b, c) << '\n';
+    
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define endl '\n'
+#define int long long int
+
+struct Point {
+    double x, y;
+
+    Point() {}
+};
+
+struct Vec {
+    double x, y;
+
+    Vec(Point p1, Point p2) : x(p2.x - p1.x), y(p2.y - p1.y) {}
+};
+
+double cross_product(Vec v1, Vec v2) {
+    return v1.x * v2.y - v1.y * v2.x;
+}
+
+signed main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    Point a, b, c;
+    cin >> a.x >> a.y >> b.x >> b.y >> c.x >> c.y;
+    cout << fabs(cross_product(Vec(a, b), Vec(a, c))) * 0.5;
+}
+Кодировка: 
+Скачать
+#include <bits/stdc++.h>
+
+using namespace std;
+
+using ll = long long int;
+using ull = unsigned long long int;
+using dd = double;
+using ldd = long double;
+
+vector<pair<dd, dd>> coord;
+
+dd s(int i, int j)
+{
+    return coord[i].first * coord[j].second - coord[i].second * coord[j].first;
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+
+    int n;
+    n = 3;
+    pair<dd, dd> in;
+    for (int i = 0; i < n; ++i)
+    {
+        cin >> in.first >> in.second;
+        coord.push_back(in);
+    }
+    coord.push_back(coord[0]);
+    dd ans = 0;
+    for (int i = 0; i < n; ++i)
+    {
+        ans += s(i + 1, i);
+    }
+    cout << setprecision(6) << abs(ans / 2);
+    return 0;
+}
