@@ -1,0 +1,77 @@
+ans = i + ans + i
+это долго, потому что сдвигает всю строку.
+Собирайте просто только половину строки.
+
+length = int(input())
+cash = {}
+string = input()
+
+#fill cash
+for i in string:
+    if i in cash:
+        cash[i] += 1
+    else:
+        cash[i] = 1
+
+
+ans = ''
+
+for i in sorted(cash)[::-1]:
+    while cash[i] >= 2:
+        ans = i + ans + i
+        cash[i] -= 2
+
+for i in sorted(cash):
+    if cash[i] % 2 == 1:
+        k = len(ans)
+        ans = ans[:k//2] + i + ans[k//2:]
+        break
+
+print(ans)
+
+
+
+
+ans = ans[::-1] + ans
+for i in sorted(cash):
+    if cash[i] % 2 == 1:
+        k = len(ans)
+        ans = ans[:k//2] + i + ans[k//2:]
+        break
+
+я бы делал бы типа
+middle = ""
+for i in sorted(cash):
+    if cash[i] % 2 == 1:
+        middle = i
+        break
+ans = ans[::-1] + middle + ans
+чтобы не делать лишних срезов
+
+
+length = int(input())
+cash = {}
+string = input()
+
+#fill cash
+for i in string:
+    if i in cash:
+        cash[i] += 1
+    else:
+        cash[i] = 1
+
+
+ans = ''
+
+for i in sorted(cash)[::-1]:
+    while cash[i] >= 2:
+        ans = ans + i
+        cash[i] -= 2
+ans = ans[::-1] + ans
+for i in sorted(cash):
+    if cash[i] % 2 == 1:
+        k = len(ans)
+        ans = ans[:k//2] + i + ans[k//2:]
+        break
+
+print(ans)
