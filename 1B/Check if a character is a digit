@@ -3,3 +3,58 @@ if '0' <= k <= '9':
     print('yes')
 else:
     print('no')
+
+
+Найди ошибку: Проверить, является ли символ цифрой
+a = input()
+flag = False
+if a >= "0" and a <= "57" :
+    flag = True
+if flag == True:
+    print("yes")
+else:
+    print("no")
+    
+    
+    
+a = input()
+if a >= '48' and a < '58':
+    print("yes")
+else:
+    print("no")
+    
+    
+    
+Хорошие решения
+h = input()
+if h >= '0' and h<= '9':
+    print ("yes")
+else:
+    print ("no")
+    
+Кодировка: 
+Скачать
+#include <iostream>
+
+using namespace std;
+
+bool IsDigit(char c){
+    return ((c >= '0') and (c <= '9'));
+}
+
+int main(){
+    char a;
+    cin >> a;
+    if (IsDigit(a))
+        cout << "yes";
+    else
+        cout << "no";
+}
+Кодировка: 
+Скачать
+ch = input()
+if ch>='0' and ch<='9':
+    print("yes")
+else: 
+    print("no")
+
