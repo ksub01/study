@@ -1,0 +1,230 @@
+n = int(input())
+mas = [[0]*(n+1)]
+for i in range(n):
+    mas.append([0] + [int(x) for x in input().rstrip().split()])
+
+was = [-1] * (n+1)
+flag = True
+
+
+def find(k, p):
+    was[k] = 1
+    for v in range(1, n+1):
+        if mas[k][v] == 1 and v != p:
+            if was[v] == 1:
+                global flag
+                flag = False
+            elif was[v] == -1:
+                find(v, k)
+
+
+find(1, -1)
+
+for i in range(1, n+1):
+    if was[i] == -1:
+        flag = False
+        break
+
+if flag:
+    print('YES')
+else:
+    print('NO')
+    
+    
+    
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <map>
+#include <iomanip>
+#include <queue>
+#include <set>
+
+using namespace std;
+
+void solve();
+
+int main()
+{
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    solve();
+    return 0;
+}
+
+#define int long long
+
+int n, a[101][101], cnt;
+bool used[101], ok;
+
+void dfs(int v, int p) {
+    used[v] = true;
+    for (int i = 0; i < n; i++) {
+        if (a[v][i]) {
+            if (!used[i])
+                dfs(i, v);
+            else if (i != p)
+                ok = true;
+        }
+    }
+}
+
+void solve() {
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cin >> a[i][j];
+            if (a[i][j])
+                cnt++;
+        }
+    }
+    dfs(0, -1);
+    if (!ok && cnt / 2 + 1  == n)
+        cout << "YES";
+    else
+        cout << "NO";
+
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+const int N = 1e2;
+
+int a[N][N], was[N], pre[N], n;
+
+void dfs(int i){
+    if (was[i] == 1){
+        cout << "No";
+        exit(0);
+    }
+    was[i] = 1;
+    for (int j = 0; j < n; ++j){
+        if (a[i][j] == 1 && pre[i] != j){
+            pre[j] = i;
+            dfs(j);
+        }
+    }
+}
+
+int main(){
+    cin >> n;
+    for (int i = 0; i < n; ++i){
+        for (int j = 0; j < n; ++j){
+            cin >> a[i][j];
+        }
+    }
+    dfs(0);
+    for (int i = 0; i < n; ++i){
+        if (was[i] == 0){
+            cout << "No";
+            exit(0);
+        }
+    }
+    cout << "Yes";
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int n;
+bool ok = true;
+vector <vector <int>> graf;
+vector <int> pass;
+
+void dfs (int i, int from) {
+    if (pass[i] != 0){
+        ok = false; return;
+    }
+    pass[i] = 1;
+    for (int j : graf[i]) {
+        if (j != from) dfs(j, i);
+    }
+}
+
+int main() {
+    cin >> n;
+    graf.resize(n); pass.resize(n);
+    for (int i = 0; i < n; i++){
+        for (int j = 0; j < n; j++){
+            int temp; cin >> temp;
+            if (temp == 1) {
+                graf[i].push_back(j);
+            }
+        }
+    }
+
+    dfs(0, 0);
+    for (int i = 0; (i < n && ok); i++){
+        if (pass[i] == 0) ok = false;
+    }
+    cout << (ok ? "YES" : "NO");
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+bool f_pr(const vector<vector<int>>& ms, vector<int>& p, int k, int r){
+    if (p[k] != 0)
+        return false;
+    bool f = true;
+    p[k] = 1;
+    for (int i = 0; i < p.size(); i++)
+        if ((i != r) && (ms[k][i] == 1))
+            f = f && f_pr(ms, p, i, k);
+    return f;
+}
+
+int main(){
+    int n, s = 0;
+    bool f;
+    cin >> n;
+    vector<int> p(n, 0);
+    vector<vector<int>> ms(n, p);
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            cin >> ms[i][j];
+    f = f_pr(ms, p, 0, -1);
+    for (int i = 0; i < n; i++)
+        s += p[i];
+    if (f && (s == n))
+        cout << "YES";
+    else
+        cout << "NO";
+    return 0;
+}
+Кодировка: 
+Скачать
+n=int(input())
+matrix=[[int(i) for i in input().split()] for j in range(n)]
+was=[0]*n
+ok=True
+def find(i,p):
+    global ok
+    if was[i]==1:
+        ok=False
+        return
+    was[i]=1
+    if ok:
+        for j in range(n):
+            if matrix[i][j] and j!=p:
+                find(j,i)
+find(0,0)
+for i in range(n):
+    if was[i]==0:
+        ok=False
+if ok:
+    print("YES")
+else:
+    print("NO")
