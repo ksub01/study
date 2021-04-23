@@ -107,3 +107,180 @@ for i in data:
     k = ''.join(result)
     dream.write(k + '\n')
 dream.close()
+
+
+
+
+
+
+
+
+
+Хорошие решения
+readtext = open('input.txt', 'r', encoding='cp866').readlines()
+writetext = open('output.txt', 'w', encoding='cp866')
+for step in readtext:
+    step = step.rstrip('\n')
+    step += ' '
+    word = ''
+    drow = ''
+    for i in range(len(step)):
+        if 'a' <= step[i] <= 'z' or 'A' <= step[i] <= 'Z':
+            word = step[i] + word
+        else:
+            drow = drow + word
+            drow = drow + step[i]
+            word = ''
+    drow = drow.rstrip(' ')
+    print(drow, file=writetext)
+Кодировка: 
+Скачать
+#include <iostream>
+#include <map>
+
+using namespace std;
+
+void solve();
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    solve();
+};
+
+bool good(char c) {
+    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+        return true;
+    return false;
+}
+
+string rever(string s) {
+    string ret = "";
+    for (int i = s.size() - 1; i >= 0; i--) {
+        ret.push_back(s[i]);
+    }
+    return ret;
+}
+
+string f(string s) {
+    string k = "", ans = "";
+    for (int i = 0; i < s.size(); i++) {
+        if (good(s[i])) {
+            k.push_back(s[i]);
+        } else {
+            ans += rever(k);
+            k = "";
+            ans.push_back(s[i]);
+        }
+    }
+    ans += rever(k);
+    return ans;
+}
+
+string s;
+
+void solve() {
+    while (getline(cin, s)) {
+        cout << f(s) << '\n';
+    }
+
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <string>
+#include <fstream>
+
+using namespace std;
+
+int main() {
+    //ifstream cin("in1667.txt");
+    string s1, s2, w;
+    while (getline(cin, s1)) {
+        s1 += '#';
+        int i = 0;
+        while (i < (int)s1.size() - 1) {
+            // ���� ������ �����
+            if ((s1[i] < 'A') || (s1[i] > 'z') || ((s1[i] > 'Z') && (s1[i] < 'a'))) {
+                s2 += s1[i];
+                ++i;
+                continue;
+            }
+
+            // ���� ����� �����
+            while (((s1[i] >= 'A') && (s1[i] <= 'Z')) || ((s1[i] >= 'a') && (s1[i] <= 'z'))) {
+                w += s1[i];
+                ++i;
+            }
+            // ����� ����� � �������� �������
+            for (int i = (int)w.size() - 1; i >= 0; --i) {
+                s2 += w[i];
+            }
+            w.clear();
+        }
+        cout << s2 << endl;
+        s2.clear();
+    }
+    return 0;
+}
+Кодировка: 
+Скачать
+#include<bits/stdc++.h>
+
+using namespace std;
+const double eps = 1e-8;
+
+ifstream in("input.txt");
+ofstream out("output.txt");
+
+int main() {
+    string s, w, a;
+    while(getline(in, a))
+        s+=a+'\n';
+    a="";
+    for(int i=0; i<=s.size(); i++)
+        if(i!=s.size() && (s[i]>='A' && s[i]<='Z' || s[i]>='a' && s[i]<='z'))
+            w+=s[i];
+        else{
+            reverse(w.begin(), w.end());
+            a+=w;
+            if (i!=s.size())
+                a+=s[i];
+            w="";
+        }
+    out<<a;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <string>
+#include <cctype>
+#include <fstream>
+
+using namespace std;
+
+int main() {
+	string inWord, outWord, word;
+	ifstream fout("input.txt");
+	while (getline(fout, inWord)) {
+		for (int i = 0; i < inWord.size(); i++) {
+			if (isalpha(inWord[i])) {
+				word.push_back(inWord[i]);
+			}
+			else {
+				for (int j = word.size() - 1; j >= 0; j--) {
+					outWord.push_back(word[j]);
+				}
+				outWord.push_back(inWord[i]);
+				word = "";
+			}
+		}
+		for (int j = word.size() - 1; j >= 0; j--) {
+			outWord.push_back(word[j]);
+		}
+		word = "";
+		cout << outWord << endl;
+		outWord = "";
+	}
+}
