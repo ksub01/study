@@ -1,0 +1,26 @@
+    if len(i) > l:
+        str = i
+    l = max(l, len(i))
+у вас сравнение len(i) и l дублируется
+(в if и в max). Зачем?
+Делайте все в if
+
+s = input().split(' ')
+l = 0
+for i in s:
+    if len(i) > l:
+        str = i
+    l = max(l, len(i))
+print(str)
+print(l)
+
+#ready
+
+s = input().split(' ')
+l = 0
+for i in s:
+    if len(i) > l:
+        str = i
+        l = len(i)
+print(str)
+print(l)
