@@ -12,3 +12,119 @@ for i in range(1, len(list1)):
         print('yes')
     else:
         print('no')
+
+
+
+Хорошие решения
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+	int n1, n2, l;
+	cin >> n1;
+	vector <int> a(n1);
+	for (int i=0; i<n1; i++) {
+		cin >> a[i];
+	}
+	cin >> n2;
+	for (int i=1; i<n2+1; i++) {
+		cin >> l;
+		a[l-1]--;
+	}
+	for (int i=0; i<n1; i++) {
+		if (a[i]<0) {
+			cout << "yes" << endl;
+		}
+		else {
+			cout << "no" << endl;
+		}
+	}
+	return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+using namespace std;
+
+
+
+int main(){
+	int ps;
+	cin >> ps;
+	int ms[ps-1];
+	for(int i=0;i<ps;++i){
+		cin >> ms[i];
+	}
+	int ps2;
+	cin >> ps2;
+	int k;
+	for(int i=1; i<=ps2;++i){
+		cin >> k;
+		--ms[k-1];
+	}
+	for(int i=0; i<ps;++i){
+		if(ms[i]<0){
+			cout <<"yes"<<endl;
+		}
+		else{
+			cout <<"no"<<endl;
+		}
+	}
+	return 0;
+}
+Кодировка: 
+Скачать
+n = input()
+counts = [int(x) for x in input().split()]
+k = input()
+clicks = [int(x) for x in input().split()]
+for key in clicks:
+    counts[key-1] -= 1
+for cnt in counts:
+    print('yes' if cnt < 0 else 'no')
+        
+    
+Кодировка: 
+Скачать
+var
+  n, i, k: integer;
+  c: array [1..100] of integer;
+  p: array [1..100000] of integer;
+  s: array [1..100] of integer;
+
+begin
+  read(n);
+  for i := 1 to n do
+    read(c[i]);
+  read(k);
+  for i := 1 to k do
+    read(p[i]);
+  for i := 1 to k do
+    s[p[i]] := s[p[i]] + 1;
+  for i := 1 to n do
+    if s[i] > c[i] then
+      writeln('yes')
+    else
+      writeln('no');
+end.
+Кодировка: 
+Скачать
+n=int(input())
+a=input().split()
+for i in range (len(a)):
+    a[i]=int(a[i])
+k=int(input())
+b=input().split()
+for i in range (len(b)):
+    b[i]=int(b[i])
+c=[0]*n
+for i in range(len(b)):
+    c[b[i]-1]=c[b[i]-1]+1
+for i in range (len(a)):
+    if a[i]>=c[i]:
+        print('no')
+    else:
+        print('yes')
+    
