@@ -16,3 +16,125 @@ if y != 0:
     print(cou)
 else:
     print(0)
+
+
+Найди ошибку: Утренняя пробежка - 2
+from math import *
+d=1
+b=0
+t=0
+eps=1e-7
+s=input()
+if len(s.split())==2:
+    x,y=map(int,s.split())
+else:
+    x=int(s)
+    y=int(input())
+b=x
+while b+eps<y:
+    x=x+x/100*70
+    d+=1
+    b+=x    
+print(d)    
+        
+
+
+Хорошие решения
+const
+  eps = 1e-12;
+
+var
+  x, y, a: double; 
+  b: integer;
+
+begin
+  readln(x, y);
+  
+  b := 1;
+  a := x;
+  while a - y < -eps do   begin
+
+    x := 0.7*x + x;
+    a := x + a;
+    b := b + 1; 
+  end;
+  writeln(b);
+end.
+Кодировка: 
+Скачать
+#include <iostream>
+#include <string>
+#include <math.h>
+
+using namespace std;
+
+int main()
+{
+	double i1, i2, sum;
+	int day;
+	cin >> i1 >> i2;
+	sum = i1;
+	for (day = 1; sum < i2 - 1e-5; day++) {
+		i1 *= 1.7;
+		sum += i1;
+	}
+	cout << day;
+	return 0;
+}
+
+Кодировка: 
+Скачать
+t = list(map(float, input().split()))
+x = t[0];
+if len(t) == 1:
+    y = float(input())
+else:
+    y = t[1]
+p = 1.7
+eps = 1e-7
+a = 1
+s = x
+while (y - s) > eps:
+    x *= p
+    s += x
+    a += 1
+print(a)
+Кодировка: 
+Скачать
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	double x, y, eps, s = 0;
+	eps = 1e-4;
+	cin >> x >> y;
+	int i = 0;
+	while (s < y - eps)
+	{
+		s += x;
+		x += x / 100 * 70;
+		i++;
+	}
+	cout << i << endl;
+	return 0;
+}
+Кодировка: 
+Скачать
+s = [ float(s) for s in input().split()]
+if len(s)==2:
+    a=s[0]
+    b=s[1]      
+if len(s)==1:
+    a=s[0]
+    b=float(input())
+c=1
+d=a
+eps=1e-6
+while d<b-eps:
+    c=c+1
+    a=a/100*170   
+    d=a+d
+else:
+    print(c)
+    
