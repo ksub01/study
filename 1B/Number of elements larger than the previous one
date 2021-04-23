@@ -1,0 +1,8 @@
+b1 = int(input())
+sum1 = 0
+mas = input().split(' ')
+mas = [int(x) for x in mas]
+for i in range(int(b1)-1):
+    if mas[i+1] > mas[i]:
+        sum1 += 1
+print(sum1)
