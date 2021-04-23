@@ -1,0 +1,147 @@
+n, r = map(int, input().split())
+mas = [int(x) for x in input().rstrip().split()]
+p = 0
+ans = 0
+for i in range(n):
+    while p < len(mas) - 1 and mas[p] - mas[i] <= r:
+        p += 1
+    if mas[p] - mas[i] > r:
+        ans += n - p
+print(ans)
+
+
+Найди ошибку: Город Че
+#include <bits/stdc++.h>
+
+using namespace std;
+
+typedef long long ll;
+typedef long double ld;
+
+int main()
+{
+	int n, r, left = 0, right = 0, ans = 0;
+	cin >> n >> r;
+	vector<int> d(n);
+	for (int i = 0; i < n; i++) {
+		cin >> d[i];
+	}
+	while (right < n) {
+		if (d[right] - d[left] > r) {
+			ans += n - right;
+			left++;
+		}
+		else {
+			right++;
+		}
+	}
+	cout << ans << endl;
+	return 0;
+}
+
+
+Хорошие решения
+a,r = map(int,input().split())
+m = list(map(int,input().split()))
+c = 0
+y1 = 0
+y2 = 1
+
+while y1 < a and y2 < a:
+    if m[y2] - m[y1] > r:
+        c = c + a - y2
+        y1 = y1 + 1
+    else:
+        y2 = y2 + 1
+print(c)
+Кодировка: 
+Скачать
+#include<bits/stdc++.h>
+using namespace std;
+const double eps = 1e-9;
+
+int main(){
+    int n,d;
+    cin >> n >> d;
+    vector<int> a(n);
+    for(int i = 0;i < n;i++){
+        cin >> a[i];
+    }
+    long long int ans = 0;
+    int j = 1;
+    for(int i = 0;i < n;i++){
+        while(a[j] - a[i] <=d && j < n){
+            j++;
+        }
+        if(a[j] - a[i] > d){
+            ans += n - j;
+        }
+    }
+    cout << ans;
+}
+Кодировка: 
+Скачать
+n,r=map(int,input().split())
+arr=[int(i) for i in input().split()]
+res=0
+j=0
+for i in range(n):
+    for j in range(j,n):
+        if arr[j]-arr[i]>r:
+            res+=(n-j)
+            break
+print(res)
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+	long long n, r, ans=0, j = 1, i;
+	cin >> n >> r;
+	vector<long long>d(n);
+	for (long long i = 0; i < n; i++)
+		cin >> d[i];
+	for (i = 0; i < n; i++)
+	{
+		while (j < n && (d[j] - d[i]) <= r)
+		{
+			j++;
+		}
+		ans += n - j;
+	}
+	cout << ans;
+	return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cmath>
+#include <deque>
+using namespace std;
+
+int main(){
+	long long n, r, j = 1, ans = 0;
+	cin >> n >> r;
+	vector<int> dist(n);
+	for (int i = 0; i < n; i++) cin >> dist[i];
+
+	for (int i = 0; i < n - 1; i++) {		//����� �� O(N) �������� :thinking:
+		for (j; j < n; j++) {
+			if (dist[j] - dist[i] > r){
+				ans += n - j;
+				break;
+			}
+		}
+	}
+
+	cout << ans;
+	
+	//system("pause");
+	return 0;
+}
