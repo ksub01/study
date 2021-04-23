@@ -1,0 +1,303 @@
+road.add((i, j))
+...
+if (i, j) in road:
+я бы просто сразу формировал бы двумерную матрицу
+
+n = int(input())
+mas = [[0]*(n+1)]
+ans = [[100000] + [0] + [100000]*(n-1)]
+ans.extend([[10000] + [0]*n for x in range(n)])
+
+for i in range(n):
+    mas.append([0] + [int(x) for x in list(input().rstrip())])
+
+for i in range(1, n+1):
+    for j in range(1, n+1):
+        ans[i][j] = min(ans[i-1][j], ans[i][j-1]) + mas[i][j]
+
+i = j = n
+road = {(n, n)}
+while i != 1 or j != 1:
+    if ans[i][j-1] < ans[i-1][j]:
+        j -=1
+    else:
+        i -= 1
+    road.add((i, j))
+
+for i in range(1, n+1):
+    for j in range(1, n+1):
+        if (i, j) in road:
+            print('#', end = '')
+        else:
+            print('-', end = '')
+    print()
+
+
+Найди ошибку: Маршрут
+
+#include <iostream>
+#include <vector>
+#include <cstring>
+using namespace std;
+
+#define min(a, b) (a < b ? a : b)
+#define max(a, b) (a > b ? a : b)
+
+int main()
+{
+    int n;
+    cin >> n;
+    vector<vector<char>> a (n, vector<char> (n));
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+            cin >> a[i][j];
+    }
+    vector<vector<bool>> result(n, vector<bool> (n));
+    vector<vector<int>> cache(n, vector<int>(n));
+    result[0][0] = 0; cache[0][0] = int(a[0][0]) - 48;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            if (i == 0 && j == 0)
+                continue;
+            if (i == 0)
+            {
+                cache[i][j] = cache[i][j - 1] + (int(a[i][j]) - 48);
+                result[i][j] = 0;
+            }
+            else if (j == 0)
+            {
+                cache[i][j] = cache[i - 1][j] + (int(a[i][j]) - 48);
+                result[i][j] = 1;
+            }
+            else
+            {
+                if (cache[i][j - 1] < cache[i - 1][j])
+                {
+                    cache[i][j] = cache[i][j - 1] + (int(a[i][j]) - 48);
+                    result[i][j] = 0;
+                }
+                else
+                {
+                    cache[i][j] = cache[i][j - 1] + (int(a[i][j]) - 48);
+                    result[i][j] = 1;
+                }
+            }
+        }
+    }
+    vector<vector<char>> new_result(n, vector<char>(n, '-'));
+    int i = n - 1; int j = n - 1; new_result[0][0] = '#';
+    while (!(i == 0 && j == 0))
+    {
+        new_result[i][j] = '#';
+        if (result[i][j] == 1)
+            i--;
+        else
+            j--;
+    }
+    for (i = 0; i < n; i++)
+    {
+        for (j = 0; j < n; j++)
+            cout << new_result[i][j];
+        cout << endl;
+    }
+    return 0;
+}
+
+
+
+Хорошие решения
+#include <algorithm>
+#include <cctype>
+#include <cmath>
+#include <deque>
+#include <fstream>
+#include <iostream>
+#include <iterator>
+#include <map>
+#include <queue>
+#include <set>
+#include <stack>
+#include <string>
+#include <vector>
+
+#define uint unsigned int
+#define ll long long
+#define ull unsigned long long
+
+using namespace std;
+
+int main() {
+	int n, last_x, last_y;
+	string syms;
+	cin >> n;
+	vector<vector<int>> nums(n + 1, vector<int>(n + 1));
+	vector<vector<bool>> prev(n + 1, vector<bool>(n + 1));
+	vector<vector<char>> route(n + 1, vector<char>(n + 1, '-'));
+	//true = up
+	//false = left
+	for (int i = 1; i <= n; i++) {
+		cin >> syms;
+		for (int j = 1; j <= n; j++) {
+			nums[i][j] = int(syms[j - 1]) - int('0');
+		}
+	}
+	for (int i = 2; i <= n; i++) {
+		nums[1][i] += nums[1][i - 1];
+		prev[1][i] = false;
+		nums[i][1] += nums[i - 1][1];
+		prev[i][1] = true;
+	}
+	for (int i = 2; i <= n; i++) {
+		for (int j = 2; j <= n; j++) {
+			if (nums[i - 1][j] < nums[i][j - 1]) {
+				prev[i][j] = true;
+				nums[i][j] += nums[i - 1][j];
+			}
+			else {
+				prev[i][j] = false;
+				nums[i][j] += nums[i][j - 1];
+			}
+		}
+	}
+	last_x = n;
+	last_y = n;
+	for (int i = 0; i < 2 * n - 2; i++) {
+		route[last_x][last_y] = '#';
+		if (prev[last_x][last_y]) {
+			last_x--;
+		}
+		else {
+			last_y--;
+		}
+	}
+	route[1][1] = '#';
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= n; j++) {
+			cout << route[i][j];
+		}
+		cout << endl;
+	}
+	return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    vector<vector<int>> vct(n+1, vector<int>(n+1, 2e+9));
+    vector<vector<bool>> ptr(n+1, vector<bool>(n+1));
+    vector<vector<char>> ans(n+1, vector<char>(n+1, '-'));
+    vct[1][0] = 0;
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
+            char tc; cin >> tc;
+            vct[i][j] = tc-'0';
+            ptr[i][j] = vct[i-1][j] < vct[i][j-1];
+            vct[i][j] += ptr[i][j] ? vct[i-1][j] : vct[i][j-1];
+        }
+    }
+    for (int i=n, j=n; !(i==1 && j==0);) {
+        ans[i][j] = '#';
+        if (ptr[i][j]) i--;
+        else j--;
+    }
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
+            cout << ans[i][j];
+        }
+        cout << endl;
+    }
+}
+Кодировка: 
+Скачать
+def makeMoveMap(x, y):
+    global ans, out
+    if x > 0 and y > 0:
+        if ans[y][x - 1] <= ans[y - 1][x]:
+            out[y][x - 1] = True
+            makeMoveMap(x - 1, y)
+        else:
+            out[y - 1][x] = True
+            makeMoveMap(x, y - 1)
+
+
+n = int(input())
+weights = [[]] * n
+for i in range(n):
+    weights[i] = list(map(int, input()))
+n += 1
+
+inf = 251 * 10
+ans = [[inf for j in range(n)] for i in range(n)]
+ans[0][1] = 0
+for i in range(1, n):
+    for j in range(1, n):
+        ans[i][j] = min(ans[i - 1][j], ans[i][j - 1]) + weights[i - 1][j - 1]
+
+out = [[False] * n for i in range(n)]
+makeMoveMap(n - 1, n - 1)
+for i in range(1, n):
+    for j in range(1, n):
+        if i == j and i == n - 1:
+            print('#')
+        else:
+            print('#' if out[i][j] else '-', end='')
+    print()
+Кодировка: 
+Скачать
+#include <iostream>
+#include <stdlib.h>
+#include <vector>
+#include<string>
+
+using namespace std;
+
+int main(){
+    int n, kx, ky, tx;
+    cin >> n;
+    vector<int> t(n + 1, 2251);
+    vector<vector<int>> a(n + 1, t), x(n + 1, t), y(n + 1, t);
+    vector<string> t1(n + 1, "-");
+    vector<vector<string>> p(n + 1, t1);
+    string s, sp;
+    a[0][1] = 0;
+    getline(cin, s);
+    for (int i = 1; i <= n; i++){
+        getline(cin, s);
+        for (int j = 1; j <= n; j++)
+            a[i][j] = atoi(s.substr(j - 1, 1).c_str());
+    }
+    for (int i = 1; i <= n; i++)
+        for (int j = 1; j <= n; j++){
+            if (a[i - 1][j] < a[i][j - 1]){
+                a[i][j] += a[i - 1][j];
+                x[i][j] = i - 1;
+                y[i][j] = j;
+            }
+            else{
+                a[i][j] += a[i][j - 1];
+                x[i][j] = i;
+                y[i][j] = j - 1;
+            }
+    }
+    kx = n;
+    ky = n;
+    while ((kx > 0) && (ky > 0)){
+        p[kx][ky] = "#";
+        tx = x[kx][ky];
+        ky = y[kx][ky];
+        kx = tx;
+    }
+    for (int i = 1; i <= n; i++){
+        for (int j = 1; j <= n; j++)
+            cout << p[i][j];
+        cout << endl;
+    }
+}
