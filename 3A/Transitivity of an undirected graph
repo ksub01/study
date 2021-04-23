@@ -1,0 +1,244 @@
+Тщательно потестируй на небольших тестах.
+Придумай минимальный нетранзитивный граф
+и проверь на нем.
+
+n, m = map(int, input().rstrip().split())
+mas = [[] for x in range(n+1)]
+for i in range(m):
+    a1, a2 = map(int, input().rstrip().split())
+    mas[a1].append(a2)
+flag = True
+for v in range(1, n+1):
+    for neighbors in mas[v]:
+        if not set(mas[v]).union({v}) >= set(mas[neighbors]):
+            flag = False
+            break
+if flag:
+    print('YES')
+else:
+    print('NO')
+
+
+Ты потестировал на небольших тестах?
+На минимальном нетранзитивном графе?
+На каких конкретно тестах ты тестировал?
+
+n, m = map(int, input().rstrip().split())
+mas = [[x] for x in range(n + 1)]
+for i in range(m):
+    a1, a2 = map(int, input().rstrip().split())
+    mas[a1].append(a2)
+flag = True
+for v in range(1, n + 1):
+    for neighbors in mas[v]:
+        if neighbors != v:
+            for j in mas[neighbors]:
+                if j != neighbors:
+                    if v not in mas[j]:
+                        flag = False
+if flag:
+    print('YES')
+else:
+    print('NO')
+
+
+n, m = map(int, input().rstrip().split())
+mas = [[] for x in range(n + 1)]
+for i in range(m):
+    a1, a2 = map(int, input().rstrip().split())
+    mas[a1].append(a2)
+    mas[a2].append(a1)
+
+flag = True
+for v in range(1, n + 1):
+    for neighbors in mas[v]:
+        for j in mas[neighbors]:
+            if (j not in mas[v]) and (v != j):
+                flag = False
+if flag:
+    print('YES')
+else:
+    print('NO')
+    
+
+Найди ошибку: Транзитивность неориентированного графа
+#include <algorithm>
+#include <cctype>
+#include <cmath>
+#include <deque>
+#include <fstream>
+#include <iostream>
+#include <iterator>
+#include <map>
+#include <queue>
+#include <set>
+#include <stack>
+#include <string>
+#include <vector>
+
+#define uint unsigned int
+#define ll long long
+#define ull unsigned long long
+
+using namespace std;
+
+int main() {
+	int n, m, v1, v2;
+	cin >> n >> m;
+	vector<vector<bool>> matr(n + 1, vector<bool>(n + 1));
+	for (int i = 0; i < m; i++) {
+		cin >> v1 >> v2;
+		matr[v1][v2] = true;
+		matr[v2][v1] = true;
+	}
+	for (int u = 1; u < n; u++) {
+		for (int v = 1; v < n; v++) {
+			if (matr[u][v]) {
+				for (int w = 1; w < n; w++) {
+					if (matr[v][w] && w != u) {
+						if (!matr[u][w]) {
+							cout << "NO" << endl;
+							return 0;
+						}
+					}
+				}
+			}
+		}
+	}
+	cout << "YES" << endl;
+	return 0;
+}
+
+
+
+Хорошие решения
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void solve();
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    solve();
+}
+
+int n, m;
+vector < vector < int > > a(100, vector < int >(100));
+
+void solve() {
+    cin >> n >> m;
+    for (int i = 0; i < m; i++) {
+        int f, s;
+        cin >> f >> s;
+        f--, s--;
+        a[f][s] = 1;
+        a[s][f] = 1;
+    }
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            for (int h = 0; h < n; h++) {
+                if (j == h)
+                    continue;
+                if (a[i][j] && a[i][h] && !a[j][h]) {
+                    cout << "NO";
+                    return;
+                }
+            }
+        }
+    }
+    cout << "YES";
+}
+Кодировка: 
+Скачать
+n, m = map(int, input().split())
+matrix = [[0 for _ in range(n)] for _ in range(n)]
+
+for _ in range(m):
+    x, y = map(int, input().split())
+    matrix[x-1][y-1], matrix[y-1][x-1] = 1, 1
+
+for x in range(n):
+    for y in range(n):
+        if not matrix[x][y]:
+            continue
+        for z in range(n):
+            if not matrix[y][z] or z == x:
+                continue
+            if not matrix[z][x]:
+                print('NO')
+                exit(0)
+
+print('YES')
+Кодировка: 
+Скачать
+#include<bits/stdc++.h>
+
+using namespace std;
+int main() {
+    int n, m, cnt = 0, maxs = 1e7, f, s, t;
+    cin >> n >> m;
+    int arr[n], graph[n][n];
+    for (int i = 0; i < n; ++i)
+        for (int j = 0; j < n; ++j)
+            graph[i][j] = 0;
+    for (int i = 0; i < m; ++i) {
+        int x, y;
+        cin >> x >> y;
+        graph[x - 1][y - 1] = 1;
+        graph[y - 1][x - 1] = 1;
+    }
+    for (int i = 0; i < n; ++i)
+        for (int j = 0; j < n; ++j)
+            for (int k = 0; k < n; ++k)
+                if (i != j && i != k && k != j){
+                if (graph[i][j] && graph[j][k] && !graph[k][i]) {
+                    cout << "NO";
+                    return 0;
+                }
+            }
+    cout << "YES";
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <set>
+#include <string>
+#include <algorithm>
+#include <fstream>
+#include <numeric>
+using namespace std; 
+ifstream in("input.txt");
+//ofstream out("output.txt");
+int main(){ 
+	int n,m;
+	in>>n>>m;
+	int a[105][105];
+	int x,y;
+	for (int i=0;i<m;i++){
+		in>>x>>y;
+		a[x-1][y-1] = 1;
+		a[y-1][x-1] = 1;
+	}
+	for (int i=0;i<n;i++){
+		for(int j=0;j<n;j++){
+			for(int k = j+1; k<n;k++){
+				if (a[i][j] && a[i][k]){
+					if(!a[j][k]){
+						cout<<"NO";
+						exit(0);
+					}
+				}
+			}
+		}
+	}
+	cout<<"YES";
+	
+
+}
