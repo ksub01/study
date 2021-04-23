@@ -18,3 +18,177 @@ for i in range(n):
         list1[i][k] = str(list1[i][k])
 for i in list1:
     print(' '.join(i))
+
+
+Найди ошибку: Треугольник Паскаля
+import java.util.*;
+
+public class Test {
+	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
+		int n = in.nextInt(), m = in.nextInt();
+		int[][] a = new int[n + 1][m + 1];
+		a[0][1] = 1;
+		for (int i = 1;i < n + 1;i++) {
+			for (int j = 1;j < m + 1;j++) {
+				a[i][j] = a[i - 1][j - 1];
+				System.out.print(a[i][j] + " ");
+			}
+			System.out.println();
+		}
+	}	
+}
+
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+    int n, m;
+    cin >> n >> m;
+    vector < vector <int> > a(n) ;
+    for (int i=0; i<n; ++i) {
+            a[i].resize(m);
+    }
+    for (int i=0; i<n; ++i){
+        a[i][0]=1;
+    }
+    for (int j=0; j<n; ++j){
+        a[0][j]=1;
+    }
+    for (int i=0; i<n; ++i) {
+        for (int j=0; j<m; ++j) {
+            if (i*j!=0){
+               a[i][j]=a[i-1][j]+a[i][j-1];
+            }
+            cout << a[i][j] << " ";
+            }
+        cout << endl;
+    }
+    return 0;
+}
+
+
+
+
+
+Хорошие решения
+{$mode delphi}
+var a: array [0..100,0..100] of integer;
+    i,j,n,m: integer;
+begin
+read(n,m);
+for i:=0 to n-1 do
+    for j:=0 to m-1 do
+        if (i=0) or (j=0) then
+            a[i,j]:=1
+        else
+            a[i,j]:=a[i-1,j] + a[i,j-1];
+for i:=0 to n-1 do begin
+    for j:=0 to m-1 do
+        write(a[i,j],' ');
+    writeln();
+end;
+end.
+Кодировка: 
+Скачать
+
+//#include "pch.h"
+#include <iostream>
+#include<vector>
+using namespace std;
+
+int main()
+{
+	int a, b;
+	cin >> a >> b;
+	vector<vector<int>> arr(a, vector<int>(b));
+	for (int i = 0; i < a; i++) {
+		for (int j = 0; j < b; j++) {
+			if (i == 0 || j == 0)
+				arr[i][j] = 1;
+			else arr[i][j] = arr[i - 1][j] + arr[i][j - 1];
+		}
+	}
+	for (int i = 0; i < a; i++) {
+		for (int j = 0; j < b; j++) {
+			cout << arr[i][j] << " ";
+		}
+		cout << endl;
+	}
+}
+
+
+
+
+Кодировка: 
+Скачать
+//Даны два числа n и m. Создайте двумерный массив [n][m] и заполните его по следующим правилам: Числа, стоящие в строке 0 или в столбце 0 равны 1 (A[0][j]=1, A[i][0]=1). Для всех остальных элементов массива A[i][j]=A[i-1][j]+A[i][j-1], то есть каждый элемент равен сумме двух элементов, стоящих слева и сверху от него.
+//Входные данные 
+//Программа получает на вход два числа n и m.
+//Выходные данные 
+//Выведите данный массив.
+//Примеры
+//Входные данные
+//3 3
+//Выходные данные
+//     1     1     1
+//     1     2     3
+//     1     3     6
+var
+  a: array [0..100, 0..100] of int64;
+  n, m, i, j: int64;
+
+begin
+  read(n, m);
+  for i := 0 to n - 1 do 
+    a[i, 0] := 1;
+  for j := 0 to m - 1 do 
+    a[0, j] := 1;
+  for i := 1 to n - 1 do  
+    for j := 1 to m - 1 do 
+      a[i, j] := a[i - 1, j] + a[i, j - 1];
+  for i := 0 to n - 1 do 
+  begin
+    for j := 0 to m - 1 do   
+      write(a[i, j], ' ');
+    writeln();
+  end;
+end.
+
+
+
+Кодировка: 
+Скачать
+N, D = map(int, input().split())
+a = []
+for i in range(N):
+    a.append([1] * D)
+for i in range(1, N) :
+    for j in range(1, D) :
+        a[i][j]=a[i-1][j] + a[i][j-1]
+for i in range(len(a)):
+    print(*a[i])
+Кодировка: 
+Скачать
+b, c = map(int, input().split()) 
+a = [] 
+for i in range(b): 
+    a.append([0] * c)
+for q in range(c):
+    a[0][q]=1
+for qq in range(b):
+    a[qq][0] = 1
+for i in range(1,b): 
+    for j in range(1,c):
+        a[i][j] = a[i][j-1] + a[i-1][j]
+for ii in range(len(a)):
+    for jj in range(len(a[ii])):
+        print(a[ii][jj], end=' ')
+    print()
+        
+
+
+    
