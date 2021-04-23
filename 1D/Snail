@@ -13,3 +13,109 @@ while(ans < h):
         print(day)
         break
     ans -= b
+
+
+
+Хорошие решения
+#include <iostream>
+
+using namespace std;
+
+int h, a, b, i;
+
+
+int main()
+{
+	cin >> h >> a >> b;
+	for(i = 0; h >= 0; i++)
+	{
+		h -= a;
+		if(h <= 0) break;
+		h += b;
+	}
+	cout << i+1;
+	
+}
+Кодировка: 
+Скачать
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+  int h, a, b;
+  cin >> h >> a >> b;
+  cout << ((h - b - 1) / (a - b)) + 1 << endl; //ceil([h-a]/[a-b]) + 1
+}
+Кодировка: 
+Скачать
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	int h, a, b, day=0, c=0;
+	cin >> h >> a >> b;
+
+	while (true) {
+		c += a;
+		day++;
+		if (c>=h) {
+			break;
+		}
+		c -= b;
+	}
+	cout << day;
+	return 0;
+}
+Кодировка: 
+Скачать
+h=int(input())
+a=int(input())
+b=int(input())
+h=h-a
+c=h%(a-b)
+if c>0 :
+    print(h//(a-b)+2)
+else:
+    print(h//(a-b)+1)
+Кодировка: 
+Скачать
+h, a, b, day = int(input()), int(input()), int(input()), 1
+h -= a
+a -= b
+while h > 0:
+    h -= a
+    day += 1
+print(day)
+
+
+Найди ошибку: Улитка
+ï»¿var rez, d, f, a, h, b: longint;
+begin
+  read(h, a, b);
+  f:= a - b;
+  rez:= h;
+  d:= 0;
+  while (rez-a > 0) do begin
+      rez:= rez-f;
+      d:= d+1;
+  end;
+  if h-rez > 0 then
+    d:= d+1;
+  write(d)
+end.  
+
+h=int(input())
+a=int(input())
+b=int(input())
+s=0
+d=0
+while s<h:
+    s+=a
+    if s>h:
+        break
+    s-=b
+    d+=1
+print(d)
