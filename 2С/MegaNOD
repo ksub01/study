@@ -1,0 +1,221 @@
+Очень сложно, зачем столько частных случаев?
+Если бы вы считали сумму или например максимум
+из многих чисел, вы бы тоже отдельно рассматривали бы
+случаи n==1, n==2 и n>=3?
+
+def gcd(a, b):
+    while b != 0:
+        a, b = b, a % b
+    return a
+
+n = int(input())
+mas = [int(x) for x in input().rstrip().split()]
+k = -1
+if n >= 3:
+    k = gcd(mas[0], mas[1])
+    for i in range(2, n):
+        k = gcd(k, mas[i])
+    print(k)
+elif n == 1:
+    print(mas[0])
+else:
+    print(gcd(mas[0], mas[1]))
+    
+    
+И еще раз я повторю тот же вопрос:
+если бы вы считали сумму или максимум
+многих чисел, вы бы тоже 
+выделяли бы случай n>=2 особо?
+
+def gcd(a, b):
+    while b != 0:
+        a, b = b, a % b
+    return a
+
+n = int(input())
+mas = [int(x) for x in input().rstrip().split()]
+k = -1
+if n >= 2:
+    k = gcd(mas[0], mas[1])
+    for i in range(2, n):
+        k = gcd(k, mas[i])
+    print(k)
+else:
+    print(mas[0])
+    
+    
+И еще раз я повторю тот же вопрос:
+если бы вы считали сумму или максимум
+многих чисел, вы бы тоже добавляли 
+бы ноль в начало массива?
+Или, говоря по-другому,
+gcd(mas[0], mas[1])
+можно же сразу понять, чему это будет равно
+
+def gcd(a, b):
+    while b != 0:
+        a, b = b, a % b
+    return a
+
+n = int(input())
+mas = [0] + [int(x) for x in input().rstrip().split()]
+k = gcd(mas[0], mas[1])
+for i in range(2, n+1):
+    k = gcd(k, mas[i])
+print(k)
+
+Зачту. но теперь-то [0] + не нужно!
+
+def gcd(a, b):
+    while b != 0:
+        a, b = b, a % b
+    return a
+
+n = int(input())
+mas = [0] + [int(x) for x in input().rstrip().split()]
+k = mas[0]
+for i in range(1, n+1):
+    k = gcd(k, mas[i])
+print(k)
+
+
+Найди ошибку: МегаНОД
+def nod(a, b):
+    while b!=0 :
+        a, b = b, a%b
+    return a    
+N=int(input())
+a=list(map(int, input().split())) 
+c=a[0]
+for i in range(N):
+    c=nod(c, a[i])
+    print(c)
+    
+Хорошие решения
+#include <iostream>
+#include <vector>
+#include <cmath>
+using namespace std;
+int gcd(int a, int b)
+{
+	while (b != 0)
+	{
+		a = a % b;
+		swap(a, b);
+	}
+	return a;
+}
+int main() {
+	int n, a, b;
+	cin >> n;
+	cin >> a;
+	
+	for (int i = 1; i < n; i++)
+	{
+		cin >> b;
+		a = gcd(a, b);
+	}
+
+	cout << a;
+	cin >> n;
+	return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int gcd(int a, int b){
+    if (b == 0) return a;
+    else return gcd(b, a % b);
+}
+
+int main() {
+    int n, a, b;
+    cin >> n >> a;
+    for (int i = 0; i < n - 1; i++){
+        cin >> b;
+        int temp = b;
+        b = a;
+        a = gcd(a, temp);
+    }
+    cout << a;
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+using namespace std;
+int n;
+int gcd(int a, int b)
+{
+    while (b!=0)
+    {
+        int temp=a%b;
+        a=b;
+        b=temp;
+    }
+    return a;
+}
+int main()
+{
+    cin >> n;
+    int values[n];
+    for (int i=0;i<n;i++)
+    {
+        cin>>values[i];
+    }
+    int current=values[0];
+    for (int j=1;j<n;j++)
+    {
+        current=gcd(current,values[j]);
+    }
+    cout << current << '\n';
+    return 0;
+}    
+Кодировка: 
+Скачать
+def gcd(a,b):
+    while b!=0:
+        a,b = b,a%b
+    return a
+n = int(input())
+a = [int(i) for i in input().split()]
+x = a[0]
+for i in range(1,n):
+    x = gcd(x,a[i])
+print(x)
+
+Кодировка: 
+Скачать
+#include <iostream>
+#include<vector>
+#include<string>
+#include<algorithm>
+#include<cmath>
+//lvl_2v_7_4
+using namespace std;
+
+int64_t nod(int64_t a, int64_t b)
+{
+	if (b == 0)
+		return a;
+	else
+		nod(b, a % b);
+}
+
+int main()
+{
+	int n;
+	cin >> n;
+	vector<int64_t> nums(n);
+	for (int i = 0; i < n; i++)
+		cin >> nums[i];
+	int64_t ans = 0;
+	for (int i = 0; i < n; i++)
+		ans = nod(ans, nums[i]);
+	cout << ans;
+	return 0;
+}
