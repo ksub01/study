@@ -10,3 +10,86 @@ for i in range(len(s)):
         st2 = st2 + s[i]
 st2 = st2[::-1]
 print(st1 + st2)
+
+
+
+Хорошие решения
+s = input()
+l = len(s)-1
+f = l - l%2 - 1
+r = s[0:l:2] + s[f:0:-2]
+print(r)
+Кодировка: 
+Скачать
+a=input()
+a=a[:-1]
+ln=len(a)
+c=""
+b=""
+for i in range(ln):
+    if i%2==1 :
+        b=a[i]+b
+    else:
+        c=c+a[i]
+b=c+b
+print(b)
+Кодировка: 
+Скачать
+var str,res:string;
+i:integer;
+begin
+read(str);
+for i:=1 to length(str)-1 do
+  if i mod 2 = 1 then
+    res:=res+str[i];
+for i:=length(str)-1 downto 1 do
+  if i mod 2 = 0 then
+    res:=res+str[i];
+writeln(res);
+end.
+Кодировка: 
+Скачать
+#include <iostream>
+#include <string> 
+#include <cmath> 
+
+using namespace std;
+
+int main(){
+	string s, s1;
+	int i;
+	cin >> s;
+	s.resize(s.size() - 1);
+	for (i = 0; i < s.size(); i += 2){
+		s1 += s[i];
+	}
+	if (s.size() % 2 == 1){
+		i = s.size() - 2;
+	}
+	else{
+		i = s.size() - 1;
+	}
+	for (i; i > 0; i -= 2){
+		s1 += s[i];
+	}
+	cout << s1;
+}
+Кодировка: 
+Скачать
+{$mode delphi}
+var a:string;  b,i,j:longint;
+begin
+read(a);
+b:=length(a)-1;
+i:=1;
+while i<=b do begin
+  write(a[i]);
+  i:=i+2;
+end;
+i:=i-1;
+while i>=2 do begin
+  if a[i]<>'#' then
+    write(a[i]);
+  i:=i-2;
+end;
+end.
