@@ -1,0 +1,14 @@
+n = int(input())
+s = ''
+cou = 1
+tr = 0
+for i in range(n):
+    if tr < cou:
+        s = s + str(cou) + ' '
+        tr += 1
+    else:
+        cou += 1
+        tr = 0
+        tr += 1
+        s = s + str(cou) + ' '
+print(s[:-1])
