@@ -1,0 +1,15 @@
+if y != 0:
+По условию числа тут положительные
+
+s = input().split(' ')
+x = float(s[0])
+y = float(s[1])
+eps = 1e-3
+cou = 1
+if y != 0:
+    while y - x > eps:
+        cou += 1
+        x += x*0.7
+    print(cou)
+else:
+    print(0)
