@@ -1,0 +1,5 @@
+k = input()
+if '0' <= k <= '9':
+    print('yes')
+else:
+    print('no')
