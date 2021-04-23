@@ -1,0 +1,59 @@
+Да, но я бы делал while,
+см. "хорошие решения"
+
+a1 = int(input())
+b1 = 2
+for i in range(a1):
+    if a1 % b1 == 0:
+        print(b1)
+        break
+    b1 += 1
+    
+Хорошие решения
+program z;
+  var n,i: integer;
+
+begin
+  read(n);
+  i:=2;
+  while(n mod i <> 0) do
+    i+=1;
+  write(i);
+end.
+Кодировка: 
+Скачать
+var
+  n,i : longint;
+begin
+  readln(n);
+  i:=2;
+  while (n mod i<>0) do
+  i:=i+1;
+  writeln(i);
+end.
+
+Кодировка: 
+Скачать
+number = int(input())
+delit = 2
+while number % delit != 0:
+    delit += 1
+print(delit)
+Кодировка: 
+Скачать
+a = int(input())
+i=2
+while a%i!=0:
+    i=i+1
+print(i)
+Кодировка: 
+Скачать
+var a,b:integer;
+begin
+read(b);
+a:=2;
+while b mod a<>0 do begin
+a:=a+1;
+end;
+writeln(a);
+end.
