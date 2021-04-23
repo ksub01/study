@@ -1,2 +1,63 @@
 k = input().split(' ')
 print(len(k))
+
+
+Хорошие решения
+#include <iostream>
+#include <cstring>
+#include <cstdio>
+using namespace std;
+
+
+
+
+int main()
+{
+	string a;
+	int k = 1;
+    getline(cin, a);
+	for (int i = 0; i < a.length(); i++)
+	{
+		if (a[i] == ' ')
+		{
+			k++;
+		}
+	}
+	cout << k;
+	return 0;
+}
+Кодировка: 
+Скачать
+{$mode delphi}
+var
+k,i:integer;
+s:string;
+begin
+k:=1;
+readln(s);
+for i:=1 to length(s) do
+  if s[i]=' ' then
+    k:=k+1;
+write(k);
+end.
+Кодировка: 
+Скачать
+{$mode delphi}
+var s:string;
+    i,k:integer;
+begin
+readln(s);
+k:=1;
+for i:=1 to length(s) do
+ if s[i]=' ' then 
+  k:=k+1;
+writeln(k);
+end.
+Кодировка: 
+Скачать
+a = input()
+b = 0
+for i in range(len(a)):
+    if a[i] == ' ':
+        b += 1
+print(b + 1)
