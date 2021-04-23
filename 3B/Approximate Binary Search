@@ -1,0 +1,411 @@
+Вы иногда выводите 10000000000,
+это тестирующая считает нарушением
+формата выходных данных
+
+m, n = map(int, input().rstrip().split())
+mas1 = [10**10] + [int(x) for x in input().rstrip().split()] + [10**10]
+mas2 = [int(x) for x in input().rstrip().split()]
+for i in mas2:
+    left = -1
+    right = len(mas1)
+    while right - left > 1:
+        middle = (left + right)//2
+        if i < mas1[middle]:
+            right = middle
+        else:
+            left = middle
+    ans1 = i - mas1[left]
+    ans2 = mas1[right] - i
+    if ans1 <= ans2:
+        print(mas1[left])
+    else:
+        print(mas1[right])
+        
+ Подсказка: не надо обращаться к лишним элементам вообще.
+Проверяйте значения полученных left и right
+m, n = map(int, input().rstrip().split())
+mas1 = [10**10] + [int(x) for x in input().rstrip().split()] + [10**10]
+mas2 = [int(x) for x in input().rstrip().split()]
+for i in mas2:
+    left = 0
+    right = len(mas1)-1
+    while right - left > 1:
+        middle = (left + right)//2
+        if i < mas1[middle]:
+            right = middle
+        else:
+            left = middle
+    ans1 = i - mas1[left]
+    ans2 = mas1[right] - i
+    if ans1 <= ans2:
+        print(mas1[left])
+    else:
+        print(mas1[right])
+        
+ Я бы все-таки не приписывал бы 10**10.
+См. "хорошие решения".
+m, n = map(int, input().rstrip().split())
+mas1 = [10**10] + [int(x) for x in input().rstrip().split()] + [10**10]
+mas2 = [int(x) for x in input().rstrip().split()]
+for i in mas2:
+    left = 0
+    right = len(mas1)-1
+    while right - left > 1:
+        middle = (left + right)//2
+        if i < mas1[middle]:
+            right = middle
+        else:
+            left = middle
+    dis_left = abs(i - mas1[left])
+    dis_right = abs(mas1[right] - i)
+    if dis_left <= dis_right:
+        print(mas1[left])
+    else:
+        print(mas1[right])
+        
+        
+  Найди ошибку: Приближенный двоичный поиск
+#include <iostream>
+#include <cmath>
+#include <vector>
+
+using namespace std;
+int razm = 0;
+vector<int> a;
+int bin(int f, int n) {
+	int min = 0, max = n - 1;
+	for (int i = 0; i < razm; i++) {
+		int mid = (max + min) / 2;
+		if (a[mid] > f)
+			max = mid;
+		else
+			min = mid;
+	}
+	if (abs(a[max] - f) < abs(a[min] - f)) {
+		return  max;
+	}
+	else {
+		return  min;
+	}
+}
+int main() {
+	int k, n, f, s;
+	cin >> n >> k;
+	for (int i = 0; i < n; i++) {
+		cin >> f;
+		a.push_back(f);
+	}
+	s = a.size() + 1;
+	while (s / 2 > 0) {
+		s /= 2;
+		razm++;
+	}
+	for (int i = 0; i < k; ++i) {
+		cin >> f;
+		cout << a[bin(f, n)] << "\n";
+	}
+	return 0;
+}
+
+#include <algorithm>
+#include <cctype>
+#include <cmath>
+#include <deque>
+#include <fstream>
+#include <iostream>
+#include <iterator>
+#include <map>
+#include <queue>
+#include <set>
+#include <stack>
+#include <string>
+#include <vector>
+
+#define uint unsigned int
+#define ll long long
+#define ull unsigned long long
+
+using namespace std;
+
+int main() {
+	int n, k, a, left, right, mid;
+	bool ok;
+	cin >> n >> k;
+	vector<int> nums(n);
+	for (int i = 0; i < n; i++) {
+		cin >> nums[i];
+	}
+	for (int i = 0; i < k; i++) {
+		cin >> a;
+		ok = false;
+		left = 0;
+		right = n - 1;
+		while (right > left) {
+			mid = (left + right) / 2;
+			if (nums[mid] < a) {
+				left = mid;
+			}
+			else {
+				right = mid;
+			}
+		}
+		if (abs(a - nums[left]) <= abs(a - nums[right])) {
+			cout << nums[left] << endl;
+		}
+		else {
+			cout << nums[right] << endl;
+		}
+	}
+	return 0;
+}
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define F first
+#define S second
+#define pb push_back
+
+typedef long long ll;
+typedef long double ld;
+typedef pair<ll, ll> pll;
+
+bool cmp (pll p1, pll p2) {
+  return (p1.F<p2.F || p1.F==p2.F && p1.S<p2.S);
+}
+
+ll pr(ll a, ll b) {
+    a=(a%b+b)%b;
+    return a;
+}
+
+ll del(ll a, ll b) {
+    int ans=0;
+    ans=a/b;
+    if (((a<=0 && b>0) || (a>0 && b<=0)) && pr(a, b)!=0){
+        ans--;
+        //cout << "%" << pr(a, b) << endl;
+    }
+    return ans;
+}
+
+ll gcd(ll a, ll b) {
+    if (b==0) {
+        return a;
+    }
+    return gcd(b, pr(a, b));
+}
+
+ll st(ll a, ll n, ll p) {
+    if (n==0) {
+        return 1;
+    } else
+    if (n%2==1) {
+        return pr(st(a, (n-1), p)*a, p);
+    } else {
+        int aa=st(a, n/2, p);
+        return pr(aa*aa, p);
+    }
+}
+
+string itos(ll n) {
+    stringstream ans;
+    ans << n;
+    return ans.str();
+}
+
+ll n, k, i, j, m, l, r, x, y;
+vector<ll> a;
+pll pl;
+
+pll bin_poiskr(ll xx) {
+    ll l=0, r=n;
+    while (r-l>1) {
+        ll mm=(l+r)/2;
+        if (a[mm]>=xx) {
+            r=mm;
+        } else {
+            l=mm;
+        }
+        //cout << l << " " << r << endl;
+    }
+    //cout << l << " " << r << endl;
+    pll pl;
+    pl.F=l;
+    pl.S=r;
+    return pl;
+}
+int main()
+{
+    ll l=0;
+    cin >> n >> k;
+    ll r=n;
+    a.resize(n);
+    for (ll i =0; i<n; ++i) {
+        cin >> a[i];
+    }
+    for (ll i=0; i<k; ++i) {
+        cin >> m;
+        pl=bin_poiskr(m);
+        x=pl.F;
+        y=pl.S;
+        if (y<n && abs(a[x]-m)<=abs(a[y]-m)) {
+            cout << a[x] << endl;
+        } else {
+            cout << a[y] << endl;
+        }
+    }
+    return 0;
+}
+
+
+Хорошие решения
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+    int n, k, l, r, d;
+    cin >> n >> k;
+    vector<int> a(n), b(k);
+    for (int i = 0; i < n; i++)
+        cin >> a[i];
+    for (int i = 0; i < k; i++)
+        cin >> b[i];
+    for (int i = 0; i < k; i++) {
+        l = 0;
+        r = n - 1;
+        while (r - l > 1) {
+            d = (l + r) / 2;
+            if (a[d] > b[i])
+                r = d;
+            else
+                l = d;
+        }
+        if (b[i] - a[l] > a[r] - b[i])
+            cout << a[r] << endl;
+        else
+            cout << a[l] << endl;
+    }
+    return 0;
+}
+Кодировка: 
+Скачать
+# coding: utf-8
+
+"""
+FIXME
+"""
+
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import unicode_literals
+
+
+def search(lst, left, right, pattern):
+    while left < right - 1:
+        middle = (left + right) // 2
+        if lst[middle] < pattern:
+            left = middle
+        else:
+            right = middle
+
+    if abs(lst[right] - pattern) < abs(lst[left] - pattern):
+        return lst[right]
+    else:
+        return lst[left]
+
+
+N1, N2 = map(int, input().split())
+a1 = list(map(int, input().split()))
+
+for element in map(int, input().split()):
+    print(search(a1, 0, N1 - 1, element))
+Кодировка: 
+Скачать
+n,k=map(int,input().split())
+first=[int(i) for i in input().split()]
+second=[int(i) for i in input().split()]
+res=[]
+for i in second:
+    l=0
+    r=n-1#вот так вроде.
+    while r-l>1:
+        m=(r+l)//2
+        if first[m]>i:
+            r=m
+        else:
+            l=m
+    if abs(first[l]-i)<=abs(first[r]-i):
+        res.append(first[l])
+    else:
+        res.append(first[r])
+for i in res:
+    print(i)
+Кодировка: 
+Скачать
+var
+a:array[1..100000] of integer;
+b:array[1..100000] of integer; 
+i,n,q,k,r,m,l:integer;
+begin 
+read(n,k);
+for i:=1 to n do 
+    read(a[i]);
+for i:=1 to k do 
+    read(b[i]);
+for i:=1 to k do begin
+  l:=1;
+  r:=n;
+  while r-l>1 do begin
+     m:=(r+l) div 2;
+     if b[i]>=a[m] then 
+        l:=m
+    else r:=m;
+  end;
+if (l>0)and(b[i]-a[l]>a[r]-b[i]) then writeln(a[r]) else writeln(a[l]);
+
+end;
+end.
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <string>
+#include <cmath>
+#include <algorithm>
+#include <cstdlib>
+#include <deque>
+using namespace std;
+
+int main() {
+	int n, k;
+	cin >> n >> k;
+	vector<int> my(n);
+	for (int i = 0; i < n; i++) cin >> my[i];
+
+	for (int i = 0; i < k; i++) {
+		int buf, left = 0, right = n - 1, mid;
+		cin >> buf;
+
+		while (right - left > 1) {
+			mid = (left + right) / 2;
+			if (my[mid] <= buf) {
+				left = mid;
+			}
+			else right = mid;
+		}
+
+		if (my[right] - buf < buf - my[left]) {
+			cout << my[right] << '\n';
+		}
+		else {
+			cout << my[left] << '\n';
+		}
+	}
+
+	//system("pause");
+	return 0;
+}
