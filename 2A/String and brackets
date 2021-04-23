@@ -6,3 +6,122 @@ def AB(st):
     else:
         return st[0] + '(' + AB(st[1:-1]) + ')' + st[-1]
 print(AB(input()))
+
+
+
+Хорошие решения
+def string(stroka):
+    if len(stroka) <= 2:
+        return stroka
+    else:
+        return stroka[0] + '(' + string(stroka[1:-1]) + ')' + stroka[-1]
+
+print(string(input()))
+Кодировка: 
+Скачать
+def f(s):
+    if len(s)<=2: 
+        return s
+    return s[0]+'('+f(s[1:-1])+')'+s[-1] 
+s=input()
+print(f(s))
+Кодировка: 
+Скачать
+#include <iostream>
+#include <string>
+using namespace std;
+const char ln = '\n';
+
+void print(string& s, int cut = 0) {
+    if (s.size() - cut - cut == 1)
+        cout << s[cut];
+    else if (s.size() - cut - cut == 2)
+        cout << s[cut] << s[cut+1];
+    else {
+        cout << s[cut] << '(';
+        print(s, cut+1);
+        cout << ')' << s[s.size()-cut-1];
+    }
+}
+
+int main() {
+    string s;
+    cin >> s;
+    print(s);
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <fstream>
+#include <algorithm>
+#include <functional>
+#include <array>
+#include <chrono>
+#include <random>
+#include <vector>
+#include <string>
+#include <cmath>
+#include <bitset>
+#include <list>
+#include <stack>
+#include <queue>
+#include <set>
+#include <map>
+#include <cassert>
+
+using namespace std;
+
+using ll = long long;
+using ull = unsigned long long;
+using ld = long double;
+
+void out(string& s, int l, int r) {
+    if (r == l)
+        cout << s[l];
+    else if (r - l == 1)
+        cout << s[l] << s[r];
+    else {
+        cout << s[l] << '(';
+        out(s, l + 1, r - 1);
+        cout << ')' << s[r];
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(nullptr); cout.tie(nullptr);
+
+    string s;
+    cin >> s;
+    
+    out(s, 0, s.size() - 1);
+    cout << '\n';
+    
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+string transform(string source) {
+  if (source.size() <= 2) {
+    return source;
+  } else {
+    string result;
+    result += source[0];
+    result += "(" + transform(source.substr(1, source.size()-2)) + ")";
+    result += source[source.size()-1];
+    return result;
+  }
+}
+
+int main() {
+  string s;
+  getline(cin, s);
+
+  cout << transform(s) << endl;
+}
