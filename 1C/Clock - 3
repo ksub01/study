@@ -23,3 +23,43 @@ x2 = k // (360 / 12 /60)
 k = k % (360 / 12 /60)
 x3 = k // (360 / 12/ 60/ 60)
 print(int(x1), int(x2), int(x3))
+
+
+Найди ошибку: Часы - 3
+x = float(input())
+a = 360 / 12
+b = a / 60
+c = b / 60
+a1 = x // a
+b1 = (x - a1 * a) // b
+c1 = (x - a1 * a - b1 * b) // c
+print(a1)
+print(b1)
+print(c1)
+
+
+Хорошие решения
+ah = float(input())
+aS = 360 / 12 / 60 / 60
+S = ah / aS
+h = int(S // 60 // 60)
+m = int((S // 60) % 60)
+s = int(S % 60)
+print (h, m, s)
+Кодировка: 
+Скачать
+{$mode delphi}
+var h1, h, m, m2, s, s2:double;
+begin
+read(h1);
+h:=12*h1/360;
+m2:=h-int(h);
+h:=int(h);
+m:=m2*60;
+s2:=m-int(m);
+m:=int(m);
+s:=int(s2*60);
+writeln(h);
+writeln(m);
+write(s);
+end.
