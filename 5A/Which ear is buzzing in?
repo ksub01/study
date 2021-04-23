@@ -1,0 +1,115 @@
+x1, y1, x2, y2, x3, y3 = map(int, input().rstrip().split())
+ABx = x2 - x1
+ABy = y2 - y1
+ACx = x3 - x1
+ACy = y3 - y1
+v = ABx*ACy - ACx*ABy
+if v > 0:
+    print('LEFT')
+elif v == 0:
+    print('BOTH')
+else:
+    print('RIGHT')
+    
+    
+Найди ошибку: В каком ухе жужжит?
+#include <iostream>
+#include <fstream>
+#include <algorithm>
+#include <vector>
+#include <map>
+#include <list>
+#include <string>
+#include <queue>
+#include <cmath>
+
+using namespace std;
+
+using ll = long long;
+using ld = long double;
+
+struct vec {
+    ll x, y;
+    vec() : x(0), y(0) {}
+    vec(ll x, ll y) : x(x), y(y) {}
+};
+
+vec operator +(vec a, const vec& b) {
+    return vec(a.x + b.x, a.y + b.y);
+}
+
+vec operator -(vec a, const vec& b) {
+    return vec(a.x - b.x, a.y - b.y);
+}
+
+ll operator *(vec a, const vec& b) {
+    return a.x * b.x + a.y * b.y;
+}
+
+ll operator ^(vec a, vec b) {
+    return a.x * b.y - b.x * a.y;
+}
+
+istream& operator >>(istream& in, vec& a) {
+    in >> a.x >> a.y;
+    return in;
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(nullptr); cout.tie(nullptr);
+    
+    vec a, b, c;
+    cin >> a >> b >> c;
+    
+    ll cross = (b - a) ^ c;
+    cout << (cross == 0 ? "BOTH" : (cross > 0 ? "LEFT" : "RIGHT")) << '\n';
+    
+    return 0;
+}
+
+
+Хорошие решения
+//package algoprog.level5.a.a_easy_geometry;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class SideOfTheNoise {
+
+    public static void main(String[] args) throws IOException {
+        final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        final StringTokenizer st = new StringTokenizer(br.readLine());
+
+        int[] a = new int[]{Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())};
+        int[] b = new int[]{Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())};
+        int[] c = new int[]{Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())};
+
+        long[] v1 = vectorByPoints(a, b);
+        long[] v2 = vectorByPoints(a, c);
+
+        long crossProduct = crossProduct(v1, v2);
+
+        if (crossProduct == 0) {
+            System.out.println("BOTH");
+        } else if (crossProduct < 0) {
+            System.out.println("RIGHT");
+        } else {
+            System.out.println("LEFT");
+        }
+    }
+
+    private static long[] vectorByPoints(int[] from, int[] to) {
+        return new long[]{(long) to[0] - from[0], (long) to[1] - from[1]};
+    }
+
+    private static long crossProduct(long[] a, long[] b) {
+        return a[0] * b[1] - a[1] * b[0];
+    }
+
+    private static long dotProduct(int[] a, int[] b) {
+        return a[0] * b[0] + a[1] * b[1];
+    }
+}
