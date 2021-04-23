@@ -1,0 +1,26 @@
+Как-то нереально сложно,
+см. "хорошие решения"
+
+n = int(input())
+list1 = list(map(int, input()[:-1].split(' ')))
+k = int(input())
+list1.append(k)
+list1.sort()
+list1.reverse()
+list2 = []
+for i in range(len(list1)):
+    if list1[i] == k:
+        list2.append(i+1)
+print(list2[-1])
+
+
+#good
+n = int(input())
+a = list(map(int, input().split()))
+x = int(input())
+a.append(0)
+for i in range(len(a)):
+    if a[i] < x:
+        r = i+1
+        break
+print(r)
