@@ -1,0 +1,122 @@
+    if num == 9:
+        nine.append(list_pupil[1])
+    elif num == 10:
+        ten.append(list_pupil[1])
+    else:
+        eleven.append(list_pupil[1])
+я бы сделал все-таки массив длины 3,
+ну или даже длины 11.
+
+
+f1 = open('input.txt', 'r', encoding='cp866')
+f2 = open('output.txt', 'w', encoding='cp866')
+nine = []
+ten = []
+eleven = []
+mas = f1.readlines()
+for i in range(len(mas)):
+    list_pupil = mas[i].rstrip().split()
+    num = int(list_pupil[0])
+    if num == 9:
+        nine.append(list_pupil[1])
+    elif num == 10:
+        ten.append(list_pupil[1])
+    else:
+        eleven.append(list_pupil[1])
+for i in nine:
+    f2.write('9 ' + i + '\n')
+for i in ten:
+    f2.write('10 ' + i + '\n')
+for i in eleven:
+    f2.write('11 ' + i + '\n')
+    
+    
+Хорошие решения
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void solve();
+
+int main()
+{
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    solve();
+    return 0;
+}
+
+#define int long long
+
+int max(int a, int b) {
+    if (a > b)
+        return a;
+    return b;
+}
+
+int f(string s) {
+    int ret = 0;
+    for (int i = 0; i < s.size(); i++) {
+        ret += (s[i] - '0') * max(1, (s.size() - i - 1) * 10);
+    }
+    return ret;
+}
+
+vector < vector < string > > a(3);
+string s;
+
+void solve() {
+    while (cin >> s) {
+        string pr;
+        cin >> pr;
+        a[f(s) - 9].push_back(pr);
+    }
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < a[i].size(); j++) {
+            cout << i + 9 << " " << a[i][j] << '\n';
+        }
+    }
+}
+Кодировка: 
+Скачать
+#include <fstream>
+#include <vector>
+#include <iostream>
+using namespace std;
+const int MAX=1000000;
+struct pupil
+{
+    int form;
+    char name[50];
+};
+vector<pupil> list(MAX);
+vector<vector<pupil>> temp(3);
+int main()
+{
+    int n=0;
+    while (cin >> list[n].form >> list[n].name)
+    {
+        n++;
+    }
+    cout << endl;
+    for (int i=0; i<n; i++)
+    {
+        temp[(list[i].form)-9].push_back(list[i]);
+    }
+    int j=0;
+    for (int k=0; k<(int)temp.size(); k++)
+    {
+        for (int m=0; m<(int)temp[k].size(); m++)
+        {
+            list[j]=temp[k][m];
+            j++;
+        }
+    }
+    for (int i=0; i<n; i++)
+    {
+        cout << list[i].form << ' ' << list[i].name << endl;
+    }
+    return 0;
+}
