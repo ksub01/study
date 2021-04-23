@@ -8,3 +8,112 @@ for i in s:
 for i in m:
     if m[i] == 2:
         print(i)
+
+
+Хорошие решения
+#include <iostream>
+#include <cstdlib>
+#include <cstdio>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+#include <set>
+#include <queue>
+#include <iomanip>
+
+using namespace std;
+
+int m[26];
+int main()
+{
+    string s;
+    cin >> s;
+
+    for(int i = 0; i < s.length(); i++)
+    {
+        m[abs('a' - char(s[i]))]++;
+
+
+    }
+
+
+    for(int i = 0; i < 26; i++)
+        if(m[i] == 2)
+            cout << char('a' + i) << endl;
+    return 0;
+}
+
+Кодировка: 
+Скачать
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int used[30];
+int main() {
+    string s;
+    cin >> s;
+    char ans;
+    for(int i = 0; i < s.length(); i++){
+        used[s[i] - '0']++;
+        if (used[s[i] - '0'] == 2) {
+            ans = s[i];
+            break;
+        }
+    }
+
+    cout << ans << endl;
+}
+Кодировка: 
+Скачать
+var
+  a : array ['a'..'z'] of longint;
+  s : string;
+  j : longint;
+  i : char;
+begin
+  read(s);
+  for j:=1 to length(s) do 
+    a[s[j]]:=a[s[j]]+1;
+  for i:='a' to 'z' do
+    if a[i]=2 then
+      write(i);
+end.
+Кодировка: 
+Скачать
+#include <iostream>
+#include <math.h>       /* ceil */
+#include <string>
+#include <algorithm>
+#include <set>
+
+int main() {
+	std::string s;
+	std::cin >> s;
+	char c[256] = { };
+	char d;
+	for (size_t i = 0; i < s.size(); i++) {
+		if (c[s[i]] == 1) {
+			d = s[i];
+			break;
+		}
+		c[s[i]]++;
+	}
+	std::cout << d << std::endl;
+	return 0;
+}
+Кодировка: 
+Скачать
+# coding: utf-8
+
+s = input()
+
+d = [0] * 256
+
+for sym in s:
+    if d[ord(sym)] > 0:
+        print(sym)
+        break
+    else:
+        d[ord(sym)] += 1
