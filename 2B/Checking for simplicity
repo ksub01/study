@@ -1,0 +1,146 @@
+n = int(input())
+for i in range(2, int(n**0.5) + 1):
+    if n % i == 0:
+        print('composite')
+        break
+else:
+    print('prime')
+    
+
+Найди ошибку: Проверка на простоту
+#include <iostream>
+#include <cmath>
+using namespace std;
+int n = 0;
+int main()
+{   cin >> n;
+    for (int i = 2; i < sqrt(n) + 1; ++i){
+        if (n % i == 0){
+            cout << "composite";
+            return 0;
+        }
+    }
+    cout << "prime" << endl;
+    return 0;
+}
+
+
+a = int(input())
+k = 0
+for i in range(2, round(a**0.5)):
+    if a%i==0: print('composite'); k=1; break
+if k==0: print('prime')
+
+
+
+Хорошие решения
+#include <bits/stdc++.h>
+
+#define int long long
+#define vi vector<int>
+
+using namespace std;
+
+int is_prime(int n) {
+    for(int i = 2; i*i <= n; i++) {
+        if(n % i == 0) return 0;
+    }
+    return 1;
+}
+
+
+
+int32_t main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+
+    int x;
+    cin >> x;
+    if(is_prime(x)) cout << "prime";
+    else cout << "composite";
+
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+bool isPrime(int n) {
+	for (int x = 2; x <= n / x; x++) {
+		if (n % x == 0) {
+			return false;
+		}
+	}
+	return true;
+}
+
+int main() {
+	int n;
+	cin >> n;
+	if (isPrime(n)) {
+		cout << "prime";
+	}
+	else {
+		cout << "composite";
+	}
+	return 0;
+}
+Кодировка: 
+Скачать
+from math import *
+
+a = int(input())
+result = "prime" 
+maxDivisor = round(sqrt(a))
+i = 2
+while (i ** 2 <= a):
+    if (a % i == 0):
+        result = "composite"
+        break
+    i += 1
+print(result)
+Кодировка: 
+Скачать
+{$mode delphi}  
+var i,a,n: Integer;
+
+begin
+read(n);
+a:=0;
+for i:=2 to trunc(sqrt(n)) do 
+  if n mod i=0 then begin
+    a:=1;
+    break;
+  end;
+if a=1 then writeln('composite')
+else writeln('prime');
+end.
+Кодировка: 
+Скачать
+#include <iostream>
+#include <deque>
+#include <queue>
+#include <stack>
+
+using namespace std;
+
+const int MIN = -1000000000;
+
+int main()
+{
+    int n;
+    cin >> n;
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0) {
+            cout << "composite";
+            return 0;
+        }
+    }
+    cout << "prime";
+    return 0;
+
+}
