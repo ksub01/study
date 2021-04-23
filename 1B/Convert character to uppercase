@@ -3,3 +3,88 @@ if 'a' <= k <= 'z':
     print(chr(ord(k)-(ord('a')-ord('A'))))
 else:
     print(k)
+
+
+Найди ошибку: Перевести символ в верхний регистр
+a = input()
+if a >= 'a' and a <= 'z':
+    print(chr(ord(a) - ord('a')-ord('A')))
+else:
+    print(a)
+    
+    
+    
+    
+Хорошие решения
+#include <iostream>
+#include <string>
+#include <math.h>
+
+using namespace std;
+
+int main()
+{
+	char in;
+	cin >> in;
+	if ('a' <= in && in <= 'z') {
+		in += 'A' - 'a';
+	}
+	cout << in;
+}
+Кодировка: 
+Скачать
+def to_upper(a):
+    if a >= 'a' and a <= 'z':
+        a = chr(ord('A') + ord(a) - ord('a'))
+    return a
+
+a = input()
+print(to_upper(a))
+Кодировка: 
+Скачать
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+using namespace std;
+
+
+unsigned char ToUpper(unsigned char c){
+    int raz = 'a'-'A';
+    if (c <= 'z' && c >= 'a') {
+        c-=raz;
+    }
+    return (c);
+}
+
+
+int main() {
+    unsigned char a,b;
+
+    cin >> a;
+
+
+    b=ToUpper(a);
+
+    cout << b << endl;
+
+    return 0;
+}
+Кодировка: 
+Скачать
+{$mode delphi}
+var ch:char;
+    i:integer;
+begin
+read(ch);
+i:=ord(ch);
+if (ch >= 'a') and (ch <= 'z') then
+ i:=ord(ch)-ord('a')+ord('A');
+writeln(chr(i));
+end.
+Кодировка: 
+Скачать
+ch = input()
+if ch>="a" and ch<="z":
+     print(chr(ord(ch)-ord('a')+ord('A')))
+else: 
+    print(ch)
