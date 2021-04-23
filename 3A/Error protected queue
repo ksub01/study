@@ -1,0 +1,401 @@
+from typing import Sized
+
+
+file1 = open('input.txt')
+file2 = open('output.txt', 'w')
+
+mas = []
+for i in file1.readlines():
+    mas.append(i.rstrip())
+
+start = 0
+finish = 0
+queue = [0]*200
+number = -100000
+for i in mas:
+    command = i.split()[0]
+    if len(i.split()) == 2:
+        number = i.split()[1]
+    start = start % 200
+    finish = finish % 200
+    if finish < start:
+        size = finish + 200 - start
+    else:
+        size = finish - start
+    if command == 'push':
+        queue[finish] = number
+        finish += 1
+        file2.write('ok\n')
+    elif command == 'pop':
+        if size:
+            file2.write(str(queue[start]) + '\n')
+            start += 1
+        else:
+            file2.write('error' + '\n')
+    elif command == 'front':
+        if size:
+            file2.write(str(queue[start]) + '\n')
+        else:
+            file2.write('error' + '\n')
+    elif command == 'size':
+        file2.write(str(size) + '\n')
+    elif command == 'clear':
+        start = 0
+        finish = 0
+        file2.write('ok\n')
+    elif command == 'exit':
+        file2.write('bye\n')
+        break
+        
+        
+Найди ошибку: Очередь с защитой от ошибок
+data=open("input.txt", "r").readlines()
+b=[0]*1000
+p1=0
+p2=0
+for i in range(len(data)):
+    a=data[i].strip()
+    if a=="exit":
+        print("bye")
+        break
+    
+    if a=='pop':
+        if p2-p1==0:
+            print("error")
+        else:
+            print(b[p1])
+            p1+=1
+    if a=='size':
+        print(p2-p1)
+    if a=='clear':
+        p1=0
+        p2=0
+        print('ok')
+    if a=='front':
+        if p2-p1==0:
+            print("error")
+        else:
+            print(b[p1])
+    if a[0]=="p" and a[1]=="u":
+        print('ok')
+        c=int(a[4:])
+        b[p2]=c    
+        p2+=1
+   #include <iostream>
+#include <string>
+
+using namespace std;
+
+int main() {
+	int queue[1000];
+	int begin = 0, size = 0;
+	string com = "";
+	while (com != "exit") {
+		cin >> com;
+		if (com == "push") {
+			int num;
+			cin >> num;
+			queue[begin + size] = num;
+			size++;
+			cout << "ok" << "\n";
+		}
+		else if (com == "pop") {
+			if (size > 0) {
+				cout << queue[begin] << "\n";
+				begin++;
+				size--;
+			}
+			else cout << "error" << "\n";
+		}
+		else if (com == "front") {
+			if (size > 0) {
+				cout << queue[begin] << "\n";
+			}
+			else cout << "error" << "\n";
+		}
+		else if (com == "size") {
+			cout << size << "\n";
+		}
+		else if (com == "clear") {
+			begin = 0;
+			size = 0;
+			cout << "ok\n";
+		}
+	}
+	cout << "bye";
+	return 0;
+}
+
+
+Хорошие решения
+a = [0] * 1000000
+b = []
+c = ""
+d = ""
+e = 0
+f = 0
+while c != "exit":
+    c = input()
+    b.append(c)
+for i in range(len(b)):
+    d = b[i]
+    if d[:4] == "push":
+        a[e + f] = d[5:]
+        e = e + 1
+        print("ok")
+    if d == "pop":
+        if e == 0:
+            print("error")
+        else:
+            print(a[f])
+            a[f] = 0
+            f = f + 1
+            e = e - 1
+    if d == "front":
+        if e == 0:
+            print("error")
+        else:
+            print(a[f])
+    if d == "size":
+        print(e)
+    if d == "clear":
+        print("ok")
+        a = [0] * 1000000
+        f = 0
+        e = 0
+    if d == "exit":
+        print("bye")
+Кодировка: 
+Скачать
+a = [0] * 1000000
+d = ""
+e = 0
+f = 0
+while d != "exit":
+    d = input()
+    if d[:4] == "push":
+        a[e + f] = d[5:]
+        e = e + 1
+        print("ok")
+    if d == "pop":
+        if e == 0:
+            print("error")
+        else:
+            print(a[f])
+            a[f] = 0
+            f = f + 1
+            e = e - 1
+    if d == "front":
+        if e == 0:
+            print("error")
+        else:
+            print(a[f])
+    if d == "size":
+        print(e)
+    if d == "clear":
+        print("ok")
+        f = 0
+        e = 0
+    if d == "exit":
+        print("bye")
+Кодировка: 
+Скачать
+#include <bits/stdc++.h>
+
+using namespace std;
+
+//#define DEBUG
+#ifdef DEBUG
+    ifstream fin("input.txt");
+    ofstream fout("output.txt");
+    #define cin fin
+    #define cout fout
+#endif // DEBUG
+
+template<typename T>
+T fromString(const std::string& str)
+{
+    std::istringstream ss(str);
+    T ret;
+    ss >> ret;
+    return ret;
+}
+
+const int maxSize = 1024;
+int first = 0;
+int last = 0;
+int data[maxSize] = {0};
+
+int size()
+{
+    if (first > last) {
+        return maxSize - first + last;
+    } else {
+        return last - first;
+    }
+}
+
+void push(int n)
+{
+    if (size() != maxSize) {
+        data[last] = n;
+        last = (last + 1) % maxSize;
+    }
+}
+
+int pop()
+{
+    if (first == last) {
+        return 0;
+    }
+    int n = data[first];
+    first = (first + 1) % maxSize;
+    return n;
+}
+
+int front()
+{
+    if (first == last) {
+        return 0;
+    }
+    return data[first];
+}
+
+void clear()
+{
+    first = 0;
+    last = 0;
+}
+
+int main()
+{
+  string cmd;
+  while(true) {
+    getline(cin, cmd);
+    if (cmd == "exit") {
+      cout << "bye" << endl;
+      break;
+    }
+    else if (cmd.rfind("push", 0) == 0) {
+      push(fromString<int>(cmd.substr(5)));
+      cout << "ok" << endl;
+    }
+    else if (cmd == "pop") {
+      if (size() == 0) {
+        cout << "error" << endl;  
+      } else {
+        cout << pop() << endl;  
+      }
+    }
+    else if (cmd == "front") {
+      if (size() == 0) {
+        cout << "error" << endl;  
+      } else {
+        cout << front() << endl;
+      }
+    }
+    else if (cmd == "size") {
+      cout << size() << endl;
+    }
+    else if (cmd == "clear") {
+      clear();
+      cout << "ok" << endl;
+    }
+  }
+}
+Кодировка: 
+Скачать
+#include <bits/stdc++.h>
+using namespace std;
+const int N = (int)1e5;
+
+class Queue {
+    int a[N]{};
+    int l = 0,r = 0;
+    public:
+    string push(int x) {
+        a[r++] = x;
+        return "ok";
+    }
+
+    string pop() {
+        return l < r ? to_string(a[l++]) : "error";
+    }
+
+    string front() {
+        return l < r ? to_string(a[l]) : "error";
+    }
+    int size(){
+        return r - l;
+    }
+    string clear(){
+        l = r = 0;
+        return "ok";
+    }
+};
+int main() {
+    Queue queue;
+
+    string s;
+    int x;
+    while (cin >> s){
+        if (s == "push"){
+            cin >> x;
+            cout << queue.push(x) << endl;
+        }
+        if (s == "pop"){
+            cout << queue.pop() << endl;
+        }
+        if (s == "front"){
+            cout << queue.front() << endl;
+        }
+        if (s == "size"){
+            cout << queue.size() << endl;
+        }
+        if (s == "clear"){
+            cout << queue.clear() << endl;
+        }
+        if (s == "exit"){
+            cout << "bye" << endl;
+            break;
+        }
+    }
+    return 0;
+}
+Кодировка: 
+Скачать
+s = ''
+a = []
+l = 0
+h = 0
+q = []
+while s != 'exit':
+    s = input().split()
+    if s[0] == 'push':
+        l += 1
+        q.append(s[1])
+        a.append('ok')
+    elif s[0] == 'pop':
+        if l == 0:
+            a.append('error')
+        else:
+            h += 1
+            a.append(q[h-1])
+            l -= 1
+    elif s[0] == 'front':
+        if l == 0:
+            a.append('error')
+        else:
+            a.append(q[h])
+    elif s[0] == 'size':
+        a.append(l)
+    elif s[0] == 'clear':
+        q = []
+        h = 0
+        l = 0
+        a.append('ok')
+    elif s[0]=='exit':
+        a.append('bye')
+        break
+for i in a:
+    print(i)
