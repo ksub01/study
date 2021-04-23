@@ -1,0 +1,24 @@
+Я зачту, но лучше делать без исключений.
+Читать надо "до конца файла".
+Проще всего с этим справиться
+-- читать данные из файла
+(файлы почти во всех задачах
+называются input.txt и output.txt),
+см. теорию на уровне 2А.
+
+x = y = 0
+while True:
+    try:
+        part, num = input().split()
+        num = int(num)
+        if part == 'South':
+            y -= num
+        elif part == 'North':
+            y += num
+        elif part == 'West':
+            x -= num
+        else:
+            x += num
+    except:
+        break
+print(x, y)
