@@ -6,3 +6,52 @@ def gsd(a, b):
 x, y = input().split(' ')
 z = gsd(int(x), int(y))
 print(int(x) // z, int(y) // z)
+
+
+Хорошие решения
+{$mode delphi}
+{$R+,Q+,S+,I+}
+var a,b,d:integer;
+    function n(a,b: integer): integer;
+    var c:integer;
+    begin
+     while b<>0 do begin
+      c:=a;
+      a:=b;
+      b:=c mod b;
+     end;
+     n:=a;
+    end;
+     
+begin
+read(a);
+read(b);
+d:=abs(n(a,b));
+writeln(a div d,' ',b div d);
+end.
+Кодировка: 
+Скачать
+#include <iostream>
+
+using namespace std;
+
+int main(){
+    int a, b, c, d, t;
+    cin >> a >> b;
+    c = a;
+    d = b;
+    a = abs(a);
+    while (b != 0){
+        t = b;
+        b = a % b;
+        a = t;
+    }
+    cout << c / a << " " << d / a;
+}
+Кодировка: 
+Скачать
+a,b = map(int, input().split())
+c,d = a,b
+while b!=0:
+    a,b=b,a%b
+print(c//a,d//a)
