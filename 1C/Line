@@ -14,13 +14,17 @@ for i in range(len(list1)):
 print(list2[-1])
 
 
-#good
-n = int(input())
-a = list(map(int, input().split()))
-x = int(input())
-a.append(0)
+Найди ошибку: Шеренга
+from math import *
+N=int(input())
+a=list(map(int,input().split()))
+k=int(input())
+m=1
 for i in range(len(a)):
-    if a[i] < x:
-        r = i+1
-        break
-print(r)
+   if a[i]>k:
+      m+=1
+print(m)
+   
+   
+   
+   
