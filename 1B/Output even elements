@@ -1,0 +1,6 @@
+b1 = int(input())
+mas = input().split(' ')
+mas = [int(x) for x in mas]
+for i in range(int(b1)):
+    if i % 2 == 0:
+        print(mas[i], end = ' ')
