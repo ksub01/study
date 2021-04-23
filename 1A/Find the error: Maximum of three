@@ -1,0 +1,90 @@
+a1 = int(input())
+b1 = int(input())
+c1 = int(input())
+if a1 > b1:
+    if a1 > c1:
+        print(a1)
+    else:
+        print(c1)
+else:
+    if b1 > c1:
+        print(b1)
+    else:
+        print(c1)
+
+Найди ошибку: Максимум из трех
+a = int(input())
+b = int(input())
+c = int(input())
+if a > b and a > c:
+   print(a)
+elif b > a and b > c: 
+   print(b)
+else:
+   print(c)
+   
+   
+
+Хорошие решения
+n = int(input())
+b = int(input())
+c = int(input())
+if n > b and n > c:
+    print(n)
+elif b > c:
+    print(b)
+else:
+    print(c)
+Кодировка: 
+Скачать
+var
+a,b,c,max:integer;
+begin
+read(a,b,c);
+if a>b then max:=a
+else max:=b;
+if c>max then
+write(c) else
+write(max);
+end.
+Кодировка: 
+Скачать
+a = int(input())
+b = int(input())
+c = int(input())
+if a > b:
+    if a > c:
+        print(a)
+    else:
+        print(c)
+else:
+    if b > c:
+        print(b)
+    else:
+        print(c)
+Кодировка: 
+Скачать
+x = int(input())
+y = int(input())
+z = int(input())
+
+if x > y:
+    max_1 = x
+else:
+    max_1 = y
+    
+if max_1 > z:
+    print(max_1)
+else:
+    print(z)
+Кодировка: 
+Скачать
+a = int(input())
+b = int(input())
+c = int(input())
+if a >= b and a >= c:
+    print(a)
+elif b >= a and b >= c:
+    print(b)
+else:
+    print(c)
