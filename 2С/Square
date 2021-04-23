@@ -1,0 +1,283 @@
+Как минимум, тут на питоне, видимо, не хватает памяти.
+Обрабатывайте строки по одной.
+
+n = int(input())
+mas = [[0]*(n+1)]
+for i in range(n):
+    mas.append(list('0' + input()))
+ans = [[0]*(n+1) for x in range(n+1)]
+
+for i in range(1, n+1):
+    for j in range(1, n+1):
+        if mas[i][j] == '#':
+            if ans[i-1][j] >= ans[i-1][j-1] and ans[i][j-1] >= ans[i-1][j-1]:
+                ans[i][j] = ans[i-1][j-1] + 1
+            else:
+                ans[i][j] = 1
+
+l = -1
+for i in ans:
+    for j in i:
+        l = max(l, j)
+        
+
+Я зачту, возможно, тут уже питон тормозит.
+n = int(input())
+mas = [[0]*(n+1), [0]*(n+1)]
+ans = [[0]*(n+1), [0]*(n+1)]
+# j % 2 -> 2
+# j % 2 + 1 -> 1
+l = 0
+for i in range(1, n+1):
+    mas[1] = list('0' + input())
+    ix1 = 1 if i % 2 != 0 else 0
+    ix2 = 0 if i % 2 != 0 else 1
+    for j in range(1, n+1):
+        if ans[ix1][j] != 0:
+                ans[ix1][j] = 0
+        if mas[1][j] == '#':
+            if ans[ix2][j-1] != 0 and ans[ix2][j] >= ans[ix2][j-1] and ans[ix1][j-1] >= ans[ix2][j-1]:
+                ans[ix1][j] = ans[ix2][j-1] + 1
+            else:
+                ans[ix1][j] = 1
+        if ans[ix1][j] > l :
+            l = ans[ix1][j]
+print(l)
+
+
+Хорошие решения
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
+
+    int n;
+    cin >> n;
+    vector<int> row(n+1, 0), col(n+1, 0);
+    vector<vector<int>> dp(2, vector<int>(n+1, 0));
+
+    int max_side = 0;
+    char ch;
+    for(int i = 1, idx = 0; i < n+1; i++, idx = 1-idx) {
+        for(int j = 1; j < n+1; j++) {
+            cin >> ch;
+            if('#' == ch) {
+                row[j] = row[j-1] + 1;
+                col[j] = col[j] + 1;
+                dp[idx][j] = min(dp[1-idx][j-1]+1, min(row[j], col[j]));
+                max_side = max(max_side, dp[idx][j]);
+            } else {
+                row[j] = 0;
+                col[j] = 0;
+                dp[idx][j] = 0;
+            }
+        }
+    }
+
+    cout << max_side << "\n";
+
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <math.h>
+
+using namespace std;
+int mas[3000][3000];
+
+int main()
+{
+    int n, sum = 0;
+    cin >> n;
+
+    for (int i = 0; i < n; ++i)
+        for (int j = 0; j < n; ++j)
+        {
+            char a;
+            cin >>a;
+            if (a=='#') mas[i][j]=1;
+            else mas[i][j]=0;
+        }
+    for (int i = 0; i < n; ++i)
+        for (int j = 0; j < n; ++j)
+        {
+            if (mas[i][j] == 1)
+                if(j!=0)
+                    mas[i][j]=mas[i][j-1]+mas[i][j];
+        }
+
+    for (int j = 0; j < n; ++j)
+    {
+        int local_sum=0;
+        for (int i = 0; i < n; ++i)
+        {
+            if(mas[i][j]!=0)
+                local_sum++;
+
+            else local_sum=0;
+
+            sum=max(sum,min(local_sum,mas[i][j]));
+        }
+    }
+
+    cout << sum;
+    return 0;
+}
+Кодировка: 
+Скачать
+#include<bits/stdc++.h>
+#define min3(a, b, c) min(a, min(b, c))
+using namespace std;
+int n, m = 0;
+vector<pair<int, int>> p;
+vector<int> b;
+int main(){
+	ios_base::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+	freopen("input.txt", "r", stdin);
+	cin >> n;
+	p.resize(n + 1, {0, 0});
+	b.resize(n + 1, 0);
+	for (int i = 1; i <= n; i++){
+		vector<int> temp1 = b;
+		vector<pair<int, int>> temp2 = p;
+		string s;
+		cin >> s;
+		for (int j = 1; j <= (int)s.length(); j++){
+			if (s[j - 1] != '#' and s[j - 1] != '.') continue;
+			if (s[j - 1] == '#'){
+				int c = temp1[j];
+				b[j] = min3(c, p[j - 1].first, temp2[j].second) + 1;
+				p[j] = {p[j - 1].first + 1, temp2[j].second + 1};
+				m = max(m, b[j]);
+			}
+			else p[j] = {0, 0};
+		}
+	}
+	cout << m;
+	return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+typedef long long ll;
+
+using namespace std;
+
+vector<vector<int>> dp;
+vector<vector<bool>> is;
+
+void apply(int x, int y)
+{
+	int size = min(dp[x - 1][y], min(dp[x][y - 1], dp[x - 1][y - 1]));
+	if (is[x][y]) dp[x][y] = size + 1;
+	else dp[x][y] = 0;
+}
+
+int main()
+{
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+
+	ll n;
+	cin >> n;
+
+	is.assign(n, vector<bool>(n, false));
+	
+	string s;
+	for (ll i = 0; i < n; i++)
+	{
+		cin >> s;
+		for (ll j = 0; j < n; j++)
+			if (s[j] == '#')
+				is[i][j] = true;
+	}
+
+	dp.assign(n, vector<int>(n, 0));
+
+	for (int i = 0; i < n; i++)
+	{
+		dp[i][0] = is[i][0] ? 1 : 0;
+		dp[0][i] = is[0][i] ? 1 : 0;
+	}
+
+	for (int j = 1; j < n; j++)
+	{
+		apply(j, j);
+
+		for (int i = j + 1; i < n; i++)
+		{
+			apply(i, j);
+			apply(j, i);
+		}
+	}
+
+	int ans = 0;
+	for (auto v : dp)
+		for (auto u : v)
+			ans = max(ans, u);
+
+	cout << ans << endl;
+
+	return 0;
+}
+Кодировка: 
+Скачать
+//package level_2_c.b;
+
+import java.util.Scanner;
+
+public class MaxSquare {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int n = Integer.parseInt(scanner.nextLine());
+        char[][] arr = new char[n][n];
+        int[][] matr = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            String line = scanner.nextLine();
+            arr[i] = line.toCharArray();
+        }
+        fillMatrix(arr, matr);
+        System.out.println(searchMax(matr));
+    }
+
+    private static void fillMatrix(char[][] arr, int[][] matr) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[0][i] == '#') matr[0][i] = 1;
+            else matr[0][i] = 0;
+        }
+
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i][0] == '#') matr[i][0] = 1;
+            else matr[i][0] = 0;
+        }
+
+        for (int i = 1; i < arr.length; i++) {
+            for (int j = 1; j < arr.length; j++) {
+                if (arr[i][j] == '.') matr[i][j] = 0;
+                else matr[i][j] = min(matr[i - 1][j], matr[i - 1][j - 1], matr[i][j - 1]) + 1;
+            }
+        }
+    }
+
+    private static int searchMax(int[][] matr) {
+        int max = 0;
+        for (int i = 0; i < matr.length; i++) {
+            for (int j = 0; j < matr[0].length; j++) {
+                if (matr[i][j] > max) max = matr[i][j];
+            }
+        }
+        return max;
+    }
+
+    private static int min(int a, int b, int c) {
+        return a < b ? (a < c ? a : c) : (b < c ? b : c);
+    }
+}
