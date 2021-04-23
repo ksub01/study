@@ -6,3 +6,96 @@ for i in range(1, len(s)):
     else:
         d = d + s[i]
 print(d)
+
+
+Хорошие решения
+s = input()
+t = ""
+skip = 0
+for c in s:
+    if c != " ":
+        t += c
+        skip = 0
+    else:
+        if skip == 0:
+            t += c
+            skip =1
+            
+print (t)
+    
+Кодировка: 
+Скачать
+a = input()
+count= 0
+s = ""
+for i in range(len(a)):
+    if a[i]!= " ":
+        s+= a[i]
+        count = 0
+    else:
+        count+=1
+        if count < 2:
+            s+= " "
+print(s)
+Кодировка: 
+Скачать
+var
+  s, k: string;
+  i : integer;
+
+begin
+  read(s);
+  k := k + s[1];
+  for i := 2 to length(s) do
+  begin
+    if s[i] = ' ' then
+    begin
+      if s[i - 1] <> ' ' then
+        k := k + s[i]
+    end
+    else
+      k := k + s[i]
+  end;
+  write(k);
+end.
+Кодировка: 
+Скачать
+n=input()
+c=''
+b=''
+s=' '
+for i in range(len(n)):
+    if n[i]!=' ' or b!=' ':
+        c=c+n[i]
+    b=n[i]
+print(c)
+Кодировка: 
+Скачать
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main(){
+	int podrad = 0,counter= 0;
+	string stroka, stroka1[1000];
+	getline(cin, stroka);
+	for (int i = 0; i < stroka.length(); i++){
+		if (stroka[i] == ' '){
+			podrad++;
+			if (podrad <= 1){
+				stroka1[counter] = stroka[i];
+				counter++;
+			}
+		}
+		else{
+			stroka1[counter] = stroka[i];
+			counter++;
+			podrad = 0;
+		}
+	}
+	for (int i = 0; i < counter; i++){
+		cout << stroka1[i];
+	}
+	system("pause");
+}
