@@ -1,0 +1,53 @@
+if cash[i] != 0:
+не нужно же :)
+
+s = input()
+cash = {x: 0 for x in range(ord('a'), ord('z')+1)}
+for i in s:
+    cash[ord(i)] += 1
+for i in sorted(cash)[::-1]:
+    if cash[i] != 0:
+        print(chr(i)*cash[i], end='')
+        
+ Хорошие решения
+#include <iostream>
+#include <vector>
+#include <string>
+#define MAX 26
+using namespace std;
+string s;
+vector<int> temp(MAX,0);
+int main()
+{
+    cin >> s;
+    for (size_t i=0; i<s.size(); i++)
+    {
+        int letter=(int)s[i]-(int)'a';
+        temp[letter]+=1;
+    }
+    for (int i=MAX-1; i>=0; i--)
+    {
+        for (int k=0; k<temp[i]; k++)
+        {
+            cout << char(i+(int)'a');
+        }
+    }
+    return 0;
+}
+Кодировка: 
+Скачать
+var
+  s: string; 
+  i, j, n: integer;
+  c: char;
+  a: array ['a'..'z'] of integer;
+
+begin
+  readln(s);
+  for i := 1 to length(s) do
+    inc(a[s[i]]); 
+  
+  for c := 'z' downto 'a' do
+    for i := 1 to a[c] do
+      write(c);
+end.
