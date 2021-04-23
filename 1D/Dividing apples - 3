@@ -1,3 +1,70 @@
 a = int(input())
 b = int(input())
 print((a - (b % a))%a)
+
+
+Хорошие решения
+n = int(input())
+k = int(input())
+print(-k % n)
+Кодировка: 
+Скачать
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int n, k;
+
+int main() {
+    cin >> n >> k;
+    int d = k % n;
+    int t = 2 -  (d + 2)/ (d + 1);
+    cout << (n - d) * (t) << endl;
+    return 0;
+}
+Кодировка: 
+Скачать
+//#include "stdafx.h"
+#include <iostream>
+
+using namespace std;
+int main()
+{
+	// Input
+	int apples, people, res;
+	cin >> people >> apples;
+
+
+
+	// Output
+	res = (people - (apples % people)) % people;
+	cout << res << endl;
+	return 0;
+}
+Кодировка: 
+Скачать
+a = int(input())
+n = int(input())
+print((a - n%a)%a)
+Кодировка: 
+Скачать
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	int n, k;
+	cin >> n >> k;
+	cout << (n - k%n) % n << endl;
+	return 0;
+}
+
+
+Найди ошибку: Дележ яблок - 3
+k = int(input())
+n = int(input())
+print((n - (k % n)) % n)
+
+a=int(input())
+b=int(input())
+print((a-b%a)%7)
