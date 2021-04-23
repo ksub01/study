@@ -1,0 +1,158 @@
+Я зачту, но сложновато.
+Проще писать типа так:
+dp[i] = dp[i - 1] + 1
+if (i % 3 == 0) dp[i] = min(dp[i], dp[i//3] + 1)
+if (i % 2 == 0) dp[i] = min(dp[i], dp[i//2] + 1)
+см. "хорошие решения"
+
+n = int(input())
+mas = [0] * (n+1)
+for i in range(2, n+1):
+    d1 = d2 = 10000000000
+    if i % 2 == 0:
+        d1 = mas[i//2]
+    if i % 3 == 0:
+        d2 = mas[i//3]
+    mas[i] = min(mas[i-1], d1, d2) + 1
+print(mas[n])
+
+
+Найди ошибку: Калькулятор
+f=int(input())
+a=[0]*1000000
+t=[0]*1000000
+for i in range(1,f+1):
+    a[i]=1000000
+for i in range(1,f+1):
+    if a[i] > a[i-1]+1:
+        a[i]=a[i-1]+1
+    if i%2==0:
+        if a[i]>a[i//2]+1:
+            a[i]=a[i//2]+1
+    if i%3==0:
+        if a[i]>a[i//3]+1:
+            a[i]=a[i//3]+1
+print(a[i]-1)
+
+N=int(input())
+a=[0]*(N+1)
+a[2]=1
+a[3]=1
+for i in range(4, N+1):
+    otvet=[]
+    if i%3 == 0 :
+        otvet+=[a[i//3]]
+    if i%2 == 0  :
+        otvet+=[a[i//2]]
+    otvet+=[a[i-1]]
+    a[i]=min(otvet)+1
+print(  a[N ])
+
+
+Хорошие решения
+#include<bits/stdc++.h>
+
+using namespace std;
+const int N = 1e6 + 1;
+int dp[N];
+int main() {
+    //freopen("input.txt", "r", stdin);
+    //freopen("output.txt", "w", stdout);
+    int n;
+    cin >> n;
+    for (int i = 2; i <= n; ++i) {
+        dp[i] = 1e9;
+    }
+    for (int i = 2; i <= n; ++i) {
+        dp[i] = dp[i - 1] + 1;
+        if (i % 2 == 0) {
+            dp[i] = min(dp[i], dp[i / 2] + 1);
+        }
+        if (i % 3 == 0) {
+            dp[i] = min(dp[i], dp[i / 3] + 1);
+        }
+    }
+    cout << dp[n];
+}
+Кодировка: 
+Скачать
+a  = int(input())
+m = [0,0]
+for x in range(2,a + 1):
+    m.append(m[x - 1] + 1)
+    if x % 2 == 0 and  m[x // 2] + 1< m[x]:
+        m[x] = m[x // 2] + 1
+    if x % 3 == 0 and  m[x // 3] + 1< m[x]:
+        m[x] = m[x // 3] + 1
+print(m[a])
+    
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+int main()
+{
+	int n;
+	cin >> n;
+	vector<int> a(n + 1, 1000000);
+	a[1] = 0;
+
+	for (int i = 1; i < n; i++)
+	{
+		a[i + 1] = min(a[i + 1], a[i] + 1);
+		if (i * 2 <= n)
+		{
+			a[i * 2] = min(a[i * 2], a[i] + 1);
+		}
+		if (i * 3 <= n)
+		{
+			a[i * 3] = min(a[i * 3], a[i] + 1);
+		}
+	}
+
+	cout << a[n] << '\n';
+	cin >> n;
+	return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+
+using namespace std;
+
+int dp[3 * 1000001];
+
+int main(){
+	int n;
+	cin >> n;
+	for (int i = 1; i < n; i++){
+		if (dp[i + 1] > dp[i] + 1 || dp[i + 1] == 0){
+			dp[i + 1] = dp[i] + 1;
+		}
+		if (dp[i * 2] > dp[i] + 1 || dp[i * 2] == 0){
+			dp[i * 2] = dp[i] + 1;
+		}
+		if (dp[i * 3] > dp[i] + 1 || dp[i * 3] == 0){
+			dp[i * 3] = dp[i] + 1;
+		}
+	}
+	cout << dp[n];
+}
+Кодировка: 
+Скачать
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    int n;
+    cin >> n;
+    vector<int> a(n + 1,10000000);
+    a[1] = 0;
+    for(int i = 2;i < n + 1;i++){
+        a[i] = min(a[i],a[i-1] + 1);
+        if(i % 2 == 0) a[i] = min(a[i],a[i/2] + 1);
+        if(i % 3 == 0) a[i] = min(a[i],a[i/3] + 1);
+    }
+    cout << a[n];
+}
