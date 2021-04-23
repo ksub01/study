@@ -17,3 +17,160 @@ if c >= 0:
             print('NO SOLUTION')
 else:
     print('NO SOLUTION')
+
+
+Найди ошибку: Уравнение
+#include <bits/stdc++.h>
+
+#define int long long
+#define eps 1e-5
+
+using namespace std;
+
+int32_t main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+
+    int a,b,c;
+    cin >> a >> b >> c;
+    if(c >= 0) {
+        if(a == 0 && b != c*c) cout << "NO SOLUTION";
+        else if(a == 0 && b == c*c) cout << "MANY SOLUTION";
+        else if( (c*c - b) % a == 0) cout << (c*c - b)  /a;
+        else cout << "NO SOLUTION";
+    }
+    else cout << "NO SOLUTION";
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+Хорошие решения
+//#include "stdafx.h"
+#include <iostream>
+//#include <cmath>
+//#include <vector>
+//#include <string>
+//#include <windows.h>
+
+//using namespace std;
+
+
+int main()
+{
+	// Input
+
+	int a, b, c;
+	std::cin >> a >> b >> c;
+
+	/***************************************************/
+
+	if (c < 0)
+		std::cout << "NO SOLUTION" << std::endl;
+	else if (a != 0) {
+		int x = (c * c - b) / a;
+		if ((c * c - b) % a == 0)
+			std::cout << x << std::endl;
+		else
+			std::cout << "NO SOLUTION" << std::endl;
+	}
+
+	else
+		if (b == c * c)
+			std::cout << "MANY SOLUTIONS" << std::endl;
+		else
+			std::cout << "NO SOLUTION" << std::endl;
+
+	/**************************************************/
+	// Output
+
+	return 0;
+}
+Кодировка: 
+Скачать
+#include<iostream>
+using namespace std;
+int main()
+{
+  int a,b,c,t;
+  cin >> a >> b >> c;
+  t = (c*c-b);
+  if(c < 0) cout << "NO SOLUTION";
+    else
+    {
+        if(a == 0)
+        {
+                if(b != c*c) cout << "NO SOLUTION";
+                else cout << "MANY SOLUTIONS";
+        }
+        else
+            if(t%a == 0) cout << t/a;
+            else cout << "NO SOLUTION";
+    }
+
+return 0;
+}
+Кодировка: 
+Скачать
+var
+  a, b, c, x: integer;
+
+begin
+  read(a, b, c);
+  if c < 0 then
+    write('NO SOLUTION')
+  else
+  begin
+    if a = 0 then
+    begin
+      if b <> sqr(c) then
+        write('NO SOLUTION')
+      else
+        write('MANY SOLUTIONS')
+    end
+    else
+    if (sqr(c) - b) mod a = 0 then
+    begin
+      x := (sqr(c) - b) div a;
+      write(x);
+    end
+    else
+      write('NO SOLUTION');
+  end;
+end.
+Кодировка: 
+Скачать
+a, b, c = map(int, input().split())
+x = c * c - b
+if c < 0:
+    print("NO SOLUTION")
+else:
+    if a == 0:
+        if x == 0:
+            print("MANY SOLUTIONS")
+        else:
+            print("NO SOLUTION")
+    else:
+        if x % a == 0:
+            print(x // a)
+        else:
+            print("NO SOLUTION")
+Кодировка: 
+Скачать
+a,b,c = map(int, input().split(' '))
+if a==0 and c**2==b and c>=0:
+    print("MANY SOLUTIONS")
+elif (a==0 and c**2!=b) or c<0:
+    print("NO SOLUTION")
+else:
+    if (c**2-b)%a!=0:
+        print("NO SOLUTION")
+    else:
+        print((c**2-b)//a)
