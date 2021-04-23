@@ -1,0 +1,18 @@
+mas = list(map(float, input().rstrip().split(' ')))
+if len(mas) == 2:
+    x = mas[0]
+    y = mas[1]
+else:
+    x = mas[0]
+    y = int(input())
+eps = 1e-6 
+cou = 1
+sum1 = x
+if y != 0:
+    while y - sum1 > eps:
+        cou += 1
+        x += x*0.7
+        sum1 += x
+    print(cou)
+else:
+    print(0)
