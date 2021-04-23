@@ -1,2 +1,48 @@
 b = int(input())
 print(b%10)
+
+
+Хорошие решения
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	int a;
+	cin >> a;
+	cout << a / 10 << endl;
+	return 0;
+}
+Кодировка: 
+Скачать
+import java.util.*;
+
+public class z1a1_6 {
+	
+	public static void main(String[] args)
+	{
+		Scanner sc = new Scanner(System.in);
+		long a = sc.nextLong();
+		System.out.print(a / 10);
+	}
+
+}
+Кодировка: 
+Скачать
+
+var a:integer;
+begin
+read(a);
+writeln(a div 10);
+end.
+Кодировка: 
+Скачать
+a = int(input())
+print(a // 10 % 10)
+
+Кодировка: 
+Скачать
+a = int(input())
+b = a // 10
+print(b)
