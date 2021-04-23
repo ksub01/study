@@ -1,3 +1,38 @@
 b = int(input())
 print('The next number for the number {} is {}.'.format(b, b + 1))
 print('The previous number for the number {} is {}.'.format(b, b-1))
+
+
+Найди ошибку: Следующее и предыдущее
+n = int(input())
+print(f"The next number for the number {n} is {n+1}")
+print(f"The previous number for the number {n} is {n-1}")
+
+
+Хорошие решения
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	int a;
+	cin >> a;
+	cout << "The next number for the number " << a << " is " << a + 1 << "." << endl;
+	cout << "The previous number for the number " << a << " is " << a - 1 << "." << endl;
+	return 0;
+}
+Кодировка: 
+Скачать
+var 
+n:integer;
+begin
+read(n);
+writeln('The next number for the number ', n , ' is ' , n+1,'.');
+writeln('The previous number for the number ',n , ' is ' , n-1,'.');  
+end.
+Кодировка: 
+Скачать
+a = int(input())
+print ("The next number for the number " ,a, " is " ,a+1,".", sep='')
+print ("The previous number for the number " ,a, " is " ,a-1,".", sep='')
