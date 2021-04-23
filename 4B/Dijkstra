@@ -1,0 +1,365 @@
+inf = 1000000
+
+
+def dijkstra(start, n, matrix):
+    valid = [False]*(n+1)
+    weight = [inf]*(n+1)
+    weight[start] = 0
+    for i in range(1, n+1):
+        min_weight = inf - 1
+        id_min = -1
+        for j in range(1, n+1):
+            if not valid[j] and weight[j] < min_weight:
+                min_weight = weight[j]
+                id_min = j
+        for z in range(1, n+1):
+            if weight[id_min] + matrix[id_min][z] < weight[z]:
+                weight[z] = weight[id_min] + matrix[id_min][z]
+        valid[id_min] = True
+    return weight
+
+
+N, s, f = map(int, input().rstrip().split())
+mas = [[0 for x in range(N+1)]]
+for i in range(N):
+    list1 = [0]
+    for x in input().rstrip().split():
+        if int(x) != -1:
+            list1.append(int(x))
+        else:
+            list1.append(inf)
+    mas.append(list1)
+d = dijkstra(s, N, mas)
+if d[f] >= inf:
+    print(-1)
+else:
+    print(d[f])
+    
+    
+    
+Найди ошибку: Дейкстра
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+	int n, s, f, a, v;
+	cin >> n >> s >> f;
+	vector<vector<int>> ssm(n + 1), w(n + 1);
+	vector<int> d(n + 1, 2000000000);
+	vector<bool> u(n + 1, false);
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= n; j++) {
+			cin >> a;
+			if (a != -1 && i != j) {
+				ssm[i].push_back(j);
+				w[i].push_back(a);
+			}
+		}
+	}
+	d[s] = 0;
+	v = s;
+	while (v != 1) {
+		u[v] = true;
+		for (int i = 0; i < ssm[v].size(); i++) {
+			if (d[ssm[v][i]] > d[v] + w[v][i]) {
+				d[ssm[v][i]] = d[v] + w[v][i];
+			}
+		}
+		v = -1;
+		for (int i = 1; i <= n; i++) {
+			if (!u[i] && (v == -1 || d[v] > d[i])) {
+				v = i;
+			}
+		}
+	}
+	if (d[f] != 2000000000) cout << d[f] << endl;
+	else cout << -1 << endl;
+	return 0;
+}
+
+Хорошие решения
+#include <iostream>
+#include <vector>
+using namespace std;
+typedef long long lli;
+const char ln = '\n';
+
+const int INF = 1e8;
+
+int main() {
+    int n, s, f;
+    cin >> n >> s >> f;
+    s--; f--;
+    vector< vector<int> > g (n, vector<int>(n, 0));
+    for (int i = 0; i < n; ++i)
+        for (int j = 0; j < n; ++j)
+            cin >> g[i][j];
+    vector<int> d (n, INF);
+    d[s] = 0;
+    vector<bool> u (n, false);
+    for (int k = 0; k < n; ++k) {
+        int v = -1;
+        for (int i = 0; i < n; ++i) if (!u[i])
+            if (v == -1 || d[i] < d[v])
+                v = i;
+        if (d[v] == INF)
+            break;
+        u[v] = true;
+        for (int to = 0; to < n; ++to) if (g[v][to] != -1) {
+            d[to] = min(d[to], d[v] + g[v][to]);
+        }
+    }
+    if (d[f] == INF)
+        d[f] = -1;
+    cout << d[f] << ln;
+    return 0;
+}
+Кодировка: 
+Скачать
+#include<iostream>
+#include <vector>
+using namespace std;
+
+int n, start,endp;
+vector<vector<int>> adjList;
+vector<int> used;
+vector<int> d;
+vector<vector<int>> m;
+
+
+int main()
+{
+	cin >> n >> start>> endp;
+	start--;
+	endp--;
+	used.resize(n,0);
+	d.resize(n, 10001);
+	m.resize(n, vector<int>(n,0));
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			cin >> m[i][j];
+		}
+		m[i][i] = -1;
+	}
+	d[start] = 0;
+	int min = -1;
+	for (int i = 0; i < n; i++)
+	{
+		min = -1;
+		for (int j = 0; j < n; j++)
+		{
+			if (!used[j] && (min==-1||d[min] > d[j])) min = j;
+		}
+		if (d[min] == 10001) break;
+		used[min] = 1;
+		for (int j = 0; j < n; j++)
+		{
+			if (m[min][j] != -1)
+			{
+				if (d[j] > d[min] + m[min][j]) d[j] = d[min] + m[min][j];
+
+			}
+		}
+	}
+	if (d[endp] == 10001) cout << -1;
+	else cout << d[endp];
+}
+Кодировка: 
+Скачать
+//#include "/Users/stepan_bagritsevich/Dropbox/stdc++.h"
+#include <bits/stdc++.h>
+ 
+using namespace std;
+
+#define pb push_back
+#define fs first
+#define sc second
+
+typedef long long ll;
+typedef long double ld;
+
+const int MAX_VAL = 2147483647, MIN_VAL = -2147483648;
+
+int n, start, finish;
+vector < int > d;
+vector < vector < pair < int, int > > > g;
+
+void dijkstra() {
+    vector < bool > used(n, false);
+    d[start] = 0;
+    for (int i = 0; i < n; i++) {
+        int v = -1;
+        for (int j = 0; j < n; j++)
+            if (!used[j] && (v == -1 || d[j] < d[v]))
+                v = j;
+        
+        if (d[v] == MAX_VAL)
+            break;
+        
+        used[v] = true;
+        for (int j = 0; j < g[v].size(); j++) {
+            int to = g[v][j].fs, len = g[v][j].sc;
+            d[to] = min(d[to], d[v] + len);
+        }
+    }
+}
+
+int main() {
+    cin >> n >> start >> finish;
+    start--;
+    finish--;
+    d.resize(n, MAX_VAL);
+    g.resize(n);
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            int x;
+            cin >> x;
+            if (x >= 0 && i != j)
+                g[i].pb(make_pair(j, x));
+        }
+    }
+    
+    dijkstra();
+    cout << ((d[finish] != MAX_VAL) ? d[finish] : -1) << "\n";
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <set>
+using namespace std;
+bool cicl=false;
+int color[10001];
+int d[2001][2001];
+bool used[2001];
+int mass=0;
+int n , m;
+int s[10001];
+int INF=10000001;
+int main()
+{
+    cin.tie(0);cout.tie(0);
+    ios_base :: sync_with_stdio(0);
+    //freopen("input.txt","r",stdin);
+    int k,l,c;
+    int ind;
+    int mn;
+    cin >> n >> k >> l;
+    for (int i=1;i<=n;i++)
+    {
+        s[i]=INF;
+        for (int j=1;j<=n;j++)
+            {
+                cin >> d[i][j];
+                if (d[i][j]==-1)
+                    d[i][j]=INF;
+            }
+    }
+    if (k==l)
+    {
+        cout << 0 << endl;
+        return 0;
+    }
+    s[k]=0;
+    int p[1001];
+    p[k]=-1;
+    for (int i=1;i<n;i++)
+    {
+        mn=INF;
+        ind=1;
+        for (int j=1;j<=n;j++)
+        {
+            if (used[j]==false && s[j]<mn)
+            {
+                mn=s[j];
+                ind=j;
+            }
+        }
+        used[ind]=true;
+        for (int j=1;j<=n;j++)
+            if (s[j]>s[ind]+d[ind][j])
+        {
+            //cout << ind << " " << j << endl;
+            p[j]=ind;
+            s[j]=s[ind]+d[ind][j];
+        }
+    }
+    if (s[l]>=100001)
+        cout << -1 << endl;
+    else
+    {
+        cout << s[l] << endl;
+        /*vector <int> ans;
+        ans.push_back(l);
+        int pr=p[l];
+        while (pr!=-1)
+        {
+            ans.push_back(pr);
+            pr=p[pr];
+        }
+        for (int i=ans.size()-1;i>=0;i--)
+            cout << ans[i] << " ";*/
+    }
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#define INF 1000000000
+using namespace std;
+int n,s,t;
+int main()
+{
+    cin >> n >> s >> t;
+    s--;
+    t--;
+    int matrix[n][n];
+    for (int i=0; i<n; i++)
+    {
+        for (int j=0; j<n; j++)
+        {
+            cin >> matrix[i][j];
+        }
+    }
+    vector<int> dist(n,INF), prev(n);
+    dist[s]=0;
+    vector<bool> used(n,false);
+    for (int i=0; i<n; i++)
+    {
+        int v=-1;
+        for (int j=0; j<n; j++)
+        {
+            if ((!used[j]) && ((v==-1) || (dist[j]<dist[v])))
+                v=j;
+        }
+        if (dist[v]==INF)
+            break;
+        used[v]=true;
+        for (size_t j=0; j<n; j++)
+        {
+            int len=matrix[v][j];
+            if (len!=-1)
+            {
+                if (dist[v]+len<dist[j])
+                {
+                    dist[j]=dist[v]+len;
+                    prev[j]=v;
+                }
+            }
+        }
+    }
+    if (dist[t]!=INF)
+    {
+        cout << dist[t] << endl;
+    }
+    else cout << -1 << endl;
+    return 0;
+}
+
