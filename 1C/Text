@@ -1,0 +1,109 @@
+Вообще, тут по многим причинам 
+лучше сделать ввод из файла.
+Во-первых, сразу не будет проблем
+с детектированием окончания ввода.
+Во-вторых, тут есть нехороший тест -- тут русские буквы во входных данных.
+А это сразу дает проблему кодировок и проблему,
+соответствует ли кодировка входных данных ожиданиям питона.
+Питон ожидает, что входные данные будут в кодировке utf8,
+а тут не так.
+(Вообще говоря, нехорошо, когда в задачах даются русские буквы,
+особенно без указания в условии кодировки, но здесь относительно
+старая задача, когда никто про это еще не задумывался.)
+Поэтому надо вводить из файла, явно указывать кодировку:
+open("input.txt", "r", encoding="cp866").
+И выводить тоже в файл, и тоже указывая кодировку.
+
+while True:
+    try:
+        result = []
+        buf = []
+        for letter in input():
+            if 97 <= ord(letter) <= 122 or 65 <= ord(letter) <= 90:
+                buf.append(letter)
+                continue
+            result.append(''.join(reversed(buf)))
+            buf = []
+            result.append(letter)
+        print(''.join(result))
+    except:
+        pass
+        
+
+
+Делаете вы в плане кодировок все правильно, но при выводе тоже надо указать кодировку:
+dream = open('output.txt', 'w', encoding='cp866')
+
+> # в этих задачах нигде не написано, что нужно из файла читать, как до этого вообще самому можно догадаться
+В принципе, можно и без чтения из файла, но несколько сложнее.
+А вообще, если вы видите, что какую-то задачу не понятно как решать,
+то надо просто спросить меня.
+
+data = open("input.txt", "r", encoding="cp866").readlines()
+for i in range(len(data)):
+    data[i] = data[i].rstrip("\n")
+
+dream = open('output.txt', 'w')
+# в этих задачах нигде не написано, что нужно из файла читать, как до этого вообще самому можно догадаться
+for i in data:
+    result = []
+    buf = []
+    for letter in i:
+        if 97 <= ord(letter) <= 122 or 65 <= ord(letter) <= 90:
+            buf.append(letter)
+            continue
+        result.append(''.join(reversed(buf)))
+        buf = []
+        result.append(letter)
+    k = ''.join(result)
+    dream.write(k)
+dream.close()
+
+
+
+97 <= ord(letter) <= 122 or 65 <= ord(letter) <= 90:
+символы можно сравнивать напрямую:
+'A' <= letter..
+
+data = open("input.txt", "r", encoding="cp866").readlines()
+for i in range(len(data)):
+    data[i] = data[i].rstrip("\n")
+
+dream = open('output.txt', 'w', encoding='cp866')
+# в этих задачах нигде не написано, что нужно из файла читать, как до этого вообще самому можно догадаться
+for i in data:
+    result = []
+    buf = []
+    for letter in i:
+        if 97 <= ord(letter) <= 122 or 65 <= ord(letter) <= 90:
+            buf.append(letter)
+            continue
+        result.append(''.join(reversed(buf)))
+        buf = []
+        result.append(letter)
+    result.append(''.join(reversed(buf)))
+    k = ''.join(result)
+    dream.write(k + '\n')
+dream.close()
+
+
+data = open("input.txt", "r", encoding="cp866").readlines()
+for i in range(len(data)):
+    data[i] = data[i].rstrip("\n")
+
+dream = open('output.txt', 'w', encoding='cp866')
+# в этих задачах нигде не написано, что нужно из файла читать, как до этого вообще самому можно догадаться
+for i in data:
+    result = []
+    buf = []
+    for letter in i:
+        if 'a' <= letter <= 'z' or 'A' <= letter <= 'Z':
+            buf.append(letter)
+            continue
+        result.append(''.join(reversed(buf)))
+        buf = []
+        result.append(letter)
+    result.append(''.join(reversed(buf)))
+    k = ''.join(result)
+    dream.write(k + '\n')
+dream.close()
