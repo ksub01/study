@@ -11,3 +11,164 @@ def num():
         a1, a2, = map(int, input().split(' '))
         print(list2[a2] - list2[a1-1])
 num()
+
+
+
+
+Хорошие решения
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Oct  6 19:00:26 2020
+
+@author: peteru
+"""
+
+n, m = map(int, input().split())
+
+a = list(map(int, input().split()))
+
+for i in range(1, n):
+    a[i] = a[i-1] + a[i]
+
+def summa(x, y):
+    if x > 1:
+        p_sum = a[y-1] - a[x-2]
+    else:
+        p_sum = a[y-1]        
+    
+    return p_sum
+    
+ans = []
+for i in range(m):
+    x, y = map(int, input().split())    
+    ans.append(summa(x, y))
+
+for e in ans:
+    print(e)
+Кодировка: 
+Скачать
+n,m = map(int,input().split())
+a = list(map(int,input().split()))
+ans = []
+pref = [0]*(n+1)
+pref[1]= a[0]
+for i in range(2,n+1):
+	pref[i] = pref[i-1]+a[i-1]
+for i in range(m):
+	l,r = map(int,input().split())
+	if l>0:
+		ans.append(pref[r]-pref[l-1])
+	else:
+		ans.append(pref[r])
+for i in range(m):
+	print(ans[i])
+Кодировка: 
+Скачать
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main() {
+    int n, m;
+    cin >> n >> m;
+    vector < long long > ans;
+    ans.push_back(0);
+    long long newel;
+    for(int i = 0; i < n; ++i) {
+        cin >> newel;
+        ans.push_back(ans[ans.size() - 1] + newel);
+    }
+    int x, y;
+    for(int i = 0; i < m; ++i) {
+        cin >> x >> y;
+        cout << ans[y] - ans[x - 1] << endl;
+    }
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+#include <ext/rope>
+#define y1 y3278
+#define sz(v) ll (v.size())
+#define y2 y4368
+#define y y4368232
+#define x x43682322
+#define ff first
+#define ss second
+#define pb push_back
+#define all(a) a.begin(),a.end()
+#define tm tm3278
+#define left left3278
+#define right right3278
+typedef long long ll;
+typedef long double ld;
+using namespace std;
+using namespace __gnu_cxx;
+using namespace __gnu_pbds;
+template<class T> using indexed_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+const long long INF = 2000000000000000000;
+const long long Maxll = 9223372036854775807;
+const long long MOD = 1000000000000037;
+const ll MOD2 = 1100000009;
+const ll inf = 1000000000;
+const long long q0 = 31;
+const ll differ = 'a' - 'A';
+mt19937 rnd(std::chrono::high_resolution_clock::now().time_since_epoch().count());
+
+/// Actual code starts here
+int n, m;
+
+
+
+void VOLK() {
+    cin >> n >> m;
+    vector<int> vec(n);
+    for (auto &i : vec) cin >> i;
+    for (int i = 1;i < n;i++) vec[i] += vec[i - 1];
+    while(m--) {
+        int x, y;
+        cin >> x >> y;
+        x--,y--;
+        int res = vec[y];
+        if (x) res -= vec[x - 1];
+        cout << res << '\n';
+    }
+}
+
+signed main() {
+    ios::sync_with_stdio(NULL);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    int t = 1;
+    //cin >> t;
+    while (t--)
+        VOLK();
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include<vector>
+
+using namespace std;
+
+int main()
+{
+	int n, m,a,b;
+	cin >> n >> m;
+	vector<int> v(n);
+	vector<int> p(n+1);
+	for (int i = 0; i < n; i++) cin >> v[i];
+	for (int i = 1; i <= n; i++) p[i] = p[i - 1] + v[i-1];
+	for (int i = 0; i < m; i++)
+	{
+		cin >> a >> b;
+		cout << p[b] - p[a - 1] << "\n";
+
+	}
+}
+
+
