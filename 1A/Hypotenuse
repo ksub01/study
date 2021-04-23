@@ -1,3 +1,69 @@
 b = int(input())
 c = int(input())
 print((b**2 + c**2)**0.5)
+
+
+Найди ошибку: Гипотенуза
+#include <iostream>
+#include <list>
+#include <algorithm>
+#include <cmath>
+using namespace std;
+
+int main(){
+	int a, b, c;
+	cin >> a >> b;
+	c = sqrt((a * a) + (b * b));
+	cout << c;
+	return 0;
+}
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main() {
+   int a;
+   int b;
+   cin >> a;
+   cin >> b;
+   int ans;
+   ans= pow((pow(a, 2)+pow(b, 2)), 0.5);
+   cout << ans;
+}
+
+
+Хорошие решения
+{$mode delphi}
+var a,b:integer;
+begin
+read(a,b);
+writeln(sqrt(a*a+b*b));
+end.
+Кодировка: 
+Скачать
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main()
+{
+	int a, b;
+	cin >> a >> b;
+	double c;
+	c = sqrt(a * a + b * b);
+	cout << c << endl;
+	return 0;
+}
+Кодировка: 
+Скачать
+a = int(input())
+b = int(input())
+print((a * a + b * b) ** 0.5)
+Кодировка: 
+Скачать
+import math
+a = int(input())
+b = int(input())
+print(math.sqrt(a*a + b*b))
