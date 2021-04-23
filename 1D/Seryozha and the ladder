@@ -15,3 +15,184 @@ for i in sorted(left):
     print(i, end = ' ')
 for i in sorted(right)[::-1]:
     print(i, end = ' ')
+
+
+
+Хорошие решения
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+	int n;
+	cin >> n;
+
+	int cnt[5001] = {0}, mx = -1;
+	for (int i = 0; i < n; ++i) {
+		int x; cin >> x;
+		cnt[x]++;
+		mx = max(mx, x);
+	}
+
+	vector<int> ans;
+	for (int i = 1; i <= mx; ++i) {
+		if (cnt[i]) {
+			ans.push_back(i);
+			cnt[i]--;
+		}
+	}
+	for (int i = mx - 1; i >= 0; --i) {
+		if (cnt[i]) {
+			ans.push_back(i);
+			cnt[i]--;
+		}
+	}
+
+	cout << ans.size() << "\n";
+	for (int i = 0; i < ans.size(); ++i) {
+		cout << ans[i] << " ";
+	}
+	cout << "\n";
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <algorithm>
+#include <set>
+#include <vector>
+#include <string>
+#include <cmath>
+#include <map>
+#include <deque>
+
+int main()
+{
+	int n, t;
+	std::cin >> n;
+	std::vector <int> a(5001);
+	for (int i = 0; i < n; i++) {
+		std::cin >> t;
+		a[t]++;
+	}
+	int max = -1;
+	std::vector <int> answers;
+	for (int i = 1; i <= 5000;i++) {
+		if (a[i] > 0) {
+			max = i;
+			answers.push_back(i);
+			a[i]--;
+		}
+	}
+	for (int i = max - 1; i >= 1; i--) {
+		if (a[i] > 0) {
+			answers.push_back(i);
+		}
+	}
+	std::cout << answers.size() << '\n';
+	for (auto i : answers) {
+		std::cout << i << " ";
+	}
+}
+Кодировка: 
+Скачать
+n=int(input())
+a=list(map(int,input().split()))
+v=[0]*5000
+for i in range(n):
+    if v[a[i]-1]<2:
+        v[a[i]-1]+=1
+if v[max(a)-1]==2:
+    v[max(a)-1]=1 
+o=[]
+for i in range(5000):
+    if v[i]!=0:
+        o.append(i+1)
+for i in range(4999,-1,-1):
+    if v[i]==2:
+        o.append(i+1)
+print(len(o))
+print(*o)
+Кодировка: 
+Скачать
+m = int(input())
+x = 0
+c = []
+a = list(map(int, input().split()))
+a.sort()
+for i in range(m):
+    if a[i] > x:
+        c.append(a[i])
+        x = a[i]
+        a[i] = 0
+a.reverse()
+for i in range(m):
+    if a[i] < x and a[i] != 0:
+        c.append(a[i])
+        x = a[i]
+print(len(c))
+print(*c)
+Кодировка: 
+Скачать
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define ALL(x) x.begin(), x.end()
+#define RALL(x) x.rbegin(), x.rend()
+
+#define M7 1000000007
+#define M9 1000000009
+#define INF 2000000001
+#define INFLL 8000000000000000001
+#define PI 3.14159265358979324
+
+typedef long long ll;
+typedef long double ld;
+typedef pair<int, int> PII;
+typedef vector<int> VI;
+typedef vector<PII> VPII;
+typedef vector<VI> VVI;
+typedef vector<VPII> VVPII;
+
+
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int m;
+    cin >> m;
+
+    VI b (m);
+    int max_b = 0;
+    for (int i = 0; i < m; ++i) {
+        cin >> b[i];
+        max_b = max(max_b, b[i]);
+    }
+
+    VI c (max_b + 1, 0);
+    for (int i = 0; i < m; ++i) ++c[b[i]];
+
+    VI ans;
+    for (int i = 0; i <= max_b; ++i) {
+        if (c[i]) {
+            ans.push_back(i);
+            --c[i];
+        }
+    }
+    for (int i = max_b - 1; i >= 0; --i) {
+        if (c[i]) {
+            ans.push_back(i);
+            --c[i];
+        }
+    }
+
+    cout << ans.size() << endl;
+    for (int i = 0; i < ans.size(); ++i) {
+        cout << ans[i] << " ";
+    }
+
+    return 0;
+}
