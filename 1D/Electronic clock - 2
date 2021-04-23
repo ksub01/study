@@ -1,0 +1,43 @@
+В условии сказано:
+...и без хитрого форматированного вывода (типа %02d).
+Запись {0}:{1:0>2}:{2:0>2} я приравниваю к хитрому форматированию :)
+
+a = int(input())
+hours = a // 3600
+a -= hours*3600
+minutes = a // 60
+a-= minutes*60
+st = "{0}:{1:0>2}:{2:0>2}".format(hours % 24, minutes % 60, a)
+print(st)
+
+
+В условии сказано:
+Задачу необходимо решить без использования условных операторов (в том числе без тернарного оператора ?: в С++),...
+
+a = int(input())
+hours = (a // 3600)
+a -= hours*3600
+hours %= 24
+minutes = a // 60
+a-= minutes*60
+
+hours = str(hours)
+minutes = str(minutes)
+a = str(a)
+if int(minutes) < 10:
+    minutes = '0' + minutes
+if int(a) < 10:
+    a = '0' + a
+print(hours + ':' + minutes + ':' + a)
+
+#ready
+
+a = int(input())
+hours = (a // 3600)
+a -= hours*3600
+hours %= 24
+minutes = a // 60
+a-= minutes*60
+
+
+print(str(hours) + ':' +  str((minutes//10)%10) + str(minutes%10) + ':' + str((a//10)%10) + str(a%10))
