@@ -83,3 +83,115 @@ for i in range(len(s)):
     
 
 print(''.join(s[:m]))
+
+
+
+Хорошие решения
+s = input()
+
+
+def inplacedel(s):
+    a = list(s)
+    needle = "@"
+
+    l = len(a)
+    i = 0
+    j = 0
+
+    for j in range(l):
+        if a[j] != needle:
+            a[i] = a[j]
+            i += 1
+    
+    return "".join(a[:i])
+    
+
+print(inplacedel(s))
+Кодировка: 
+Скачать
+#include<iostream>
+#include<string>
+using namespace std;
+int main()
+{
+	string line;
+	getline(cin, line);
+	int k = 0;
+	for (int i = 0; i < line.size(); i++)
+	{
+		if (line[i] != '@')
+			line[i - k] = line[i];
+		else
+			k++;
+	}
+	line.erase(line.size() - k, k);
+	cout << line;
+}
+Кодировка: 
+Скачать
+#include <algorithm>
+#include <iostream>
+#include <iomanip>
+#include <vector>
+#include <cmath>
+#include <queue>
+#include <string>
+#include <set>
+#include <sstream>
+
+using namespace std;
+
+int main() {
+    cin.tie(0);
+    ios_base::sync_with_stdio(false);
+
+    string s;
+    cin >> s;
+    int p = 0;
+
+    for (int i = 0; i < s.length(); i++) {
+        if (s[i] != '@') {
+            s[p++] = s[i];
+        }
+    }
+    s.resize(p);
+    cout << s;
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main() {
+	string s;
+	cin >> s;
+	int i = 0;
+	for (int j = 0; j < s.size(); j++) {
+		if (s[j] != '@') {
+			s[i] = s[j];
+			i++;
+		}
+	}
+	s.resize(i);
+	cout << s;
+	return 0;
+}
+Кодировка: 
+Скачать
+def get_normalized_str(s: str):
+    s = list(s)  # typing.List[str]
+    j = 0
+
+    for i in range(len(s)):
+        if s[i] == '@':
+            j += 1
+        else:
+            s[i - j] = s[i]
+
+    return ''.join(s[:len(s) - j])
+
+
+print(get_normalized_str(input()))
