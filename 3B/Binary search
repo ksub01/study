@@ -88,121 +88,164 @@ for i in range(k):
     else:
         print("NO")
         
-        
 Хорошие решения
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <cmath>
-#include <stack>
-#include <queue>
-#include <string>
+#include<bits/stdc++.h>
 
 using namespace std;
-
-typedef long long ll;
-
-#define f first
-#define s second
-
-double EPS = 0.000000001;
-
-bool check(double &mid, ll &st, double &num) {
-	double dop = 1;
-	for (ll i = 0; i < st; i++) dop *= mid;
-	return dop >= num;
-}
-
 int main() {
-	double num, left, right;
-	ll st;
-	cin >> num >> st;
-	left = 0; 
-	right = max(1.0, num);
-	double mid, dop;
-	while(right - left > EPS) {
-		mid = (right + left) / 2;
-		if (check(mid, st, num)) right = mid;
-		else left = mid;
-	}
-	cout.precision(10);
-	cout << right;
-	return 0;
-}
-Кодировка: 
-Скачать
-def st(n,s,p):
-    r = n ** s
-    return(r > p)
-eps = 0.0000001
-a = float(input())
-b = int(input())
-ma = max(a,1)
-mi = 0
-while ma - mi > eps:
-    mt = mi + ((ma - mi) / 2)
-    if st(mt,b,a):
-        ma = mt
-    else:
-        mi = mt
-print(mi)
-Кодировка: 
-Скачать
-#include <iostream>
-#include <cmath>
-
-using namespace std;
-
-int main() {
-    double a,l,r,m;
-    int n;
-    cin >> a >> n;
-    l = 0; r = a;
-    if (r < 1) r = 1;
-    while (r-l > 1e-7) {
-        m = (r+l)/2;
-        if (pow(m,n) < a) {
-            l = m;
+    int n, k;
+    cin >> n >> k;
+    int arr[n];
+    for (int i = 0; i < n; ++i)
+        cin >> arr[i];
+    for (int i = 0; i < k; ++i){
+        int x;
+        cin >> x;
+        int l = 0, r = n;
+        while (r - l > 1) {
+            int m = (r + l) / 2;
+            if (arr[m] > x)
+                r = m;
+            else
+                l = m;
+        }
+        if (arr[l] == x){
+            cout << "YES" << '\n';
         } else {
-            r = m;
+            cout << "NO" << '\n';
         }
     }
-    cout.precision(7);
-    cout << l;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+
+using namespace std;
+
+int a[100000 + 1];
+
+int main() {
+	int n, k, t;
+	cin >> n >> k;
+	for (int i = 0; i < n; i++) {
+		cin >> a[i];
+	}
+	for (int i = 0; i < k; i++) {
+		cin >> t;
+		int l = 0, r = n;
+		while (r - l > 1) {
+			int m = (l + r) / 2;
+			if (a[m] <= t) {
+				l = m;
+			}
+			else {
+				r = m;
+			}
+		}
+		if (a[l] == t) {
+			cout << "YES\n";
+		}
+		else {
+			cout << "NO\n";
+		}
+	}
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+    int n, k;
+    scanf("%d%*c%d", &n, &k);
+    vector <long long> first, second;
+    for (int i = 0; i < n; i++) {
+        long long temp = 0; scanf("%lld", &temp);
+        first.push_back(temp);
+    }
+    for (int i = 0; i < k; i++){
+        long long temp; scanf("%lld", &temp);
+        second.push_back(temp);
+    }
+    for (int i = 0; i < k; i++){
+        int l = 0, r = n;
+        while (r - l > 1){
+            int m = (r + l) / 2;
+            if (first[m] > second[i]) r = m;
+            else l = m;
+        } cout << (first[l] == second[i] ? "YES" : "NO") << '\n';
+    }
     return 0;
 }
 Кодировка: 
 Скачать
-number = float(input())
-sqrt = int(input())
+#include<bits/stdc++.h>
+using namespace std;
+const double eps = 1e-9;
 
-left = 0
+int main(){
+    int n, k;
+    cin >> n >> k;
+    vector<int> a(n);
+    for(int i = 0;i < n;i++){
+        cin >> a[i];
+    }
+    for(int i = 0;i < k;i++){
+        int x;
+        cin >> x;
+        int l = -1;
+        int r = n;
+        while(r - l > 1){
+            int m = (r + l) / 2;
+            if(a[m] < x){
+                l = m;
+            }
+            else{
+                r = m;
+            }
+        }
+        if(r < n){
+            if(a[r] == x){
+                cout << "YES" << '\n';
+            }
+            else{
+                cout << "NO" << '\n';
+            }
+        }
+        else{
+            cout << "NO" << '\n';
+        }
 
-right = max(number, 1)
-eps = 10 ** (-12)
-while right - left > eps:
-    middle = (left + right) / 2.0
-    if middle ** sqrt > number:
-        right = middle
-    else:
-        left = middle
+    }
 
-print middle
+}
+
+
+
+
+
+
+
 Кодировка: 
 Скачать
-a=float(input())
-n=int(input())
-if a<1:
-    l=a
-    r=1000
-else:
-    l=0
-    r=a
-eps=1e-8
-while r-l>eps:
-    m=(r+l)/2
-    if m**n>a:
-        r=m
+n,k=map(int,input().split())
+first=[int(i) for i in input().split()]
+second=[int(i) for i in input().split()]
+res=[]
+for i in second:
+    l=-1
+    r=n
+    while r-l>1:
+        m=(r+l)//2
+        if first[m]>i:
+            r=m
+        else:
+            l=m
+    if l<0 or first[l]!=i:
+        res.append("NO")
     else:
-        l=m
-print(l)
+        res.append("YES")
+for i in res:
+    print(i)
