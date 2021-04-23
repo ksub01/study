@@ -1,0 +1,270 @@
+n = int(input())
+mas1 = [int(x) for x in input().rstrip().split()]
+k = int(input())
+mas2 = [int(x) for x in input().rstrip().split()]
+p = 0
+ans = 1000000000
+x = y = 0
+for i in range(len(mas1)):
+    while p < len(mas2) - 1 and abs(mas1[i] - mas2[p+1]) < abs(mas1[i] - mas2[p]):
+        p += 1
+    if abs(mas1[i] - mas2[p]) < ans:
+        ans = abs(mas1[i] - mas2[p])
+        x = mas1[i]
+        y = mas2[p]
+print(x, y)
+
+Найди ошибку: Стильная одежда
+N = int(input())
+a = list(map(int, input().split()))
+M = int(input())
+b = list(map(int, input().split()))
+
+ind1 = 0
+ind2 = 0
+mas = []
+
+while ind1 < N and ind2 < M :
+    if a[ind1] > b[ind2] :
+        mas.append([a[ind1] - b[ind2], a[ind1], b[ind2]])
+        ind2 += 1
+    else:
+        if a[ind1] < b[ind2] :
+            mas.append([b[ind2] - b[ind2], a[ind1], b[ind2]])  
+            ind1 += 1
+        else:
+            mas.append([0, a[ind1], b[ind2]])
+            ind1 = N + 1000
+            ind2 = M + 999
+
+z = mas[0]
+for i in range(len(mas)):
+    if mas[i][0] < z[0] :
+        z = mas[i]
+        
+print(z[1], z[2])
+
+
+#include <algorithm>
+#include <cctype>
+#include <cmath>
+#include <deque>
+#include <fstream>
+#include <iostream>
+#include <iterator>
+#include <map>
+#include <queue>
+#include <set>
+#include <stack>
+#include <string>
+#include <vector>
+
+#define ll long long
+
+using namespace std;
+
+int main() {
+	int n, m, b, min = 2e9, t = 0, ans1, ans2;
+	cin >> n;
+	vector<int> a(n + 1);
+	for (int i = 1; i <= n; i++) {
+		cin >> a[i];
+	}
+	a[0] = -2e9;
+	cin >> m;
+	for (int i = 0; i < m; i++) {
+		cin >> b;
+		while (true) {
+			if (t == n) {
+				t--;
+				break;
+			}
+			if (a[t] >= b) {
+				break;
+			}
+			t++;
+		}
+		if (abs(a[t] - b) < min) {
+			min = abs(a[t] - b);
+			ans1 = a[t];
+			ans2 = b;
+		}
+		if (abs(a[t - 1] - b) < min) {
+			min = abs(a[t] - b);
+			ans1 = a[t];
+			ans2 = b;
+		}
+	}
+	cout << ans1 << " " << ans2 << endl;
+	return 0;
+}
+
+
+n=int(input())
+ma=list(map(int, input().split()))
+m=int(input())
+sh=list(map(int, input().split()))
+i=j=ib=jb=0
+while 0<=i<n and 0<=j<m-1:
+    if abs(ma[i]-sh[j])<abs(ma[ib]-sh[jb]):
+        ib=i
+        jb=j
+    if ma[i]>sh[j]:
+        j+=1
+    elif ma[i]<sh[j]:
+        i+=1
+    else:
+        break
+print(ma[i], sh[j])
+
+
+
+Хорошие решения
+#include <iostream>
+#include <bits/stdc++.h>
+
+using namespace std;
+
+
+int main() {
+    int n, k;
+    cin >> n;
+    vector<long> arr(n);
+    for (int i = 0; i < n; ++i) cin >> arr[i];
+
+    cin >> k;
+    vector<long> arr1(k);
+    for (int i = 0; i < k; ++i) cin >> arr1[i];
+
+    long i = 0, j = 0, min = 1e8, res1, res2;
+    while (i < arr.size() && j < arr1.size()){
+        long temp = abs(arr[i] - arr1[j]);
+        if (temp < min){
+            min = temp;
+            res1 = arr[i];
+            res2 = arr1[j];
+        }
+        if (arr1[j] > arr[i]) i++;
+        else j++;
+    }
+
+    cout << res1 << " " << res2;
+    return 0;
+}
+Кодировка: 
+Скачать
+a = int(input())
+m1 = list(map(int,input().split()))
+b = int(input())
+m2 = list(map(int,input().split()))
+y1 = 0
+y2 = 0
+c1 = m1[0]
+c2 = m2[0]
+
+mi = abs(m1[0] - m2[0])
+while y1 < len(m1) and y2 < len(m2) :
+    if mi > abs(m1[y1] - m2[y2]):
+        mi = abs(m1[y1] - m2[y2])
+        c1 = m1[y1]
+        c2 = m2[y2]
+    if m1[y1] > m2[y2]:
+            y2 = y2 + 1
+    else:
+        y1 = y1 + 1
+        
+print(c1,c2)
+Кодировка: 
+Скачать
+#include<bits/stdc++.h>
+
+using namespace std;
+
+const int N = (int)1e5 + 5;
+
+int n,m;
+int a[N],b[N];
+int main() {
+    cin >> n;
+    for (int i = 0; i < n; ++i) {
+        cin >> a[i];
+    }
+
+    cin >> m;
+
+    for (int i = 0; i < m; ++i) {
+        cin >> b[i];
+    }
+    int j = 0;
+    int maxDis = INT_MAX;
+
+    pair<int,int> ans;
+    for (int i = 0; i < n; ++i) {
+        while (j < m - 1 && abs(b[j + 1] - a[i]) < abs(b[j] - a[i]))
+            j++;
+
+        if (abs(a[i] - b[j]) < maxDis){
+            maxDis = abs(a[i] - b[j]);
+            ans.first = a[i];
+            ans.second = b[j];
+        }
+    }
+    cout << ans.first << " "<<ans.second << endl;
+    return 0;
+}
+Кодировка: 
+Скачать
+n=int(input())
+first=list(map(int,input().split()))
+m=int(input())
+second=list(map(int,input().split()))
+i=0
+j=0
+min=1000000000
+res_first=None
+res_second=None
+while i<n and j<m:
+    curr=abs(first[i]-second[j])
+    if curr<min:
+        min=curr
+        res_first=first[i]
+        res_second=second[j]
+    if first[i]>second[j]:
+        j+=1
+    else:
+        i+=1
+print(res_first,res_second)
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+	long long n, m, t, j = 0, min = 10000000, z1, z2, i = 0;
+	cin >> n;
+	vector<long long>a(n);
+	for (long long i = 0; i < n; i++)
+		cin >> a[i];
+	cin >> m;
+	vector<long long>b(m);
+	for (long long i = 0; i < m; i++)
+		cin >> b[i];
+	while (i < n && j < m)
+	{
+		if (abs(a[i] - b[j]) < min)
+		{
+			min = abs(a[i] - b[j]);
+			z1 = a[i];
+			z2 = b[j];
+		}
+		if (a[i] > b[j])
+			j++;
+		else
+			i++;
+	}
+	cout << z1 << ' ' << z2;
+	return 0;
+}
