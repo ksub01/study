@@ -16,3 +16,214 @@ if s1 == s3:
     print('YES')
 else:
     print('NO')
+
+
+Найди ошибку: Анаграммы
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+int main() {
+	vector<int>a(35), b(35);
+	string s, h;
+	for (int i = 0; i < 35; i++) {
+		a[i] = 0;
+		b[i] = 0;
+	}
+	cin >> s >> h;
+	if (s.size() == h.size()) {
+		for (int i = 0; i < s.size(); i++) {
+			if ((int)s[i] > 60) {
+				a[(int)s[i] - 97]++;
+			}
+			else {
+				a[(int)s[i] - 47]++;
+			}
+		}
+		for (int i = 0; i < h.size(); i++) {
+			if ((int)h[i] > 60) {
+				b[(int)h[i] - 97]++;
+			}
+			else {
+				b[(int)h[i] - 22]++;
+			}
+		}
+		if (a == b) {
+			cout << "YES";
+		}
+		else {
+			cout << "NO";
+		}
+	}
+	else {
+		cout << "NO";
+	}
+	return 0;
+}
+
+
+s1=input()
+s2=input()
+a=[0]*26
+b=[0]*26
+for i in range(len(s1)):
+    a[ord(s1[i])-97]+=1
+for i in range(len(s2)):
+    b[ord(s2[i])-97]+=1
+ok=True
+for i in range(26):
+    if a[i]!=b[i]: ok=False; break
+if ok: print('YES')
+else: print('NO')
+
+
+
+import java.util.Scanner;
+
+public class L1_D3_2 {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s1 = sc.nextLine();
+        String s2 = sc.nextLine();
+
+        int[] s1CharCounts = new int[26];
+        int[] s2CharCounts = new int[26];
+        for (char c : s1.toCharArray()) {
+            s1CharCounts[c - 'a']++;
+        }
+        for (char c : s2.toCharArray()) {
+            s2CharCounts[c - 'a']++;
+        }
+
+        for (int i = 0; i < s1CharCounts.length; i++) {
+            if (s1CharCounts[i] != s2CharCounts[i]) {
+                System.out.println("NO");
+                return;
+            }
+        }
+
+        System.out.println("YES");
+    }
+
+}
+
+
+
+
+Хорошие решения
+#include <cstdio>
+#include <iostream>
+
+using namespace std;
+
+#define limit 256
+int count_1[ limit ];
+int count_2[ limit ];
+
+int main() {
+	string a, b;
+	cin >> a >> b;
+
+	for(int i = 0; i < (int)a.size(); i++) {
+		count_1[ a[ i ] - '0' ]++;
+	}
+
+	for(int i = 0; i < (int)b.size(); i++) {
+		count_2[ b[ i ] - '0' ]++;
+	}
+
+	for(int i = 0; i < limit; i++) {
+		if(count_1[ i ] != count_2[ i ]) {
+			printf("NO");
+			return 0;
+		}
+	}
+	printf("YES");
+}
+Кодировка: 
+Скачать
+def anagrams(s1, s2):
+	m1 = [0] * 256
+	m2 = [0] * 256
+	for i in s1:
+		m1[ord(i)] += 1
+	for i in s2:
+		m2[ord(i)] += 1
+	for i in range(256):
+		if m1[i] != m2[i]:
+			return False
+	return True
+
+res = anagrams(input(), input())
+print("YES" if res else "NO")
+Кодировка: 
+Скачать
+def count(s):
+    d = [0]*128
+    for c in s:
+        d[ord(c)] += 1
+    return d
+
+s1 = input()
+s2 = input()
+print('YES' if count(s1)==count(s2) else 'NO')
+Кодировка: 
+Скачать
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int  main(){
+    string s1, s2;
+    vector<int> a(256, 0), b(256, 0);
+    bool f = true;
+    cin >> s1 >> s2;
+    for (int i = 0; i < s1.size(); i++) {
+        a[(int)s1[i]]++;
+    }
+    for (int i = 0; i < s2.size(); i++) {
+        b[(int)s2[i]]++;
+    }
+    for (int i = 0; i < 256; i++) {
+        f = f && (a[i] == b[i]);
+    }
+    if (f) {
+        cout << "YES";
+    }
+    else {
+        cout << "NO";
+    }
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+const int N = 500;
+int cnt[N];
+int main() {
+    string a,b;
+    cin >> a >> b;
+
+    if (a.length() != b.length()){
+        cout << "NO" << endl;
+        return 0;
+    }
+    for (int i = 0; i < a.length(); ++i) {
+        cnt[a[i]]++;
+        cnt[b[i]]--;
+    }
+    for (int i = 0; i < b.length(); ++i) {
+        if(cnt[a[i]] != 0 || cnt[b[i]] != 0){
+            cout << "NO" << endl;
+            return 0;
+        }
+    }
+    cout << "YES" << endl;
+}
