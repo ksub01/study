@@ -1,0 +1,57 @@
+ x*(how_many_water/100) * (bottles[from_bottle][i] / x)
+как-то странно, что тут два раза написано x,
+оно вроде сокращается
+
+import math
+ 
+value = 0
+number_bottles, type_bottle = map(int, input().rstrip().split())
+bottles = [{-1:-1}]
+ 
+ 
+for i in range(number_bottles):
+    which_type, value = map(int, input().rstrip().split())
+    bottles.append({which_type: value})
+ 
+transfusions = int(input())
+ 
+ 
+for time in range(transfusions):
+    from_bottle, to_bottle, how_many_water = map(int, input().rstrip().split())
+    x = sum(bottles[from_bottle].values())
+    if x != 0:
+        for i in bottles[from_bottle]:
+            y = x*(how_many_water/100) * (bottles[from_bottle][i] / x)
+            bottles[from_bottle][i] -= y
+            if i in bottles[to_bottle]:
+                bottles[to_bottle][i] += y
+            else:
+                bottles[to_bottle][i] = y
+x = sum(bottles[1].values())
+for i in range(1, type_bottle+1):
+    if i in bottles[1]:
+        print((bottles[1][i]/x)*100, end = ' ')
+    else:
+        print(0, end = ' ')
+        
+        
+        
+#good
+flac, tip = map(int, input().split())
+mass = []
+for i in range(flac):
+    mass.append([0] * tip)
+for i in range(flac):
+    num, mass[i][num - 1] = map(int, input().split())
+kolvo = int(input())
+for i in range(kolvo):
+    otk, kud, skol = map(int, input().split())
+    for i in range(tip):
+        dop = mass[otk - 1][i] * skol / 100
+        mass[otk - 1][i] -= dop
+        mass[kud - 1][i] += dop
+sum_ob = 0
+for i in range(tip):
+    sum_ob += mass[0][i]
+for i in range(tip):
+    print(mass[0][i] / sum_ob * 100, end=" ")
