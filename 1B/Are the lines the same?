@@ -1,0 +1,12 @@
+s1 = input()
+s2 = input()
+flag = True
+for i in range(min(len(s1), len(s2))):
+    if s1[i] != s2[i]:
+        flag = False
+if len(s1) != len(s2):
+    flag = False
+if s1 == s2:
+    print('yes')
+else:
+    print('no')
