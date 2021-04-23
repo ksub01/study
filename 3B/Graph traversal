@@ -1,0 +1,215 @@
+Да, но зачем вы нумеруете массивы с единицы?
+n, m = map(int, input().split())
+was = [0] * (n+1)
+list1 = [[0]*(n+1)]
+
+for i in range(n):
+    list1.append([0] + list(map(int, input().rstrip().split())))
+
+
+def find(k):
+    was[k] = 1
+    for i in range(1, n+1):
+        if list1[k][i] == 1 and was[i] == 0:
+            find(i)
+
+
+find(m)
+cou = 0
+for i in was:
+    if i == 1:
+        cou += 1
+print(cou)
+
+
+Найди ошибку: Обход графа
+def f (x):
+    global answer
+    global colors
+    answer += 1
+    colors[x] = 1
+    for i in range(N):
+        if mas[x][i] == 1 :
+            if colors[i] == 0 :
+                f(i)
+                
+
+    
+    
+
+N, s = map(int, input().split())
+mas = [0]*N
+colors = [0] * N
+for i in range(N):
+    mas[i] = list(map(int, input().split()))
+answer = 0
+f(s)
+print(answer)
+
+Хорошие решения
+#include <iostream>
+#include <map>
+#include <string>
+#include <deque>
+#include <vector>
+#include <algorithm>
+using namespace std;
+vector<vector<int>> a;
+vector<int> color;
+int sum = 0;
+int n;
+void comp(int s) {
+	for (int i = 0; i < n; i++) {
+		if (a[s][i] == 1 && color[i] == -1) {
+			sum++;
+			color[i] = 0;
+			comp(i);
+		}
+	}
+}
+
+int main() {
+	int s;
+	cin >> n >> s;
+	s--;
+	vector<int> b(n);
+	for (int i = 0; i < n; i++) {
+		color.push_back(-1);
+		for (int j = 0; j < n; j++) {
+			cin >> b[j];
+		}
+		a.push_back(b);
+	}
+	comp(s);
+	cout << sum;
+	return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <string>
+#include <cmath>
+
+using namespace std;
+
+const int N = 1e2;
+
+int m[N][N], sum = 0, was[N], n, s;
+
+void dfs(int i){
+    if (was[i] == 0){
+        was[i] = 1;
+        ++sum;
+        for(int j = 0; j < n; ++j){
+            if (m[i][j] != 0){
+                dfs(j);
+            }
+        }
+    }
+}
+
+int main() {
+    cin >> n >> s;
+    for (int i = 0; i < n; i++){
+        for (int j = 0; j < n; ++j){
+            cin >> m[i][j];
+        }
+    }
+    dfs(s - 1);
+    cout << sum;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+short n, startV, ans = 1;
+vector<vector<short>> graph;
+vector<bool> was;
+
+void dfs(short v) {
+    was[v] = 1;
+    for (short i = 0; i < n; i++) {
+        if (graph[v][i] && was[i] == 0) {
+            dfs(i);
+            ans++;
+        }
+    }
+}
+
+int main() {
+    cin >> n >> startV;
+    
+    graph.resize(n, vector<short>(n, 0));
+    for (short i = 0; i < n; i++) {
+        for (short j = 0; j < n; j++) {
+            cin >> graph[i][j];
+        }
+    }
+    
+    was.resize(n, 0);
+    dfs(startV - 1);
+    cout << ans;
+    
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void dfs(int i, int n, int &k, vector<int> &used, vector<vector<int>>&a)
+{
+	if (used[i] != 0)
+	{
+		return;
+	}
+	used[i] = 1;
+	k++;
+	for (int j = 0; j < n; j++)
+	{
+		if (a[i][j] == 1)
+			dfs(j, n, k, used, a);
+	}
+}
+int main()
+{
+	int n, k = 0, s, t;
+	cin >> n >> s;
+	s--;
+	vector<vector<int>>a(n);
+	vector<int>used(n);
+	for (int i = 0; i < n; i++)
+	{
+		used[i] = 0;
+		for (int j = 0; j < n; j++)
+		{
+			cin >> t;
+			a[i].push_back(t);
+		}
+	}
+	dfs(s, n, k, used, a);
+	cout << k;
+	return 0;
+}
+Кодировка: 
+Скачать
+n,s=map(int,input().split())
+matrix=[[int(i) for i in input().split()] for j in range(n)]
+was=[0]*n
+res=0
+def find(i):
+    if was[i]==1:
+        return
+    global res
+    res+=1
+    was[i]=1
+    for j in range(n):
+        if matrix[i][j]:
+            find(j)
+find(s-1)
+print(res)
