@@ -6,3 +6,43 @@ if k != 4 and not(1 <= k <= 2) and k != 7:
     print('YES')
 else:
     print('NO')
+
+
+
+Хорошие решения
+#include <iostream>
+
+using namespace std;
+
+int main () {
+    int k;
+    cin >> k;
+    if (k != 1 && k != 2 && k != 4 && k != 7)
+        cout << "YES" << "\n";
+    else
+        cout << "NO" << "\n";
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int k;
+	cin >> k;
+	if (k%3==0 || k%5==0 || k==8 || k>10)
+		cout << "YES";
+	else cout << "NO";
+}
+
+
+Кодировка: 
+Скачать
+k = int(input())
+a = 0
+if k == 3 or k == 5 or k == 6 or k > 7:
+    print('YES')
+else:
+    print('NO')
