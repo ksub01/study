@@ -1,0 +1,204 @@
+zero = mas[x-1][4] + mas[x-1][6]
+one = mas[x-1][6] + mas[x-1][8]
+two = mas[x-1][7] + mas[x-1][9]
+я бы сразу писал типа
+mas[x][0] = mas[x-1][4] + mas[x-1][6]
+mas[x][1] = mas[x-1][6] + mas[x-1][8]
+mas[x][2] = mas[x-1][7] + mas[x-1][9]
+...
+
+N = int(input())
+mas = [[0]*10 for x in range(N)]
+mas[0] = [0, 1, 1, 1, 1, 1, 1, 1, 0, 1]
+for x in range(1, N):
+    zero = mas[x-1][4] + mas[x-1][6]
+    one = mas[x-1][6] + mas[x-1][8]
+    two = mas[x-1][7] + mas[x-1][9]
+    three = mas[x-1][4] + mas[x-1][8]
+    four = mas[x-1][0] + mas[x-1][3] + mas[x-1][9]
+    six = mas[x-1][0] + mas[x-1][7] + mas[x-1][1]
+    seven = mas[x-1][2] + mas[x-1][6]
+    eight = mas[x-1][1] + mas[x-1][3]
+    nine = mas[x-1][2] + mas[x-1][4]
+    mas[x] = [zero, one, two, three, four, 0, six, seven, eight, nine]
+
+print(sum(mas[-1]))
+
+
+
+Найди ошибку: Ход коня
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main()
+{
+   vector<vector<int>> way{{4, 6}, {6, 8}, {6, 9}, {4, 8}, {0, 9, 3}, {}, {0, 1, 7}, {6, 2}, {1, 3}, {4, 2}};
+   vector<int> new_vaules(10, 0);
+   vector<int> old_vaules{0, 1, 1, 1, 1, 1 ,1, 1, 0, 1};
+   int result, n;
+   cin >> n;
+   for (int i = 2; i <= n; i++)
+   {
+       for (int j = 0; j < 10; j++)
+       {
+           for (int k = 0; k < way[j].size(); k++)
+               new_vaules[way[j][k]] += old_vaules[j];
+       }
+       old_vaules = new_vaules;
+       new_vaules = vector<int>(10, 0);
+   }
+   result = 0;
+   for (int i = 0; i < 10; i++)
+       result += old_vaules[i];
+   cout << result << endl;
+   return 0;
+}
+
+
+Хорошие решения
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main()
+{
+   vector<vector<int>> way{{4, 6}, {6, 8}, {7, 9}, {4, 8}, {0, 9, 3}, {}, {0, 1, 7}, {6, 2}, {1, 3}, {4, 2}};
+   vector<int> new_vaules(10, 0);
+   vector<int> old_vaules{0, 1, 1, 1, 1, 1 ,1, 1, 0, 1};
+   int result, n;
+   cin >> n;
+   for (int i = 2; i <= n; i++)
+   {
+       for (int j = 0; j < 10; j++)
+       {
+           for (int k = 0; k < way[j].size(); k++)
+               new_vaules[way[j][k]] += old_vaules[j];
+       }
+       old_vaules = new_vaules;
+       new_vaules = vector<int>(10, 0);
+   }
+   result = 0;
+   for (int i = 0; i < 10; i++)
+       result += old_vaules[i];
+   cout << result << endl;
+   return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <initializer_list>
+#define in(x) cin >> x;
+#define wr(x) cout << x << ' ';
+#define pr(x) cout << x << endl;
+using namespace std;
+typedef initializer_list<int> itl;
+typedef vector<int> vect;
+typedef vector<vect> vvect;
+
+itl map[10] {    [0]={4,6},
+    [1]={6,8},   [2]={7,9}, [3]={4,8},
+    [4]={0,3,9}, [5]={},    [6]={0,1,7},
+    [7]={2,6},   [8]={1,3}, [9]={2,4}
+};
+
+int solve(int n) {
+    vvect dp(n+1, vect(10));
+    for (int j = 0; j < 10; j++)
+        dp[1][j] = 1;
+    dp[1][0] = dp[1][8] = 0;
+    for (int i = 1; i <= n; i++) {
+        for (int j = 0; j < 10; j++) {
+            for (int p : map[j]) {
+                dp[i][j] += dp[i-1][p];
+            }
+        }
+    }
+    int sum = 0;
+    for (int j = 0; j < 10; j++)
+        sum += dp[n][j];
+    return sum;
+}
+
+int main() {
+    int n;
+    in(n);
+    int r = solve(n);
+    pr(r);
+}
+Кодировка: 
+Скачать
+n = int(input())
+ans = [[1] * 10 for i in range(n)]
+ans[0][0], ans[0][8] = 0, 0
+
+horse = [
+    [6, 4], [8, 6], [9, 7], [8, 4], [9, 3, 0], [], [7, 1, 0], [6, 2], [3, 1], [4, 2]
+]
+for i in range(1, n):
+    for j in range(10):
+        ans[i][j] = 0
+        for h in horse[j]:
+            ans[i][j] += ans[i - 1][h]
+print(sum(ans[n - 1]))
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <cstring>
+
+using namespace std;
+
+
+const int N = 200;
+int dp[N][10];
+
+int n;
+int main() {
+    cin >> n;
+
+    for (int i = 1; i <= 9 ; ++i) {
+        dp[1][i] = 1;
+    }
+    dp[1][0] = dp[1][8] = 0;
+
+
+    for (int i = 2; i <= n; ++i) {
+        dp[i][1] = dp[i - 1][6] + dp[i - 1][8];
+        dp[i][2] = dp[i - 1][7] + dp[i - 1][9];
+        dp[i][3] = dp[i - 1][4] + dp[i - 1][8];
+        dp[i][4] = dp[i - 1][3] + dp[i - 1][9] + dp[i - 1][0];
+        dp[i][6] = dp[i - 1][7] + dp[i - 1][1] + dp[i - 1][0];
+        dp[i][7] = dp[i - 1][6] + dp[i - 1][2];
+        dp[i][8] = dp[i - 1][1] + dp[i - 1][3];
+        dp[i][9] = dp[i - 1][4] + dp[i - 1][2];
+        dp[i][0] = dp[i - 1][4] + dp[i - 1][6];
+
+     }
+
+    int ans = 0;
+
+    for (int j = 0; j <= 9; ++j) {
+        ans += dp[n][j];
+    }
+
+    cout << ans << endl;
+}
+Кодировка: 
+Скачать
+n = int(input())
+new = [0,1,1,1,1,1,1,1,0,1]
+for i in range(n-1):
+    old = list(new)
+    new[0] = old[4] + old[6]
+    new[1] = old[6] + old[8]
+    new[2] = old[7] + old[9]
+    new[3] = old[4] + old[8]
+    new[4] = old[0] + old[3] + old[9]
+    new[5] = 0
+    new[6] = old[0] + old[1] + old[7]
+    new[7] = old[2] + old[6]
+    new[8] = old[1] + old[3]
+    new[9] = old[2] + old[4]
+print(sum(new))
