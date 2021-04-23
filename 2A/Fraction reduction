@@ -1,0 +1,8 @@
+def gsd(a, b):
+    while b != 0:
+        a, b = b, a % b
+    return a
+
+x, y = input().split(' ')
+z = gsd(int(x), int(y))
+print(int(x) // z, int(y) // z)
