@@ -75,3 +75,185 @@ for i in sorted(cash):
         break
 
 print(ans)
+
+
+
+
+
+
+
+
+
+
+Хорошие решения
+#include<bits/stdc++.h>
+
+using namespace std;
+int arr[120];
+
+int main() {
+    //freopen("input.txt", "r", stdin);
+    //freopen("output.txt", "w", stdout);
+    string s, sl, sr;
+    string c = " ";
+    int n;
+    cin >> n;
+    cin >> s;
+    for (auto it : s)
+        arr[it]++;
+    for (int i = 'Z'; i >= 'A'; --i) {
+        for (int j = 1; j <= arr[i] / 2; ++j) {
+            sl.push_back(char(i));
+            sr.push_back(char(i));
+        }
+        if (arr[i] % 2)
+            c[0] = char(i);
+    }
+    reverse(sl.begin(), sl.end());
+    cout << sl << ((c != " ") ? c : "") << sr;
+}
+Кодировка: 
+Скачать
+var max,j,i,n:int64;
+mas:array['A'..'Z'] of integer;
+str:string;
+i_s,tmp:char;
+flag:boolean;
+begin
+max:=0;
+tmp:='1';
+flag:=true;
+readln(n);
+read(str);
+for j:=1 to length(str) do
+  inc(mas[str[j]]);
+for i_s:='A' to 'Z' do
+  if (mas[i_s] mod 2 <>0) and (mas[i_s]>max) then begin
+    max:=mas[i_s];
+    tmp:=i_s;
+  end;
+for i_s:='A' to 'Z' do 
+    for j:=1 to (mas[i_s] div 2 ) do
+      write(i_s);
+if tmp<>'1' then
+  write(tmp);
+for i_s:='Z' downto 'A' do
+    for  j:=1 to (mas[i_s] div 2) do
+      write(i_s);
+end.
+   
+  
+
+
+Кодировка: 
+Скачать
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int m[26];
+int main()
+{
+    int n;
+    cin >> n;
+
+    string s;
+    cin >> s;
+
+    for(int i = 0; i < n; i++)
+        m[abs('A' - s[i])]++;
+
+    int cnt = -1;
+    for(int i = 25; i >= 0; i--)
+        if(m[i] % 2 == 1)
+        {
+            cnt = i;
+            m[cnt]--;
+        }
+
+    s = "";
+    for(int i = 0; i < 26; i++)
+        for(int j = 0; j < (m[i] + 1) / 2; j++)
+            s += 'A' + i;
+
+    cout << s;
+
+    if(cnt != -1)
+        cout << char('A' + cnt);
+
+    for(int i = s.length() - 1; i >= 0; i--)
+        cout << s[i];
+
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int chs['Z' - 'A' + 1];
+int res[100000 / 2];
+
+int main() {
+      int n;
+      cin >> n;
+      for (int i = 0; i < n; ++ i) {
+            char ch;
+            cin >> ch;
+            chs[ch - 'A'] ++;
+      }
+      int i_res = 0;
+      char middle = ' ';
+      for (int i = 0; i < 'Z' - 'A' + 1; ++ i) {
+            if (chs[i] % 2 != 0) {
+                  if (middle == ' ') {
+                        middle = i + 'A';
+                  }
+                  chs[i] --;
+            }
+            for (int j = 0; j < chs[i] / 2; ++ j) {
+                  res[i_res] = i + 1;
+                  i_res ++;
+            }
+      }
+      int i;
+      for (i = 0; i < n / 2 + 1; ++ i) {
+            if (res[i] == 0) {
+                  if (middle != ' ') {
+                        cout << middle;
+                  }
+                  break;
+            }
+            cout << (char)(res[i] + 'A' - 1);
+      }
+      for (-- i; i > -1; -- i) {
+            cout << (char)(res[i] + 'A' - 1);
+      }
+      cout << endl;
+      return 0;
+}
+Кодировка: 
+Скачать
+input()
+a = input()
+m = []
+half = ""
+for x in range(ord("A"),ord("Z") + 1):
+    m.append(0)
+
+centr = ""
+for x in range(len(a)):
+    m[ord(a[x]) - ord("A")] = m[ord(a[x]) - ord("A")] + 1
+for x in range(ord("Z") + 1 - ord("A")):
+    if centr == "" and m[x] % 2 == 1:
+        centr = chr(x + ord("A"))
+    if m[x] >= 2:
+        for y in range(m[x] // 2):
+            half = half + chr(x + ord("A"))    
+        
+word = half + centr
+for x in range(len(half) - 1, -1,-1):
+    word = word + half[x]
+print(word)
