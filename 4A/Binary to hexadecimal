@@ -1,0 +1,217 @@
+Не надо переводить все число сразу в число,
+а то промежуточные результаты могут быть очень большими.
+Работайте группами по 4 цифры.
+
+s = input()
+cou = 1
+num = 0
+for i in range(len(s)-1, -1, -1):
+    num += int(s[i]) * cou
+    cou *= 2
+s = ''
+while num > 0:
+    x = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'][num % 16]
+    s = s + x
+    num //= 16
+print(s[::-1])
+
+
+x = {'0000': 0, '0001': 1, '0010': 2, '0011': 3, '0100': 4, '0101': 5, '0110': 6, '0111': 7, '1000': 8,
+     '1001': 9, '1010': 'A', '1011': 'B', '1100': 'C', '1101': 'D', '1110': 'E', '1111': 'F'}
+Зачту, но я бы не хардкодил,
+а то слишком легко ошибиться.
+Я бы сделал отдельный цикл для инициализации x
+
+s = input()
+cou = 1
+y = len(s) % 4
+if y != 0:
+    s = '0' * (4 - y) + s
+
+num = []
+for i in range(0, len(s), 4):
+    num.append(s[i:i+4])
+
+s = ''
+x = {'0000': 0, '0001': 1, '0010': 2, '0011': 3, '0100': 4, '0101': 5, '0110': 6, '0111': 7, '1000': 8,
+     '1001': 9, '1010': 'A', '1011': 'B', '1100': 'C', '1101': 'D', '1110': 'E', '1111': 'F'}
+
+for i in num:
+    s = s + str(x[i])
+print(s)
+
+Хорошие решения
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+typedef long long ll;
+
+using namespace std;
+
+uint8_t toNum(char x)
+{
+	if (x >= '0' && x <= '9') 
+		return x - '0';
+	else 
+		return 10 + (x - 'A');
+}
+
+char toChr(uint8_t x)
+{
+	if (x <= 9) 
+		return x + '0';
+	else
+		return 'A' + x - 10;
+}
+
+int main()
+{
+	string s;
+	cin >> s;
+
+	ll n = s.length();
+
+	reverse(s.begin(), s.end());
+
+	s += "0000";
+
+	string ans = "";
+	for (ll i = 0; i < n; i += 4)
+	{
+		uint8_t res = 0;
+		for (ll j = 0; j < 4; j++)
+			res += toNum(s[i + j]) << j;
+
+		ans += toChr(res);
+	}
+
+	reverse(ans.begin(), ans.end());
+
+	cout << ans << endl;
+
+	return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+#include <stack>
+#include <queue>
+#include <string>
+
+using namespace std;
+
+typedef long long ll;
+
+#define f first
+#define s second
+
+ll per_v_des(string b_num) {
+	ll dop = stoi(b_num);
+	ll d_num = 0, st = 1;
+	while (dop != 0) {
+		d_num += dop % 10 * st;
+		st *= 2;
+		dop /= 10;
+	}
+	return d_num;
+}
+
+int main() {
+	string b_num, dop;
+	cin >> b_num;
+	if (b_num.size() % 4 != 0) {
+		dop = string((4 - b_num.size() % 4), '0');
+		b_num = dop + b_num;
+	}
+	vector<char> per = { 'A', 'B', 'C', 'D', 'E', 'F' };
+	ll dop_2;
+	string sh_num = "";
+	while (b_num.size() != 0) {
+		dop_2 = b_num.size() - 1;
+		dop = string(1, b_num[dop_2 - 1]) + string(1, b_num[dop_2]);
+		dop = string(1, b_num[dop_2 - 2]) + dop;
+		dop = string(1, b_num[dop_2 - 3]) + dop;
+		dop_2 = per_v_des(dop);
+		if (dop_2 >= 10) {
+			sh_num = per[dop_2 - 10] + sh_num;
+		}
+		else {
+			sh_num = char(dop_2 + int('0')) + sh_num;
+		}
+		for (ll i = 0; i < 4; i++) b_num.pop_back();
+	}
+	cout << sh_num;
+	return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int to_decimal(string str){
+    int res = 0;
+    int temp = 1;
+    for (int i = str.size() - 1; i >= 0; --i){
+        res += (str[i] - '0') * temp;
+        temp *= 2;
+    }
+    return res;
+}
+
+char convert(int num){
+    if (num < 10) return ('0' + num);
+    else return ('A' + num - 10);
+}
+
+int main() {
+    string inp, res("");
+    cin >> inp;
+    int temp = inp.size() % 4; // 4, tak kak 2^4 == 16
+    if (temp != 0){
+
+        string s( 4 - temp, '0');
+        inp = s + inp;
+    }
+    for (int i = 0; i < inp.size(); i += 4){
+        string str = inp.substr(i, 4);
+        res += convert(to_decimal(str));
+    }
+
+    cout << res;
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+const string digits = "0123456789ABCDEF";
+
+int main() {
+    string n, out;
+    cin >> n;
+    
+    short ans, pow;
+    for (short i = n.length() - 1; i >= 0; i -= 4) {
+        ans = 0;
+        pow = 1;
+        for (short j = i; j >= 0 && i - j < 4; j--) {
+            ans += (n[j] - '0') * pow;
+            pow *= 2;
+        }
+        out += digits[ans];    
+    }
+    for (short i = out.length() - 1; i >= 0; i--) {
+        cout << out[i];
+    }
+    
+    return 0;
+}
