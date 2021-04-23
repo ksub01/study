@@ -7,3 +7,98 @@ elif 2 <= (n % 10) <= 4:
     print(n, 'korovy')
 else:
     print(n, 'korov')
+
+
+Найди ошибку: Коровы
+a=int(input())
+if a%10==0 or a%10>=5 or a==12 or a==13 or a==14:
+    print(a,'korov')
+elif a%10==2 or a%10==3 or a%10==4:
+    print(a,'korovy')
+elif a%10==1:
+    print(a,'korova')
+    
+    
+n = int(input())
+if n == 1:
+    print(n, "korova")
+elif n == 2 or n == 3 or n == 4:
+    print(n, "korovy")
+elif n > 20 and n % 10 == 1:
+    print(n, "korova")
+elif n > 20 and n % 10 == 2 or n % 10 == 3 or n % 10 == 4:
+    print(n, "korovy")
+else:
+    print(n, "korov")
+    
+
+ï»¿var n:integer;
+begin
+ read(n);
+ case n of 
+ 5..20,25..30,35..40,45..51,55..60,65..70,75..80,85..90,95..99:writeln(n,' korov');
+ 2..4,22..24,32..34,42..44,52..54,62..64,72..74,82..84,92..94:writeln(n,' korovy');
+ else writeln (n,' korova');
+ end;
+end.
+
+
+
+
+
+Хорошие решения
+n = int(input())
+a = n % 10
+if n == 11:
+    print(n, 'korov')
+elif a == 0 or (a <= 9 and a >= 5):
+    print(n, 'korov')
+elif n >= 11 and n <= 14:
+    print(n, 'korov')
+elif a >= 2 and a <= 4:
+    print(n, 'korovy')
+elif a == 1:
+    print(n, 'korova')
+Кодировка: 
+Скачать
+n=int(input())
+if (n%10==2 or n%10==3 or n%10==4) and (n//10)!=1:
+    print(n,'korovy')
+elif n%10==1 and (n//10)!=1:
+    print(n,'korova')
+else:
+    print(n,'korov')
+
+    
+Кодировка: 
+Скачать
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main()
+{
+	int n;
+	cin >> n;
+	if (n % 10 == 1 && n != 11) {
+		cout << n << " korova" << endl;
+	}
+	else if (n % 10 >= 5 || n / 10 == 1 || n % 10 == 0) {
+		cout << n << " korov" << endl;
+	}
+	else {
+		cout << n << " korovy" << endl;
+	}
+	return 0;
+}
+
+Кодировка: 
+Скачать
+n=int(input())
+if 11<=n<=19 or 5<=n%10<=9 or n%10==0:
+    print(n, "korov")
+elif n%10==1:
+    print(n, "korova")
+elif 2<=n%10<=4:
+    print(n, "korovy")
