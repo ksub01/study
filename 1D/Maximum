@@ -1,3 +1,11 @@
 a = int(input())
 b = int(input())
 print((a*(a//b) + b*(b//a))//(b//a+a//b))
+
+
+
+Найди ошибку: Максимум
+a = int(input())
+b = int(input())
+c = a=b
+print(a+(c>>10)*c)
