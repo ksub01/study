@@ -12,3 +12,91 @@ for i in range(n):
         tr += 1
         s = s + str(cou) + ' '
 print(s[:-1])
+
+
+
+
+Хорошие решения
+n = int(input())
+d = []
+c = []
+
+for a in range(n+1):
+    for b in range(a):
+        d.append(a)
+
+for x in range(n):
+    c.append(d[x])
+
+print(*c, sep=" ")
+Кодировка: 
+Скачать
+z = int(input())
+x = 1
+while z != 0:
+    for i in range (x):
+        print (x)
+        z -= 1
+        if z == 0:
+            break
+    x += 1
+Кодировка: 
+Скачать
+#include <iostream>
+
+using namespace std;
+
+int n, num = 1, nx = 1;
+
+
+int main()
+{
+    cin >> n;
+    for(int i=0; i < n; i++)
+    {
+        cout << num << " ";
+        if(num == nx)
+        {
+            num++;
+            nx = 1;
+        } else nx++;
+        
+    }
+}
+Кодировка: 
+Скачать
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+  int n, c = 0;
+  cin >> n;
+  for (int i = 1; i <= n && c < n; i += 1) {
+    for (int j = 0; j < i && c < n; j += 1) {
+      cout << i << " ";
+      c += 1;
+    }
+  }
+  cout << endl;
+}
+Кодировка: 
+Скачать
+var s,a,k,i: integer;
+
+begin
+
+  read(s);
+  a:=1;
+  k:=0;
+  for i:=1 to s do begin 
+    write(a,' ');
+    inc(k);
+    if a=k then begin
+      k:=0;
+      inc(a);
+    end;
+  end;
+  
+end.
