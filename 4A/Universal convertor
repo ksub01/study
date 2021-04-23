@@ -1,0 +1,71 @@
+cash = {chr(x): y for x, y in zip(range(ord('A'), ord('Z')+1), range(10, 100))}
+зачем это делать каждый раз?!
+
+letters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+letters += [chr(x) for x in range(ord('A'), ord('Z')+1)]
+и это тоже
+
+n1 = int(input())
+s = input()
+n2 = int(input())
+cou = 1
+num = 0
+for i in range(len(s)-1, -1, -1):
+    x = s[i]
+    if not s[i].isdigit():
+        cash = {chr(x): y for x, y in zip(range(ord('A'), ord('Z')+1), range(10, 100))}
+        x = cash[s[i]]
+    num += int(x) * cou
+    cou *= n1
+
+b = ''
+while num > 0:
+    letters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    letters += [chr(x) for x in range(ord('A'), ord('Z')+1)]
+    x = letters[num % n2]
+    b = b + x
+    num //= n2
+b = b[::-1]
+while b.startswith('0') and len(b) > 1:
+    b = b[1:]
+print(b)
+
+    if not s[i].isdigit():
+        x = cash[s[i]]
+я бы тогда уж и цифры тоже добавил бы в cash
+
+while b.startswith('0') and len(b) > 1:
+    b = b[1:]
+но долго же! это же каждый раз копирует массив.
+Намного проще сначала выкинуть нули,
+а потом уже разворачивать.
+Ну или тут делать не [1:], а просто завести счетчик, типа
+cnt = 0;
+while cnt < len(b) and b[cnt] == '0':
+    cnt += 1
+print(b[cnt:])
+
+n1 = int(input())
+s = input()
+n2 = int(input())
+cou = 1
+num = 0
+cash = {chr(x): y for x, y in zip(range(ord('A'), ord('Z') + 1), range(10, 100))}
+for i in range(len(s)-1, -1, -1):
+    x = s[i]
+    if not s[i].isdigit():
+        x = cash[s[i]]
+    num += int(x) * cou
+    cou *= n1
+
+b = ''
+letters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+letters += [chr(x) for x in range(ord('A'), ord('Z') + 1)]
+while num > 0:
+    x = letters[num % n2]
+    b = b + x
+    num //= n2
+b = b[::-1]
+while b.startswith('0') and len(b) > 1:
+    b = b[1:]
+print(b)
