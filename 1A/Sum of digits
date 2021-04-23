@@ -4,3 +4,69 @@ while b > 0:
     sum += b%10
     b //=10
 print(sum)
+
+
+Найди ошибку: Сумма цифр
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Aug 15 12:12:31 2020
+
+@author: peteru
+"""
+
+n = int(input())
+
+print ((n / 10 // 10) +(n // 10 % 10) + (n % 10))
+
+
+Хорошие решения
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	int a;
+	cin >> a;
+	cout << (a / 100) + (a % 100) / 10 + a % 10 << endl;
+	return 0;
+}
+Кодировка: 
+Скачать
+  var a, b, c, d, e: integer;
+begin
+  read (a);
+  b:= a div 100;
+  c:=(a div 10) mod 10;
+  d:=a mod 10;
+  e:=b+c+d;
+  write (e);
+end.
+  
+Кодировка: 
+Скачать
+import java.util.*;
+
+public class z1a1_6m {
+	
+	public static void main(String[] args)
+	{
+		Scanner sc = new Scanner(System.in);
+		int a = sc.nextInt();
+		System.out.print(a / 100 + a % 10 + (a / 10) % 10) ;
+	}
+
+}
+Кодировка: 
+Скачать
+
+var a:integer;
+begin
+read(a);
+writeln(a mod 10 + a div 10 mod 10 + a div 100 ); 
+end.
+Кодировка: 
+Скачать
+a = int(input())
+print(a // 100 + a // 10 % 10 + a % 10)
