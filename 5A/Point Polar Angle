@@ -1,0 +1,221 @@
+import math
+x, y = map(int, input().rstrip().split())
+ans = math.atan2(y, x)
+if ans < 0:
+    ans = 2*math.pi + ans
+print(ans)
+
+
+Хорошие решения
+//#include "/Users/stepan_bagritsevich/Dropbox/stdc++.h"
+#include <bits/stdc++.h>
+ 
+using namespace std;
+ 
+int main() {
+    double x, y;
+    cin >> x >> y;
+    
+    double a = atan2(y, x);
+    cout << ((a >= 0) ? a : 2 * M_PI + a) << "\n";
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <bits/stdc++.h>
+
+using namespace std;
+
+const int INF = 1e9 + 10;
+#define rep(i,a,n) for (int i=a;i<n;i++)
+#define per(i,a,n) for (int i=n-1;i>=a;i--)
+#define pb push_back
+#define mp make_pair
+#define all(x) (x).begin(),(x).end()
+#define rall(x) (x).rbegin(),(x).rend()
+#define fi first
+#define se second
+#define SZ(x) ((int)(x).size())
+
+#define int long long
+typedef vector<int> VI;
+typedef long long ll;
+typedef unsigned long long ull;
+
+//#define int ull
+typedef pair<int, int> PII;
+int MOD = 998244353;
+
+const double eps = 0;
+const double pi = acos(-1.0);
+
+struct Point
+{
+	double x, y;
+	Point(double x0 = 0, double y0 = 0)
+	{
+		x = x0;
+		y = y0;
+	}
+};
+
+istream & operator >> (istream & in, Point & a)
+{
+	return in >> a.x >> a.y;
+}
+
+struct Vector
+{
+	double x, y;
+	Vector(double x0 = 0, double y0 = 0)
+	{
+		x = x0;
+		y = y0;
+	}
+	Vector(Point a, Point b)
+	{
+		x = b.x - a.x;
+		y = b.y - a.y;
+	}
+};
+
+istream & operator >> (istream & in, Vector & a)
+{
+	return in >> a.x >> a.y;
+}
+
+double dot_product(const Vector  a, const Vector  b)
+{
+	return a.x * b.x + a.y * b.y;
+}
+
+double cross_product(const Vector  a, const Vector  b)
+{
+	return a.x * b.y - a.y * b.x;
+}
+
+
+ostream & operator << (ostream & out, Point  P)
+{
+    return out << P.x << " " << P.y;
+}
+
+double len(const Vector & a)
+{
+	return hypot(a.x, a.y);
+}
+
+double angle(const Vector & a, const Vector & b)
+{
+	return atan2(cross_product(a, b), dot_product(a, b));
+}
+
+double distance(int a, int b, int c, const Point & P)
+{
+    return (a * P.x + b * P.y + c) / hypot(a, b);
+}
+
+Vector operator* (const Vector & a, double k)
+{
+    return Vector(a.x * k, a.y * k);
+}
+
+Vector operator* (double k, const Vector & a)
+{
+    return Vector(a.x * k, a.y * k);
+}
+
+Vector operator/ (const Vector & a, double k)
+{
+    return Vector(a.x / k, a.y / k);
+}
+Point operator+ (Point  P, Vector  a)
+{
+    return Point(P.x + a.x, P.y + a.y);
+}
+
+signed main()
+{
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+    //freopen("sparse.in", "r", stdin);
+    //freopen("sparse.out", "w", stdout);
+    Point X, A, B;
+    cin >> X;
+    double f = atan2(X.y, X.x);
+    if (f < 0)
+    {
+        cout << f + 2 * pi;
+    }
+    else
+    {
+        cout << f;
+    }
+   // cout8 << fixed << setprecision(20) << abs(cross_product(AB, AC)) / 2;
+	return 0;
+}
+Кодировка: 
+Скачать
+#include <stdio.h>
+#include <fstream>
+#include <algorithm>
+#include <iostream>
+#include <cmath>
+
+#define ll long long
+
+using namespace std;
+
+
+main(){
+	const bool DEBUG = 1;
+	const int INF = 1e9;
+	const double PI = 3.14159265358979323846;
+	if(DEBUG){
+		freopen("input.txt","r",stdin);
+	}
+	int x,y;
+	scanf("%d%d",&x,&y);
+	double len = hypot(x,y);
+	int v = y, s = x;
+	double alpha = atan2(v, s);
+	if(alpha < 0){
+		alpha = 2 * PI + alpha;
+	}
+	cout << alpha;	 
+	
+}
+Кодировка: 
+Скачать
+#include <bits/stdc++.h>
+
+using namespace std;
+
+using ll = long long int;
+using ull = unsigned long long int;
+using dd = double;
+using ldd = long double;
+
+vector<pair<dd, dd>> coord;
+
+dd s(int i, int j)
+{
+    return coord[i].first * coord[j].second - coord[i].second * coord[j].first;
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+
+    dd x, y;
+    cin >> x >> y;
+    cout << setprecision(10);
+    dd ans = atan2(y, x);
+    if (ans < 0)
+        ans += 2 * acos(-1);
+    cout << ans;
+
+    return 0;
+}
