@@ -1,0 +1,48 @@
+a1 = int(input())
+b1 = int(input())
+if a1 > b1:
+    print(1)
+elif a1 == b1:
+    print(0)
+else:
+    print(2)
+
+
+Найди ошибку: Какое из чисел больше?
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int a, b;
+
+	cin >> a, b;
+
+	if (a == b) cout << 0;
+	else if (a > b) cout << 1;
+	else cout << 2;
+
+	return 0;
+}
+
+
+Хорошие решения
+a = int(input())
+b = int(input())
+
+if a == b:
+    print(0)
+elif a > b:
+    print(1)
+else:
+    print(2)
+Кодировка: 
+Скачать
+a = int(input())
+b = int(input())
+if a > b:
+    print("1")
+elif a < b:
+    print("2")
+else:
+    print("0")
