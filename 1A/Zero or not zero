@@ -1,0 +1,110 @@
+    if i == a1-1:
+        print("NO")
+это делается только на последней итерации
+-- так вынесите это из цикла.
+(В частности, если a1==0, то ваш код 
+вообще ничего не выводит.)
+После for в питоне можно писать else,
+ну или есть много других способов это сделать.
+
+a1 = int(input())
+sum1 = 0
+for i in range(a1):
+    num = int(input())
+    if num == 0:
+        print("YES")
+        break
+    if i == a1-1:
+        print("NO")
+        
+        
+a1 = int(input())
+sum1 = 0
+for i in range(a1):
+    num = int(input())
+    if num == 0:
+        print("YES")
+        break
+else:
+    print("NO")
+    
+    
+
+
+Хорошие решения
+n=int(input())
+flag=0
+for i in range (1,n+1):
+    a=int(input())
+    if a==0:
+        flag=1
+if flag==1: 
+    print("YES")
+else:
+    print ("NO")
+    
+            
+        
+
+
+ 
+Кодировка: 
+Скачать
+//#include "stdafx.h"
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	int n, a;
+	bool check = false;
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		cin >> a;
+		if (a == 0)
+			check = true;
+	}
+	if (check == true)
+		cout << "YES" << endl;
+	else
+		cout << "NO" << endl;
+	return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+using namespace std;
+
+
+int main() {
+	int n;
+	cin >> n;
+	bool flag = false;
+	for (int i = 0; i < n; ++i) {
+		int a;
+		cin >> a;
+		if (a == 0) {
+			flag = true;
+		}
+	}
+	if (flag) {
+		cout << "YES" << endl;
+	}
+	else {
+		cout << "NO" << endl;
+	}
+	return 0;
+}
+Кодировка: 
+Скачать
+n = int(input())
+a = 0
+for i in range(n):
+    n = int(input())
+    if n == 0: 
+        a = 1 
+if a == 1:
+    print ("YES")
+else: 
+     print ("NO")
