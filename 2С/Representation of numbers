@@ -1,0 +1,172 @@
+Вы же решали задачи на множители,
+и должен знать, что надо цикл делать
+от корня из n, а не от n//2
+
+def nod(n):
+    for i in range(n//2, 0, -1):
+        if n % i == 0:
+            return i
+
+n = int(input())
+l = nod(n)
+p = n // l
+print(l, l * (p-1))
+
+
+У вас один и тот же случай обрабатывается два раза:
+    else:
+        return 1
+и дальше
+else:
+    max_d = 1
+Кажется, можно было второго случая избежать,
+если в первом случае возвращать n
+(ну и по смыслу функции min_d это тоже логично)
+
+
+def min_d(n):
+    for i in range(2, int(n**0.5)+1):
+        if n % i == 0:
+            return i
+    else:
+        return 1
+
+n = int(input())
+l = min_d(n)
+if l != 1:
+    max_d = n // l
+else:
+    max_d = 1
+
+print(max_d, n-max_d)
+
+
+Найди ошибку: Представление чисел
+c=int(input())
+i=2
+b=1
+while c%i!=0 and i<c :
+    i+=1
+if i==c :
+    print(c-1, 1)
+else:
+    o=c//i
+    print(o, o*(i-1))
+    
+    
+    
+#include <algorithm>
+#include <cctype>
+#include <cmath>
+#include <deque>
+#include <fstream>
+#include <iostream>
+#include <iterator>
+#include <map>
+#include <queue>
+#include <set>
+#include <stack>
+#include <string>
+#include <vector>
+
+#define ll long long
+
+using namespace std;
+
+int main() {
+	ll n;
+	bool unbroken = true;
+	cin >> n;
+	for (int i = 2; i < n; i++) {
+		if (n % i == 0) {
+			cout << n / i << " " << n - (n / i) << endl;
+			unbroken = false;
+			break;
+		}
+	}
+	if (unbroken) {
+		cout << 1 << " " << n - 1 << endl;
+	}
+	return 0;
+}
+
+
+Хорошие решения
+#include <iostream>
+#include <vector>
+#include <cmath>
+using namespace std;
+
+int main() {
+	int n;
+	cin >> n;
+	
+	int m = 1;
+	for (int i = 1; i <= n / 2; i++)
+	{
+		if (n % i == 0)
+		{
+			m = i;
+		}
+	}
+
+	cout << n - m << ' ' << m << endl;
+	return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	int n;
+	cin >> n;
+	for (long long i = 2; i*i <= n; i++) {
+		if (n % i == 0) {
+			cout << n / i << " " << n - n / i;
+			exit(0);
+		}
+	}
+	cout << n - 1 << " " << 1;
+}
+
+Кодировка: 
+Скачать
+data = open("input.txt", 'r').readlines()
+n = int(data[0])
+
+divider = 2
+while divider * divider <= n:
+    if n % divider == 0:
+        break
+    divider += 1
+
+ans = n // divider
+open("output.txt", 'w').write(str(ans) + " " + str(n - ans))
+Кодировка: 
+Скачать
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    int n;
+    cin >> n;
+    for(int i = 2;i <= n / i;i++){
+        if(n % i == 0){
+            int ans = n/i;
+            cout << ans << " " << n-ans;
+            return 0;
+       }
+    }
+    cout << 1 << " " << n-1;
+}
+Кодировка: 
+Скачать
+n = int(input())
+i = 2
+while i*i<=n:
+    if n%i==0:
+        print(n//i,n-n//i)
+        exit()
+    i+=1
+print(1,n-1)
