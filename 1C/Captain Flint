@@ -22,3 +22,137 @@ while True:
     except:
         break
 print(x, y)
+
+
+
+Хорошие решения
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+	string str = "";
+	int x, y, num;
+	x = y = num = 0;
+	while (cin >> str >> num)
+	{
+		if (str == "North")
+			y += num;
+		else if (str == "South")
+			y -= num;
+		else if (str == "East")
+			x += num;
+		else if (str == "West")
+			x -= num;
+	}
+
+	cout << x << " " << y << endl;
+	return 0;
+}
+Кодировка: 
+Скачать
+#include<bits/stdc++.h>
+
+using namespace std;
+const double eps = 1e-8;
+
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cout.tie(NULL);
+    cin.tie(NULL);
+    string s, s1;
+    int len = 0;
+    int x = 0, y = 0;
+    while(cin >> s) {
+        int n;
+        cin >> n;
+        if (s == "South") {
+            y -= n;
+        } else if (s == "North") {
+            y += n;
+        } else if (s == "West") {
+            x -= n;
+        } else {
+            x += n;
+        }
+    }
+    cout << x << " " << y;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <string> 
+#include <cmath> 
+
+using namespace std;
+
+int main(){
+	string s;
+	int n, x = 0, y = 0;
+	while (cin >> s){
+		cin >> n;
+		if (s == "North"){
+			x += n;
+		}
+		else if (s == "South"){
+			x -= n;
+		}
+		else if (s == "East"){
+			y += n;
+		}
+		else{
+			y -= n;
+		}
+	}
+	cout << y << " " << x;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <string>
+#include <fstream>
+
+using namespace std;
+
+int main() {
+	string dir;
+	int n, x = 0, y = 0;
+	ifstream fout("input.txt");
+	while (fout >> dir >> n) {
+		if (dir == "North") {
+			y += n;
+		}
+		else if (dir == "South") {
+			y -= n;
+		}
+		else if (dir == "East") {
+			x += n;
+		}
+		else if (dir == "West") {
+			x -= n;
+		}
+	}
+	cout << x << ' ' << y << endl;
+}
+Кодировка: 
+Скачать
+data = open("input.txt", "r").readlines()
+for i in range(len(data)):
+    data[i] = data[i].rstrip("\n")
+x=0
+y=0
+for i in range(len(data)):
+    way,steps = map(str, data[i].split(' '))
+    steps=int(steps)
+    if way=="West":
+        x=x-steps
+    elif way=="East":
+        x=x+steps
+    elif way=="South":
+        y=y-steps
+    elif way=="North":
+        y=y+steps
+print(x,y)
