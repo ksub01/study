@@ -1,0 +1,26 @@
+if n != 1:
+почему это особый случай?
+Кажется, основной алгоритм
+тут прекрасно отработает.
+
+n = int(input())
+list2 = [None] * (n + 1)
+list2[0] = 1
+if n >= 2:
+    list2[1] = 1
+if n != 1:
+    for i in range(2, n + 1):
+        list2[i] = (list2[i-1] + list2[i-2]) % 10
+    print(list2[-1])
+else:
+    print(1)
+#print(list2)
+
+
+n = int(input())
+list2 = [None] * (n + 1)
+list2[0] = 1
+list2[1] = 1
+for i in range(2, n + 1):
+    list2[i] = (list2[i-1] + list2[i-2]) % 10
+print(list2[-1])
