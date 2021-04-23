@@ -1,0 +1,5 @@
+N, M, K = map(int, input().rstrip().split(' '))
+if K > 2 and (M >= ((N + M + K - 1) // K) * 2):
+    print((N + M + K - 1) // K)
+else:
+    print(0)
