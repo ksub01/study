@@ -1,0 +1,678 @@
+У вас не работает, когда s==f
+inf = 1000000
+
+
+def dijkstra(start, n, matrix, parents):
+    valid = [False]*(n+1)
+    weight = [inf]*(n+2)
+    weight[start] = 0
+    for i in range(1, n+1):
+        min_weight = inf - 1
+        id_min = -1
+        for j in range(1, n+1):
+            if not valid[j] and weight[j] < min_weight:
+                min_weight = weight[j]
+                id_min = j
+        for z in range(1, n+1):
+            if weight[id_min] + matrix[id_min][z] < weight[z]:
+                weight[z] = weight[id_min] + matrix[id_min][z]
+                parents[z] = id_min
+        valid[id_min] = True
+    return weight
+
+
+N, s, f = map(int, input().rstrip().split())
+mas = [[0 for x in range(N+1)]]
+for i in range(N):
+    list1 = [0]
+    for x in input().rstrip().split():
+        if int(x) != -1:
+            list1.append(int(x))
+        else:
+            list1.append(inf)
+    mas.append(list1)
+
+
+p = [-1] * (N+1)
+d = dijkstra(s, N, mas, p)
+ans = []
+if p[f] != -1:
+    ans.append(f)
+    while p[f] != -1:
+        ans.append(p[f])
+        f = p[f]
+    ans.reverse()
+    print(*ans)
+else:
+    print(-1)
+
+
+if s == f:
+    print(s)
+elif p[f] != -1:
+а просто надо проверять не p[f], 
+а weight[f], ведь именно там у вас хранится,
+есть путь или нет.
+
+inf = 1000000
+
+
+def dijkstra(start, n, matrix, parents):
+    valid = [False]*(n+1)
+    weight = [inf]*(n+1)
+    weight[start] = 0
+    for i in range(1, n+1):
+        min_weight = inf - 1
+        id_min = -1
+        for j in range(1, n+1):
+            if not valid[j] and weight[j] < min_weight:
+                min_weight = weight[j]
+                id_min = j
+        for z in range(1, n+1):
+            if weight[id_min] + matrix[id_min][z] < weight[z]:
+                weight[z] = weight[id_min] + matrix[id_min][z]
+                parents[z] = id_min
+        valid[id_min] = True
+    return weight
+
+
+N, s, f = map(int, input().rstrip().split())
+mas = [[0 for x in range(N+1)]]
+for i in range(N):
+    list1 = [0]
+    for x in input().rstrip().split():
+        if int(x) != -1:
+            list1.append(int(x))
+        else:
+            list1.append(inf)
+    mas.append(list1)
+
+
+p = [-1] * (N+1)
+d = dijkstra(s, N, mas, p)
+ans = []
+if s == f:
+    print(s)
+elif p[f] != -1:
+    ans.append(f)
+    while p[f] != -1:
+        ans.append(p[f])
+        f = p[f]
+    ans.reverse()
+    print(*ans)
+else:
+    print(-1)
+    
+А ваша программа вообще умеет -1 выводить?
+inf = 1000000
+
+N, s, f = map(int, input().rstrip().split())
+weight = [inf] * (N + 1)
+
+
+def dijkstra(start, n, matrix, parents):
+    valid = [False]*(n+1)
+    weight[start] = 0
+    for i in range(1, n+1):
+        min_weight = inf - 1
+        id_min = -1
+        for j in range(1, n+1):
+            if not valid[j] and weight[j] < min_weight:
+                min_weight = weight[j]
+                id_min = j
+        for z in range(1, n+1):
+            if weight[id_min] + matrix[id_min][z] < weight[z]:
+                weight[z] = weight[id_min] + matrix[id_min][z]
+                parents[z] = id_min
+        valid[id_min] = True
+    return weight
+
+
+
+mas = [[0 for x in range(N+1)]]
+for i in range(N):
+    list1 = [0]
+    for x in input().rstrip().split():
+        if int(x) != -1:
+            list1.append(int(x))
+        else:
+            list1.append(inf)
+    mas.append(list1)
+
+
+p = [-1] * (N+1)
+d = dijkstra(s, N, mas, p)
+ans = []
+if weight != inf:
+    ans.append(f)
+    while p[f] != -1:
+        ans.append(p[f])
+        f = p[f]
+    ans.reverse()
+    print(*ans)
+else:
+    print(-1)
+    
+
+inf = 1000000
+
+N, s, f = map(int, input().rstrip().split())
+weight = [inf] * (N + 1)
+p = [-1] * (N+1)
+valid = [False]*(N+1)
+weight[s] = 0
+mas = [[0 for x in range(N+1)]]
+for i in range(N):
+    list1 = [0]
+    for x in input().rstrip().split():
+        if int(x) != -1:
+            list1.append(int(x))
+        else:
+            list1.append(inf)
+    mas.append(list1)
+for i in range(1, N+1):
+    min_weight = inf - 1
+    id_min = -1
+    for j in range(1, N+1):
+        if not valid[j] and weight[j] < min_weight:
+            min_weight = weight[j]
+            id_min = j
+    for z in range(1, N+1):
+        if weight[id_min] + mas[id_min][z] < weight[z]:
+            weight[z] = weight[id_min] + mas[id_min][z]
+            p[z] = id_min
+    valid[id_min] = True
+
+
+ans = []
+if weight[f] != inf:
+    ans.append(f)
+    while p[f] != -1:
+        ans.append(p[f])
+        f = p[f]
+    ans.reverse()
+    print(*ans)
+else:
+    print(-1)
+    
+Найди ошибку: Дейкстра: восстановление пути
+#include <iostream>
+#include <vector>
+#include <set>
+#include <algorithm>
+
+using namespace std;
+
+const int N = 2000;
+const long long INF = 10e+10;
+
+set<pair<int, int>> graph[N];
+vector<long long> dist(N, INF), p(N, -1), ans;
+
+void deikstra(int s) {
+	set<pair<int, int>> q;
+	dist[s] = 0;
+	q.insert({ dist[s], s });
+	while (q.size() > 0) {
+		int v = q.begin()->second;
+		q.erase(q.begin());
+		for (auto el : graph[v]) {
+			int u = el.first;
+			int len = el.second;
+			if (dist[v] + len < dist[u]) {
+				q.erase({ dist[u], u });
+				dist[u] = dist[v] + len;
+				p[u] = v;
+				q.insert({ dist[u], u });
+			}
+		}
+	}
+}
+
+
+int main() {
+	int n, s, f;
+
+	cin >> n >> s >> f;
+
+	for (int i = 0; i < n; ++i) {
+		for (int j = 0; j < n; ++j) {
+			int x;
+			cin >> x;
+			if (x >= -1 && i != j)
+				graph[i].insert({ j, x });
+		}
+	}
+
+	deikstra(s - 1);
+
+	if (dist[f - 1] == INF)
+		cout << -1;
+	else {
+		int f1 = f - 1;
+		while (f1 != -1) {
+			ans.push_back(f1);
+			f1 = p[f1];
+		}
+		reverse(ans.begin(), ans.end());
+		for (auto el : ans)
+			cout << el + 1 << " ";
+	}
+		
+
+}
+
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+int INF = 9999999;
+
+int find(vector <int> mas, vector <bool> color) {
+    int min = INF, answer = 0;
+    for (int i = 0; i < mas.size(); i++) {
+        if (color[i] == false and min > mas[i]) {
+            min = mas[i];
+            answer = i;
+        }
+    }
+    return answer;
+}
+
+
+
+int main() {
+    int N, S, F, U;
+    cin >> N >> S >> F;
+    vector <vector <int>> length(N, vector<int>(N));
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            cin >> length[i][j];
+            if (length[i][j] == -1) {
+                length[i][j] = INF;
+            }
+        }
+    }
+    vector <int> answer(N, INF), pred(N, S-1);
+    vector <bool> color(N, false);
+    answer[S-1] = 0;
+
+    for (int q = 0; q < N; q++) {
+        U = find(answer, color);
+        color[U] = true;
+        for (int i = 0; i < N; i++) {
+            if (length[U][i] + answer[U] < answer[i]) {
+                answer[i] = length[U][i] + answer[U];
+                pred[i] = U;
+            }
+        }
+    }
+    if (answer[F-1] != INF) {
+        int ind = F - 1;
+        vector <int> v;
+        v.push_back(F);
+        while(ind != S-1){
+            ind = pred[ind];
+            v.push_back(ind + 1);
+        }
+        for (int i = N - 1; i > -1; i--) {
+            cout << v[i] << " ";
+        }
+    }
+
+    else {
+        cout << -1;
+    }
+    
+
+}
+
+
+Хорошие решения
+#include <stdio.h>
+#include <stdlib.h>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <deque>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+
+int main()
+{
+	int n, s, f;
+	cin >> n >> s >> f;
+	s--;
+	f--;
+	vector<vector<pair<int, int>>> g(n);
+	int i, j, k;
+	for (i = 0; i < n; i++)
+		for (j = 0; j < n; j++)
+		{
+			cin >> k;
+			if (k != -1)
+				g[i].push_back({ j,k });
+		}
+	vector<int> d(n, 1e6), p(n);
+	d[s] = 0;
+	vector<bool> u(n, false);
+	for (i = 0; i < n; i++)
+	{
+		int v = -1;
+		for (j = 0; j < n; j++)
+			if (!u[j] && (v == -1 || d[j] < d[v]))
+				v = j;
+		if (d[v] == 1e6)
+			break;
+		u[v] = true;
+		for (j = 0; j < g[v].size(); j++)
+		{
+			int to = g[v][j].first;
+			int len = g[v][j].second;
+			if (d[to] > d[v] + len)
+			{
+				d[to] = d[v] + len;
+				p[to] = v;
+			}
+		}
+	}
+	if (d[f] != 1e6)
+	{
+		vector<int> path;
+		for (int v = f; v != s; v = p[v])
+			path.push_back(v);
+		path.push_back(s);
+		while (path.size())
+		{
+			cout << path.back()+1<<' ';
+			path.pop_back();
+
+		}
+	}
+	else
+		cout << -1;
+	return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+#define f first
+#define s second
+#define mp make_pair
+
+using namespace std;
+
+const int N = 1e2, inf = 1e9, mod = 1e9 + 7;
+
+int a[N][N], way[N], prnt[N];
+bool mark[N];
+
+void out(int f){
+    if(f == -1){
+        return;
+    }
+    out(prnt[f]);
+    cout << f + 1 << " ";
+}
+
+int main(){
+    int n, s, f;
+    cin >> n >> s >> f;
+    for (int i = 0; i < n; ++i){
+        for(int j = 0; j < n; ++j){
+            cin >> a[i][j];
+        }
+        way[i] = inf;
+    }
+    way[s - 1] = 0;
+    prnt[s - 1] = -1;
+    for(int i = 0; i < n; ++i){
+        pair<int, int> minv = {inf, -1};
+        for (int j = 0; j < n; ++j){
+            if(!mark[j]){
+                minv = min(minv, mp(way[j], j));
+            }
+        }
+        //cout << minv.f << " " << minv.s << endl;
+        if(minv.f == inf){
+            break;
+        }
+        for(int j = 0; j < n; ++j){
+            if(a[minv.s][j] > 0 && !mark[j] && way[j] > way[minv.s] + a[minv.s][j]){
+                way[j] = way[minv.s] + a[minv.s][j];
+                prnt[j] = minv.s;
+            }
+        }
+        mark[minv.s] = true;
+    }
+    if(way[f - 1] == inf){
+        cout << -1;
+    }else{
+        out(f - 1);
+    }
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <list>
+
+using namespace std;
+
+const int INF = 1e7;
+
+struct edge {
+    int to, w;
+    edge(int x, int y) : to(x), w(y){}
+};
+
+int n, s, f;
+vector<int> dist, was, path;
+vector<list<edge>> graph;
+
+void dijkstra(int start) {
+    int v;
+    dist[start] = 0;
+    for (int i = 0; i < n; ++i) {
+        v = -1;
+        for (int j = 0; j < n; ++j) {
+            if (!was[j] && (v == -1 || dist[v] > dist[j]))
+                v = j;
+        }
+        if (dist[v] == INF)
+            break;
+        was[v] = 1;
+        
+        for (const auto& e : graph[v]) {
+            if (dist[e.to] > dist[v] + e.w) {
+                dist[e.to] = dist[v] + e.w;
+                path[e.to] = v;
+            }
+        }
+    }
+}
+
+void out(int v) {
+    if (v == -1)
+        return;
+    out(path[v]);
+    cout << (v + 1) << ' ';
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(nullptr); cout.tie(nullptr);
+    
+    cin >> n >> s >> f;
+    dist.resize(n, INF);
+    was.resize(n, 0);
+    path.resize(n, -1);
+    graph.resize(n);
+    
+    int e;
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            cin >> e;
+            if (e != -1 && i != j)
+                graph[i].push_front(edge(j, e));
+        }
+    }
+    dijkstra(s - 1);
+    if (dist[f - 1] == INF)
+        cout << -1;
+    else
+        out(f - 1);
+    
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <set>
+using namespace std;
+bool cicl=false;
+int d[2001][2001];
+bool used[2001];
+int mass=0;
+int n , m;
+int s[10001];
+int INF=10000001;
+int main()
+{
+    cin.tie(0);cout.tie(0);
+    ios_base :: sync_with_stdio(0);
+    //freopen("input.txt","r",stdin);
+    int k,l,c;
+    int ind;
+    int mn;
+    cin >> n >> k >> l;
+    for (int i=1;i<=n;i++)
+    {
+        s[i]=INF;
+        for (int j=1;j<=n;j++)
+            {
+                cin >> d[i][j];
+                if (d[i][j]==-1)
+                    d[i][j]=INF;
+            }
+    }
+    if (k==l)
+    {
+        cout << k << endl;
+        return 0;
+    }
+    s[k]=0;
+    int p[1001];
+    p[k]=-1;
+    for (int i=1;i<n;i++)
+    {
+        mn=INF;
+        ind=1;
+        for (int j=1;j<=n;j++)
+        {
+            if (used[j]==false && s[j]<mn)
+            {
+                mn=s[j];
+                ind=j;
+            }
+        }
+        used[ind]=true;
+        for (int j=1;j<=n;j++)
+            if (s[j]>s[ind]+d[ind][j])
+        {
+            //cout << ind << " " << j << endl;
+            p[j]=ind;
+            s[j]=s[ind]+d[ind][j];
+        }
+    }
+    if (s[l]>=100001)
+        cout << -1 << endl;
+    else
+    {
+        //cout << s[l] << endl;
+        vector <int> ans;
+        ans.push_back(l);
+        int pr=p[l];
+        while (pr!=-1)
+        {
+            ans.push_back(pr);
+            pr=p[pr];
+        }
+        for (int i=ans.size()-1;i>=0;i--)
+            cout << ans[i] << " ";
+    }
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#define INF 1000000000
+using namespace std;
+int n,s,t;
+int main()
+{
+    cin >> n >> s >> t;
+    s--;
+    t--;
+    int matrix[n][n];
+    for (int i=0; i<n; i++)
+    {
+        for (int j=0; j<n; j++)
+        {
+            cin >> matrix[i][j];
+        }
+    }
+    vector<int> dist(n,INF), prev(n);
+    dist[s]=0;
+    vector<bool> used(n,false);
+    for (int i=0; i<n; i++)
+    {
+        int v=-1;
+        for (int j=0; j<n; j++)
+        {
+            if ((!used[j]) && ((v==-1) || (dist[j]<dist[v])))
+                v=j;
+        }
+        if (dist[v]==INF)
+            break;
+        used[v]=true;
+        for (size_t j=0; j<n; j++)
+        {
+            int len=matrix[v][j];
+            if (len!=-1)
+            {
+                if (dist[v]+len<dist[j])
+                {
+                    dist[j]=dist[v]+len;
+                    prev[j]=v;
+                }
+            }
+        }
+    }
+    if (dist[t]==INF)
+    {
+        cout << -1 << endl;
+    }
+    else
+    {
+        vector<int> path;
+        for (int v=t; v!=s; v=prev[v])
+            path.push_back(v);
+        path.push_back(s);
+        reverse(path.begin(),path.end());
+        for (size_t i=0; i<path.size(); i++)
+            cout << path[i]+1 << ' ';
+    }
+    cout << endl;
+    return 0;
+}
+
+    
