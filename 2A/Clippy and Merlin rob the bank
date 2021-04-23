@@ -31,3 +31,177 @@ for i in range(1, len(list1)-k-1):
         num2 = i+k+1
 print(left[num1][1], right[num2][1])
 # input()
+
+
+
+
+Хорошие решения
+n, k = map(int, input().split())
+mas = list(map(int, input().split()))
+pref = [0] * n
+pref[-1] = n - 1
+for i in range(n - 2, 0, -1):
+    if mas[i] >= mas[pref[i + 1]]:
+        pref[i] = i
+    else:
+        pref[i] = pref[i + 1]
+maxx = ceil1 = ceil2 = 0
+for i in range(n - k - 1):
+    if mas[i] + mas[pref[i + k + 1]] > maxx:
+        maxx = mas[i] + mas[pref[i + k + 1]]
+        ceil1 = i + 1
+        ceil2 = pref[i + k + 1] + 1
+print(ceil1, ceil2)
+Кодировка: 
+Скачать
+n, k = map(int, input().split())
+pp=[0]*n
+ss=[0]*n
+i, j = 0, 0
+a = list(map(int, input().split()))
+for i in range(n):
+    if a[i] > a[j]:
+        pp[i] = i
+        j = i
+    else: 
+        pp[i] = pp[j]
+i=n-1
+j=n-1 
+while i>=0:
+    if a[i]>=a[j]:
+        ss[i]=i 
+        j=i
+    else:
+        ss[i] = ss[j]
+    i-=1
+y=0 
+l=0 
+r=k+1
+i=l
+j=r
+while j<n:
+    x=a[pp[i]]+a[ss[j]]
+    if x>y:
+        l=pp[i]
+        r=ss[j] 
+        y=x
+    i+=1
+    j+=1
+print(l+1, r+1)
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+struct Item
+{
+    int max;
+    int index;
+};
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int n, k;
+    cin >> n >> k;
+    vector<int> a(n);
+    vector<Item> pref_max(n);
+    for (int i = 0; i < n; ++i)
+        cin >> a[i];
+    int max = 0, index = 0;
+    for (int i = n - 1; i >= 0; --i)
+    {
+        if (a[i] >= max)
+        {
+            max = a[i];
+            index = i;
+        }
+        pref_max[i].max = max;
+        pref_max[i].index = index;
+    }
+    int result = 0, r1 = 0, r2 = 0;
+    for (int i = 0; i < n - k - 1; ++i)
+    {
+        if (a[i] + pref_max[i + k + 1].max > result)
+        {
+            result = a[i] + pref_max[i + k + 1].max;
+            r1 = i + 1;
+            r2 = pref_max[i + k + 1].index + 1;
+        }
+    }
+    cout << r1 << ' ' << r2 << '\n';
+    return 0;
+}
+Кодировка: 
+Скачать
+#include<iostream>
+#include<vector>
+#include<algorithm>
+#include<set>
+#include<stack>
+#include<queue>
+#include<iomanip>
+#include<cmath>
+using namespace std;
+
+int main(){
+    int n, k; cin >> n >> k;
+    vector<int> v(n + 1);
+    for(int i = 1; i <= n; ++i) cin >> v[i];
+    int ibest = 1, jbest = k + 2, imax = 1;
+    for(int j = k + 3; j <= n; ++j){
+        if (v[imax] < v[j - k - 1]) imax = j - k - 1;
+        if (v[ibest] + v[jbest] < v[imax] + v[j]){
+            ibest = imax;
+            jbest = j;
+        }
+    }
+    cout << ibest << ' ' << jbest;
+}
+Кодировка: 
+Скачать
+// https://algoprog.ru/material/p112735
+
+// count from zero
+// after[i]  : index of first maximum in [i, n-1]; i in [0, n-1]
+
+#include <iostream>
+#include <vector>
+#include <climits>
+
+using namespace std;
+int main() {
+  int n, k;
+  cin >> n >> k;
+
+  vector<int> a(n);
+  for (int i = 0; i < n; ++i) cin >> a[i];
+
+  vector<int> after(n);
+
+  after[n-1] = n-1;
+  for (int i = n-2; i >= 0; --i) {
+    if (a[i] >= a[after[i+1]]) {
+      after[i] = i;
+    } else {
+      after[i] = after[i+1];
+    }
+  }
+
+  int first = -1;
+  int result = INT_MIN;
+
+  for (int i = 0; i + k + 1 < n; ++i) {
+    if ((a[i] + a[after[i + k + 1]]) > result) {
+      first = i;
+      result = a[i] + a[after[i + k + 1]];
+    }
+  }
+
+  cout << first + 1 << " " << after[first + k + 1] + 1 << endl;
+}
