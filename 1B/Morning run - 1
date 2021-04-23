@@ -13,3 +13,185 @@ if y != 0:
     print(cou)
 else:
     print(0)
+    
+    
+Найди ошибку: Утренняя пробежка - 1
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class MorningOne {
+    public static void main(String[] args) throws IOException {
+        final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        final var speedup = 1.7;
+        final var eps = 1e-3;
+
+        var line = br.readLine();
+
+        var ints = line.split(" ");
+        var x = Double.parseDouble(ints[0]);
+        var y = Double.parseDouble(ints[1]);
+
+        double result = x;
+        int day = 1;
+        while (y >= result - eps) {
+            result *= speedup;
+            day++;
+        }
+
+        System.out.println(day);
+
+
+    }
+}
+
+
+
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main() {
+  double x, y;
+  cin >> x >> y;
+
+  double eps = 1e-8;
+
+  int cnt = 0;
+  while (x < y + eps) {
+    x *= 1.7;
+    ++cnt;
+  }
+
+  cout << (cnt + 1) << "\n";
+}
+
+
+#include <iostream>
+#include <cmath>
+using namespace std;
+int main()
+{
+	double eps = 0.000001;
+	double x, y;
+	long long sum = 0;
+	cin >> x >> y;
+	while (x - y < eps)
+	{
+		x *= 1.7;
+		sum++;
+	}
+	cout << sum + 1;
+	return 0;
+}
+
+
+x, y = map(float, input().split())
+eps = 1e-6
+a = 1
+while y > x - eps:
+    a = a + 1
+    x = x * 1.7
+print(a)
+
+
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+const double eps =1e-9;
+int main()
+{
+    double a, b;
+    cin >>a >>b;
+    int ans=1;
+    while (a<b) {
+        ans+=1;
+        a*=1.70;
+    }
+    cout << ans;
+    return 0;
+}
+
+
+eps = 1e-8
+x, y = map(float, input().split())
+q = 1
+while y - x > eps:
+    x += (0.7 * x) - eps
+    q += 1
+print(q)
+
+
+
+Хорошие решения
+eps = 1e-6
+count = 1
+x, y = map(float, input().split())
+while y - x > eps:
+    x *= 1.7
+    count += 1
+print(count)
+        
+    
+Кодировка: 
+Скачать
+const
+  eps = 1e-7;
+
+var
+  x, y, n: double;
+  count: integer;
+
+begin
+  read(x, y);
+  count := 1;
+  while (x < y - eps) do
+  begin
+    count := count + 1;
+    n := x * 0.7;
+    x := x + n;
+    
+  end;
+  write(count);
+end.
+Кодировка: 
+Скачать
+const
+  eps = 1e-9;
+
+var
+  x, y: double;
+  count: integer;
+
+begin
+  read(x, y);
+  count := 1;
+  while y - x > eps do 
+  begin
+    x := x + (x * 0.7);
+    count := count + 1;
+  end;
+  writeln(count);
+end.
+Кодировка: 
+Скачать
+eps = 1e-12
+x, y = map(float, input().split())
+d = 1
+
+while y - x > eps:
+        d += 1
+        x = x * 1.7
+print(d)
+Кодировка: 
+Скачать
+from math import * 
+a, b = map(float, input().split())
+eps = 1e-6 
+c = 1
+while a+eps <= b: 
+    a = a + a*0.7
+    c+= 1 
+print(c)
