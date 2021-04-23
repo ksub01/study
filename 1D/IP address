@@ -1,0 +1,4 @@
+k = input().rstrip()
+s = [x for x in k.split('.') if x.isdigit() and 0 <= int(x) <= 255]
+#print(s)
+print(int('.'.join(s) == k and len(s) == 4))
