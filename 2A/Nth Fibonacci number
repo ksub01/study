@@ -4,3 +4,53 @@ def factorial(n):
     else:
         return factorial(n - 1) + factorial(n - 2)
 print(factorial(int(input())))
+
+
+Хорошие решения
+#include <iostream>
+#include <vector>
+#include <string>
+#include <deque>
+#include <set>
+#include <utility>
+#include <algorithm>
+#include <iomanip>
+#include <cmath>
+#include <sstream>
+
+using namespace std;
+
+//ifstream input("D:\\input.txt");
+
+using ll = long long;
+using pii = pair<int, int>;
+const double eps = 0.0000000001;
+//const double p = 3.14159265;
+//int imax = INT_MAX;
+//int imin = INT_MIN;
+
+int fib(int n) {
+	if (n == 0 || n == 1)
+		return n;
+	else
+		return fib(n - 1) + fib(n - 2);
+}
+
+int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(nullptr);
+
+	int n;
+	cin >> n;
+	cout << fib(n) << endl;
+}
+Кодировка: 
+Скачать
+def Fib(n):
+    if n <= 1:
+        return n
+    else:
+        return Fib(n-1) + Fib(n-2)
+
+
+print(Fib(int(input())))
