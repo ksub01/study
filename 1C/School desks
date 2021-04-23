@@ -2,3 +2,41 @@ a = int(input())
 b = int(input())
 c = int(input())
 print((a + 1) // 2 + (b + 1)//2 + (c + 1)//2)
+
+
+Хорошие решения
+#include <iostream>
+using namespace std;
+int main() {
+	int a, b, c;
+	cin >> a >> b >> c;
+	cout << ((a + 1) / 2) + ((b + 1) / 2) + ((c + 1) / 2);
+	return 0;
+}
+Кодировка: 
+Скачать
+a=int(input())
+b=int(input())
+c=int(input())
+a=(a+1)//2
+b=(b+1)//2
+c=(c+1)//2
+print(c+b+a)
+Кодировка: 
+Скачать
+{$mode delphi}
+var a,b,c,n1,n2,n3:integer;
+begin
+read(a,b,c);
+n1:=(a+1)div 2;
+n2:=(b+1)div 2; 
+n3:=(c+1)div 2;
+writeln(n1+n2+n3);
+end.
+Кодировка: 
+Скачать
+a = int(input())
+b = int(input())
+c = int(input())
+t = (a+1)//2 + (b+1)//2 + (c+1)//2
+print(t)
