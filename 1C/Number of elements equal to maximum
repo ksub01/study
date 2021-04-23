@@ -39,3 +39,83 @@ while j != 0:
         k = j
         cou = 1
 print(cou)
+
+
+
+Найди ошибку: Номер максимального элемента массива
+from math import *
+N=int(input())
+a=list(map(int,input().split()))
+e=a[0]
+m=1
+for i in range(len(a)):
+   if a[i]>e:
+      e=a[i]
+      m=i
+print(m+1)
+   
+   
+   
+n = (int(input()))
+a = list(map(int, input().split()))
+q = 0
+for i in range(1, n):
+    if a[q] < a[i]:
+        q = i + 1
+print(q + 1)
+
+
+
+Хорошие решения
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main() {
+	int n, max=-100500, a, num;
+	
+	cin >> n;
+	
+	for (int i=0; i<n; i++) {
+		cin >> a;
+		if (a>max) {
+			max = a;
+			num = i;
+		}
+	
+	}
+	cout << num+1;
+	return 0;
+}
+Кодировка: 
+Скачать
+n=int(input())
+a=list(map(int, input().split()))
+b=a[0]
+c=1
+for i in range(1,n):
+    if a[i]>=b:
+        b=a[i]
+        c=i+1
+print(c)
+Кодировка: 
+Скачать
+#include <iostream>
+using namespace std;
+int main()
+{
+	int n, max=-2000,x,imax;
+	cin>>n;
+	for (int i=1;i<=n;++i)
+	{
+		cin>>x;
+		if (x>max)
+		{
+			max=x;
+			imax=i;
+		}
+	}
+	cout<<imax;
+	return 0;
+}
