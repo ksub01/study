@@ -1,0 +1,255 @@
+n = int(input())
+
+
+def nod(a, b):
+    if b > 0:
+        return nod(b, a % b)
+    else:
+        return a
+
+x1, y1 = map(int, input().rstrip().split())
+l1 = x1
+l2 = y1
+cou = 0
+for i in range(n-1):
+    x2, y2 = map(int, input().rstrip().split())
+    a = abs(x1 - x2)
+    b = abs(y1 - y2)
+    cou += nod(a, b)
+    x1 = x2
+    y1 = y2
+
+a = abs(x1 - l1)
+b = abs(y1 - l2)
+cou += nod(a, b)
+print(cou)
+
+
+Найди ошибку: Граница многоугольника
+def cer (x, y, z, t):
+    h=abs(x-z)
+    f=abs(y-t)
+    x, y = h, f
+    while y!=0 :
+        x, y = y, x%y
+    return h+f-x   
+N=int(input())
+allanswer=0
+a, b = map(int, input().split())
+j, i = a, b
+for i in range(N-1):
+    c, d=map(int, input().split())
+    allanswer=allanswer+cer(a, b, c, d)
+    a, b = c, d
+allanswer+=cer(j, i, c, d)
+print(allanswer)
+
+
+Найди ошибку: Граница многоугольника
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <stack>
+#include <queue>
+
+#define ll long long
+
+using namespace std;
+
+int gcd(int a, int b) {
+	if (a == 0) {
+		return b;
+	}
+	while (b) {
+		a %= b;
+		swap(a, b);
+	}
+	return a;
+}
+
+int main() {
+	int n, ans = 0;
+	cin >> n;
+	int coord_x, coord_y, fx, fy, prev_x, prev_y;
+	for (int i = 0; i < n; i++) {
+		cin >> coord_x >> coord_y;
+		if (i == 0) {
+			fx = coord_x;
+			fy = coord_y;
+			prev_x = fx;
+			prev_y = fy;
+		}
+		else {
+			ans += gcd(abs(coord_x - prev_x), abs(coord_y - prev_y));
+			prev_x = coord_x;
+			prev_y = coord_y;
+		}
+	}
+	ans += gcd(abs(fx - prev_x), abs(fy - prev_y));
+	cout << ans << endl;
+	return 0;
+}
+
+
+#include <iostream>
+#include <math.h>
+#include <vector>
+
+using int64 = long long int;
+
+int64 nod(int64 a, int64 b)
+{
+    while(b != 0)
+    {
+        static int64 c = a;
+        a = b;
+        b = c % a;
+    }
+    return a;
+}
+
+int64 f(std::pair<int64, int64> first, std::pair<int64, int64> second)
+{
+    int64 res1 = std::abs(first.first - second.first);
+    int64 res2 = std::abs(first.second - second.second);
+    return nod(res1, res2);
+}
+
+int main()
+{
+    int N;
+    std::cin >> N;
+    std::vector<std::pair<int64, int64>> points;
+    for(int i = 0; i < N; i++)
+    {
+        int64 x, y;
+        std::cin >> x >> y;
+        points.push_back({x, y});
+    }
+    int64 result = f(points[0], points.back());
+
+    for(int i = 1; i < N; i++)
+    {
+        result += f(points[i-1], points[i]);
+    }
+    std::cout << result;
+}
+
+
+
+Хорошие решения
+n = int(input())
+k = 0
+x = []
+for i in range(n):
+    x.append(list(map(int,input().split())))
+x.append(x[0])
+for i in range(1, n+1):
+    a = abs(x[i][0]-x[i-1][0])
+    b = abs(x[i][1]-x[i-1][1])
+    while b != 0:
+        t = a % b
+        a = b 
+        b = t 
+    k+=a
+print(k)
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+long long gcd(long long a, long long b){
+    if (b == 0) return a;
+    else return gcd(b, a % b);
+}
+
+int main() {
+    int n;
+    cin >> n;
+    long long count = 0;
+    long long x0, y0, x1, y1, x2, y2;
+    cin >> x1 >> y1;
+    x0 = x1, y0 = y1;
+    for (int i = 0; i < n - 1; i++) {
+        cin >> x2 >> y2;
+        count += gcd(abs(x1 - x2), abs(y1 - y2));
+        x1 = x2;
+        y1 = y2;
+    }
+    count += gcd(abs(x1 - x0), abs(y1 - y0));
+    cout << count;
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <cmath>
+long long gcd(long long a,long long b)
+{
+    while (b!=0)
+    {
+        int t=a%b;
+        a=b;
+        b=t;
+    }
+    return a;
+}
+long long f(long long a , long long b,long long c ,long long d)
+{
+    long long x,y;
+    x=abs(a-c);
+    y=abs(b-d);
+    return gcd(x,y);
+}
+long long ans;
+using namespace std;
+int main()
+{
+	int n; cin>>n;
+	int a[2][100001];
+	for (int i=0;i<n;++i)
+	{
+		cin>>a[0][i]>>a[1][i];
+	}
+	for (int i=0;i<n-1;++i)
+	{
+		ans+=f(a[0][i],a[1][i],a[0][i+1],a[1][i+1]);
+	}
+	ans+=f(a[0][0],a[1][0],a[0][n-1],a[1][n-1]);
+	cout<<ans<<endl;
+	return 0;
+}
+Кодировка: 
+Скачать
+def gcd(a,b):
+    while b!=0:
+        a,b = b,a%b
+    return a
+f = open("input.txt","r")
+n = int(f.readline())
+a = [0]*n
+s = 0
+for i in range(n):
+    a[i] = [int(i) for i in f.readline().split()]
+for i in range(n):
+    s+=gcd(abs(a[i][0]-a[i-1][0]),abs(a[i][1]-a[i-1][1]))
+print(s)
+Кодировка: 
+Скачать
+n = int(input())
+a = [0]*n
+for i in range(n):
+    a[i] = list(map(int, input().split()))
+ans = 0
+for i in range(n):
+    j = (i+1)%n
+    x = abs(a[j][0]-a[i][0])
+    y = abs(a[j][1]-a[i][1])
+    while y!=0:
+        x,y = y,x%y
+    ans += x
+print(ans)
