@@ -1,0 +1,293 @@
+n, m = map(int, input().rstrip().split())
+mas = [[] for x in range(n+1)]
+task = []
+for i in range(m):
+    v1, v2 = map(int, input().rstrip().split())
+    task.append([v1, v2])
+    mas[v1].append(v2)
+
+was = [0] * (n+1)
+ans = []
+
+
+def find(v):
+    for i in mas[v]:
+        if was[i] == 0:
+            was[i] = 1
+            find(i)
+    ans.append(v)
+
+
+for i in range(1, n+1):
+    if was[i] != 1:
+        was[i] = 1
+        find(i)
+
+ans = ans[::-1]
+pos = {}
+for i in range(len(ans)):
+    pos[ans[i]] = i
+
+for x, y in task:
+    if not pos[x] < pos[y]:
+        print('No')
+        break
+else:
+    print('Yes')
+    print(*ans)
+    
+    Хорошие решения
+//#include "/Users/stepan_bagritsevich/Dropbox/stdc++.h"
+#include <bits/stdc++.h>
+ 
+using namespace std;
+
+vector < int > ans;
+vector < int > color;
+vector < vector < int > > g;
+const int White = 0, Gray = 1, Black = 2;
+int counter;
+bool ok = 1;
+
+void dfs(int v) {
+    color[v] = Gray;
+    for (int i = 0; i < g[v].size(); i++) {
+        if (color[g[v][i]] == Gray)
+            ok = 0;
+        if (color[g[v][i]] == White)
+            dfs(g[v][i]);
+    }
+    color[v] = Black;
+    ans[counter] = v;
+    counter--;
+}
+
+int main() {
+    int n, m;
+    cin >> n >> m;
+    counter = n - 1;
+    g.resize(n);
+    ans.resize(n);
+    color.resize(n);
+    for (int i = 0; i < m; i++) {
+        int x, y;
+        cin >> x >> y;
+        g[x - 1].push_back(y - 1);
+    }
+    
+    for (int i = 0; i < n; i++)
+        if (color[i] == White)
+            dfs(i);
+    
+    if (ok) {
+        cout << "Yes" << "\n";
+        for (int i = 0; i < n; i++)
+            cout << ans[i] + 1 << " ";
+        cout << "\n";
+    } else
+        cout << "No" << "\n";
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <stack>
+
+using namespace std;
+
+int n,m,a,b;
+vector<vector<bool> > matrix;
+vector<int> was;
+stack<int> ans;
+bool ok = true;
+
+void dfs(int v) {
+    if (was[v] == 1) ok = false;
+    if (!ok || was[v] == 2) return;
+    was[v] = 1;
+    for (int u = 0; u < n; u++) {
+        if (matrix[v][u]) dfs(u);
+    }
+    was[v] = 2;
+    ans.push(v);
+}
+
+int main() {
+    cin >> n >> m;
+    matrix.assign(n, vector<bool>(n,false));
+    while (m--) {
+        cin >> a >> b; a--; b--;
+        matrix[a][b] = true;
+        if (matrix[b][a] || a == b) ok = false;
+    }
+    was.assign(n,0);
+    for (int i = 0; i < n; i++) {
+        dfs(i);
+        if (!ok) {
+            cout << "No";
+            return 0;
+        }
+    }
+    cout << "Yes" << endl;
+    while (!ans.empty()) {
+        cout << ans.top()+1 << " ";
+        ans.pop();
+    }
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+short n, m;
+vector<short> info, ans;
+vector<vector<bool>> graph;
+
+void exitNoAns() {
+    cout << "No";
+    exit(0);
+}
+
+void dfs(short v) {
+    if (info[v] != 0) {
+        if (info[v] == 1)
+            exitNoAns();
+        return;
+    }
+    
+    info[v] = 1;
+    for(short i = 0; i < n; i++) {
+        if (graph[i][v])
+            dfs(i);
+    }
+    ans.push_back(v + 1);
+    info[v] = 2;
+}
+
+int main() {
+    cin >> n >> m;
+    pair<short, short> bigger;
+    graph.resize(n, vector<bool>(n, 0));
+    for (short i = 0; i < m; i++) {
+        cin >> bigger.first >> bigger.second;
+        graph[bigger.first - 1][bigger.second - 1] = 1;
+    }
+    
+    info.resize(n, 0);
+    for (short i = 0; i < n; i++) {
+        dfs(i);
+    }
+    
+    cout << "Yes" << endl;
+    for (short i = 0; i < n; i++) {
+        cout << ans[i] << ' ';
+    }
+    
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <algorithm>
+#include <stack>
+#include <cstdio>
+#include <vector>
+#include <set>
+
+using namespace std;
+
+int n, m;
+vector <vector <int> > a(101);
+vector <int> v;
+vector <int> used(101);
+
+void dfs(int i) {
+    used[i] = 2;
+    for (int g : a[i]) {
+        if (used[g] == 0) {
+            dfs(g);
+        }
+        if (used[g] == 2) {
+            cout << "No";
+            exit(0);
+        }
+    }
+    v.push_back(i);
+    used[i] = 1;
+}
+
+int main()
+{
+
+    cin >> n >> m;
+    int f, s;
+    for (int i = 0; i < m; i++) {
+        cin >> f >> s;
+        a[f - 1].push_back(s - 1);
+    }
+    for (int i = 0; i < n; i++) {
+        if (used[i] == 0) {
+            dfs(i);
+        }
+    }
+    cout << "Yes" << '\n';
+    for (int i = v.size() - 1; i >= 0 ; i--) {
+        cout << v[i] + 1 << " ";
+    }
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cmath>
+#include <deque>
+using namespace std;
+bool is_cool = true;
+vector<int> ans;
+int n, know;
+
+int dfs(int now, vector<vector<int>>& my, vector<int>& was) {
+	//cout << now << "\n";
+	if (was[now] == 1) is_cool = false;
+	if (!is_cool || was[now] != 0) return 0;
+
+	was[now] = 1;
+
+	for (int i = 0; i < my[now].size(); i++) {
+		dfs(my[now][i], my, was);
+	}
+	ans.push_back(now);
+	was[now] = 2;
+	return 0;
+}
+
+int main(){
+	cin >> n >> know;
+	vector<vector<int>> my(n + 1, vector<int>());
+	vector<int> was(n + 1, 0);
+
+	for (int i = 0; i < know; i++) {
+		int kek1, kek2;
+		cin >> kek1 >> kek2;
+		my[kek2].push_back(kek1);
+	}
+
+	for (int i = 1; i <= n; i++) {
+		dfs(i, my, was);
+	}
+	
+	if (!is_cool) cout << "No";
+	else {
+		cout << "Yes\n";
+		for (int i = 0; i < ans.size(); i++) cout << ans[i] << " ";
+	}
+	
+	//system("pause");
+	return 0;
+}
