@@ -1,0 +1,129 @@
+n = int(input())
+list1 = []
+cou = 0
+for i in range(n):
+    list1.append([int(x) for x in input().rstrip().split()])
+for i in range(n):
+    for j in range(i, n):
+        if list1[i][j] == 1:
+            cou += 1
+print(cou)
+
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+int main(){
+	int n, otv = 0;
+	while (cin >> n) {
+		otv += n;
+	}
+	cout << otv / 2;
+	return 0;
+}
+
+
+
+Хорошие решения
+#include <iostream>
+
+using namespace std;
+
+int a[100][100], ans;
+
+int main() {
+	int n;
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			cin >> a[i][j];
+		}
+	}
+	for (int i = 0; i < n; i++) {
+		for (int j = i + 1; j < n; j++) {
+			ans += a[i][j];
+		}
+	}
+	cout << ans;
+	return 0;
+}
+Кодировка: 
+Скачать
+#include<bits/stdc++.h>
+
+using namespace std;
+int main() {
+    int n, cnt = 0;
+    cin >> n;
+    int graph[n][n];
+    for (int i = 0; i < n; ++i)
+        for (int j = 0; j < n; ++j)
+            cin >> graph[i][j];
+    for (int i = 0; i < n; ++i)
+        for (int j = i + 1; j < n; ++j)
+                if (graph[i][j]) {
+                    cnt++;
+                }
+    cout << cnt;
+}
+Кодировка: 
+Скачать
+f = open("input.txt",'r')
+n = int(f.readline())
+a = [[int(i) for i in f.readline().split()] for i in range(n)]
+s=0
+for i in range(n):
+    for j in range(i+1,n):
+        if a[i][j]:
+            s+=1
+print(s)
+f.close()
+Кодировка: 
+Скачать
+#include <cstdio>
+#include <iostream>
+#include <vector>
+#include <queue>
+using namespace std;
+int main(){
+    int n;
+    cin >> n;
+    vector<vector<int> > a(n,vector<int>(n));
+    vector<int> b(3);
+    int l= 0;
+    for(int i = 0;i < n;i++){
+        for(int j = 0;j < n;j++){
+            cin >> a[i][j];
+            if(a[i][j]==1){
+                l++;
+            }
+        }
+    }
+    l /= 2;
+    cout << l;
+
+}
+Кодировка: 
+Скачать
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	int n, k = 0;
+	int a[100][100];
+	cin >> n;
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < n; j++)
+		{
+			cin >> a[i][j];
+		}
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < n; j++)
+			if (a[i][j] == 1)
+				k++;
+	cout << k / 2;
+	return 0;
+}
