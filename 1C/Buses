@@ -3,3 +3,45 @@ if K > 2 and (M >= ((N + M + K - 1) // K) * 2):
     print((N + M + K - 1) // K)
 else:
     print(0)
+
+
+
+Хорошие решения
+n, m, k = map(int, input().split() )
+
+if (k - 2)*(m // 2) < n:
+    print(0)
+else:
+    a1 = n // (k - 2) #количество автобусов с двумя взрослыми
+    d = n % (k - 2) #остаток детей
+    v = m - 2 * (n // (k - 2) ) #остаток взрослых
+    a2 = (d + v + k-1) // k
+    print(a1 + a2)
+Кодировка: 
+Скачать
+def buses(N, M, K):
+
+	adults_per_bus = K * M // (N + M)
+
+	if adults_per_bus < 2:
+		return 0
+
+	full_buses_for_kids = N // (K - 2)
+	add_kids = N - full_buses_for_kids * (K - 2)
+	add_adults = M - full_buses_for_kids * 2
+
+	if add_kids > 0 and add_adults < 2:
+		return 0
+	
+	add_full_buses = (add_adults + add_kids) // K
+
+	if add_adults + add_kids - add_full_buses * K > 0:
+		add_total_buses = add_full_buses + 1
+	else:
+		add_total_buses = add_full_buses
+
+	return full_buses_for_kids + add_total_buses
+
+N, M, K = map(int, input().split())
+
+print(buses(N, M, K))
