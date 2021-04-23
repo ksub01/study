@@ -1,0 +1,183 @@
+    if prost[i]:
+        if prost[n-i]:
+я бы написал через and
+
+y = 2*10**5
+prost = [True]*y
+prost[0] = False
+prost[1] = False
+for i in range(2, len(prost)):
+    if prost[i]:
+        for j in range(i*i, y, i):
+            prost[j] = False
+
+n = int(input())
+for i in range(n, -1, -1):
+    if prost[i]:
+        if prost[n-i]:
+            print(i, n-i)
+            break
+            
+            
+Найди ошибку: Гипотеза Гольдбаха
+from math import *
+
+
+
+n = int(input())
+a = [True]*n
+for  i in range(2,n):
+    if a[i]:
+        for j in range(i*2-1,n,i):
+            a[j] = False
+for i in range(2, n // 2 + 1):
+    if a[i-1] and a[n - i-1]:
+        print(i, n - i)
+        break
+        
+        
+Хорошие решения
+#include <iostream>
+#include <bits/stdc++.h>
+
+using namespace std;
+
+vector<bool> f(long n){
+    vector<bool> arr(n + 1);
+    arr[1] = true; arr[0] = true;
+    for (long i = 2; i < n + 1; ++i){
+        if (!arr[i]){
+            for (long j = i * i; j < n + 1; j += i)
+                arr[j] = true;
+        }
+    }
+    return arr;
+}
+int main() {
+    long n;
+    cin >> n;
+    vector<bool> arr = f(n);
+    for (int i = n - 1; i > 0; --i){
+        if (arr[n - i] == false && arr[i] == false){
+            cout << n - i << " " << i << endl;
+            return 0;
+        }
+    }
+    return 0;
+}
+Кодировка: 
+Скачать
+from math import *
+K=int(input())
+y=200000
+a=[1]*y 
+for i in range (2, floor(sqrt(y))) :
+    if a[i]==1 :
+        for j in range (i*i, y , i) :
+            a[j]=0
+for i in range(2, K):
+    if a[i]==1 and a[K-i]==1  :
+        print(i, K-i)
+        break
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <cmath>
+using namespace std;
+
+int main() {
+	int k = 0;
+	cin >> k;
+	int lim = 200000;
+	vector<bool> prime(lim, true);
+	int i = 2;
+	prime[0] = 0;
+	prime[1] = 0;
+
+	for (int i = 2; i < lim; i++)
+	{
+		if (prime[i])
+		{
+			for (int j = i * 2; j < lim; j += i)
+			{
+				prime[j] = 0;
+			}
+		}
+	}
+	for (int i = 2; i < k; i++)
+	{
+		if (prime[i] && prime[k - i])
+		{
+			cout << i << ' ' << k - i << endl;
+			return 0;
+		}
+	}
+	return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+
+using namespace std;
+
+bool reshotka[200000];
+
+void resheto(int n){
+	for (long long i = 2; i < n; i++){
+		if (!reshotka[i]){
+			for (long long j = i*i; j < n; j += i){
+				reshotka[j] = true;
+			}
+		}
+	}
+}
+
+int main(){
+	int a;
+	cin >> a;
+	resheto(a);
+	for (int i = 2; i < a; i++){
+		if (!reshotka[i] && !reshotka[a - i]){
+			cout << i << " " << a - i;
+			exit(0);
+		}
+	}
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cmath>
+#include <deque>
+using namespace std;
+
+vector<short int> resheto(int n) {
+	vector<short int> my(n+1, 1);
+
+	for (int i = 2; i <= int(sqrt(n)); i++) {
+		if (my[i]) {
+			for (int j = i*i; j <= n; j += i) 
+				my[j] = 0;
+		}
+	}
+
+	return my;
+}
+
+int main() {
+	int n;
+	cin >> n;
+	vector<short int> my = resheto(n);
+	
+	for (int i = 2; i <= (n / 2) + 1; i++) {
+		if (my[i] == 1 && my[n - i] == 1) {
+			cout << i << " " << n - i << '\n';
+			break;
+		}
+	}
+
+	system("pause");
+	return 0;
+}	
