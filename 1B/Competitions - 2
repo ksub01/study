@@ -15,3 +15,161 @@ for i in range(mas1):
             k1 = k
 print(max1)
 print(i1, k1)
+
+
+
+Найди ошибку: Состязания - 2
+n, m = list(map(int, input().split())) 
+
+a = []
+
+maxThrow = 0
+maxThrowPosition = [0, 0]
+
+for i in range(n):
+    a.append(list(map(int, input().split())))
+
+for i in range (n):
+    for j in range (n):
+        
+        if(a[i][j] > maxThrow):
+            
+            maxThrow = a[i][j]
+            maxThrowPosition[0] = i
+            maxThrowPosition[1] = j
+            
+print(maxThrow)
+print(maxThrowPosition[0], maxThrowPosition[1], end=" ")
+
+
+
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <cstring>
+#include <string>
+#include <cstdlib>
+#include <cstdio>
+#include <vector>
+#include <fstream>
+
+using namespace std;
+
+
+
+int main()
+{
+    int n,m,max_ii = 0,max_ij = 0,max;
+
+    cin >> n >> m;
+
+    int d[n][m];
+
+
+
+    for (int i = 0; i < n;++i){
+        for (int j = 0; j < m; j++){
+            cin >> d[i][j];
+
+        }
+    }
+    max = d[0][0];
+    for (int i = 0; i < n;++i){
+        for (int j = 0; j < m; j++){
+            if (d[i][j] > max) {
+                max = d[i][j];
+                max_ii = i;
+                max_ij = j;
+            }
+        }
+    }
+    cout << max << endl;
+    cout << max_ii << " " << max_ij;
+    return 0;
+}
+
+
+
+
+
+Кодировка: 
+Скачать
+# coding: utf-8
+
+"""
+FIXME
+"""
+
+n, m = [int(x) for x in input().split()]
+
+matrix = [[int(x) for x in input().split()] for cnt in range(n)]
+
+a_index = a_jindex = 0
+answ = matrix[0][0]
+
+for index in range(n):
+    for jindex in range(m):
+        if answ < matrix[index][jindex]:
+            answ = matrix[index][jindex]
+            a_index = index
+            a_jindex = jindex
+
+print(answ)
+print(a_index, a_jindex)
+Кодировка: 
+Скачать
+n, m = map(int, input().split())
+a = [[int(j) for j in input().split()] for i in range(n)]
+s = 0
+x = 0
+y = 0
+
+for i in range(n):
+    for j in range(m):
+        if s < a[i][j]:
+            s = a[i][j]
+            x = i
+            y = j
+
+print(s)
+print(x, y)
+Кодировка: 
+Скачать
+{$mode delphi}
+var a:array[0..99,0..99] of integer;
+    n,m,i,j,max,b,c:integer;
+begin
+read(n,m);
+for i:=0 to (n-1) do
+ for j:=0 to (m-1) do
+  read(a[i,j]);
+max:=a[0,0];
+b:=0;
+c:=0;
+for i:=0 to (n-1) do
+ for j:=0 to (m-1) do
+  if a[i,j]>max then begin
+   max:=a[i,j];
+   b:=i;
+   c:=j;
+   end;
+writeln(max);
+writeln(b,' ',c);
+end.
+Кодировка: 
+Скачать
+n, m = map(int, input().split())
+a = []
+for i in range(n):
+    a.append(list(map(int, input().split())))
+    w = 0
+c = 0
+x = a[0][0]
+for i in range (len (a) ) :
+    for j in range (len(a[i])):
+        if a[i][j]>x:
+            x = a[i][j]
+            w = i
+            c = j
+print (x)
+print (w, c)
