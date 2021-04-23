@@ -1,0 +1,271 @@
+n = int(input())
+was = [[0]*n for x in range(n)]
+list1 = [[0]*(n+1)]
+
+for i in range(n):
+    list1.append('0' + input())
+
+cou = 1
+
+
+def find(x, y):
+    was[x][y] = 1
+    global cou
+    for (delta_x, delta_y) in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+        if 1 <= x+delta_x <= n and 1 <= y+delta_y <= n and list1[x+delta_x][y+delta_y] == '.' and was[x+delta_x][y+delta_y] == 0:
+            cou += 1
+            find(x+delta_x, y+delta_y)
+
+
+x1, y1 = map(int, input().rstrip().split())
+find(x1, y1)
+print(cou)
+
+Найди ошибку: Площадь комнаты
+def dfs(me_x, me_y):
+    global result
+    if (visited[me_x][me_y] != 0):
+        return
+    
+    result += 1
+    visited[me_x][me_y] = 1
+    
+    for i, j in ways:
+        if (me_x + i < n and me_x + i > -1):
+            if (me_y + j < n and me_y + j > -1):
+                if (a[me_x + i][me_y + j] == '.'):
+                    dfs(me_x + i, me_y + j)
+
+n = int(input())
+a = []
+for i in range (n):
+    a.append(list(input().split()))
+visited = []
+for i in range (n):
+    visited.append(list([0] * n))
+start_x, start_y = map(int, input().split())
+start_x -= 1
+start_y -= 1
+result = 0
+ways = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+dfs(start_x, start_y)
+print(result)
+
+
+
+Хорошие решения
+#include <iostream>
+#include <string>
+#include <vector>
+#include <map>
+#include <algorithm>
+
+using namespace std;
+vector<pair<int, int>> step = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
+
+int dfs(pair<int, int> v, vector<vector<bool>>& g)
+{
+	int r = 1;
+	for (auto i : step)
+	{
+		int y = v.first + i.first;
+		int x = v.second + i.second;
+		if (!g[y][x])
+		{
+			g[y][x] = 1;
+			r += dfs({ y, x }, g);
+		}
+	}
+	return r;
+}
+int main()
+{
+	int n;
+	int x, y;
+	cin >> n;
+
+	vector<vector<bool>> g(n + 2, vector<bool>(n + 2, 1));
+	char b;
+
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			cin >> b;
+			if (b == '.')
+			{
+				g[i + 1][j + 1] = 0;
+			}
+		}
+	}
+	cin >> y >> x;
+	g[y][x] = 1;
+	cout << dfs({ y, x }, g) << endl;
+	cin >> n;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <cstdlib>
+
+using namespace std;
+
+void finder(vector<vector<int>>& was, vector<vector<char>>& graf, int a, int b, int& ploshad, int n) {
+    int i, a1, b1;
+    was[a][b] = 1;
+    ploshad++;
+    vector<int> dx{1, 0, -1, 0};
+    vector<int> dy{0, 1, 0, -1};
+    //cout << a + 1 << " " << b + 1 << "\n";
+    for (i = 0; i < 4; i++) {
+        a1 = a + dx[i];
+        b1 = b + dy[i];
+        if (a1 < n && b1 < n && a1 >= 0 && b1 >= 0 && was[a1][b1] == 0 && graf[a1][b1] == '.') {
+            finder(was, graf, a1, b1, ploshad, n);
+        }
+    }
+}
+
+int main() {
+    int n, i, j, a, b, ploshad = 0;
+    vector<int> p(10, 0);
+    vector<vector<int>> was (10, p);
+    vector<char> o(10, '.');
+    vector<vector<char>> graf (10, o);
+    cin >> n;
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            cin >> graf[i][j];
+        }
+    }
+    cin >> a >> b;
+    finder(was, graf, a - 1, b - 1, ploshad, n);
+    cout << ploshad;
+}
+Кодировка: 
+Скачать
+#include <bits/stdc++.h>
+#define ll long long
+#define f first
+#define s second
+using namespace std;
+ll n;
+char d[105][105];
+bool used[105][105];
+int col=0;
+vector < pair <int, int > > v= { {0,1} , {1,0} , {-1,0} , {0,-1} } ;
+void dfs(int x , int y){
+    used[x][y]=true;
+    col++;
+    for (int i=0;i<4;i++){
+        int kx=v[i].f+x;
+        int ky=v[i].s+y;
+        if (d[kx][ky]=='.' && used[kx][ky]==false)
+            dfs(kx,ky);
+    }
+}
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    //freopen("input.txt","r",stdin);
+    int v;
+    cin >> n;
+    for (int i=1;i<=n;i++)
+        for (int j=1;j<=n;j++)
+        cin >> d[i][j];
+    for (int i=0;i<=n;i++){
+        d[i][0]='*';
+        d[0][i]='*';
+        d[n+1][i]='*';
+        d[i][n+1]='*';
+    }
+    int x, y ;
+    cin >> x >> y;
+    dfs(x,y);
+    cout << col << endl;
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+int f_pr(vector<vector<char>>& k, int sx, int sy){
+    const int dx[4] = {1, 0, -1, 0};
+    const int dy[4] = {0, 1, 0, -1};
+    if (k[sx][sy] != '.')
+        return 0;
+    int v = 1;
+    k[sx][sy] = '#';
+    for (int i = 0; i < 4; i++)
+        v += f_pr(k, sx + dx[i], sy + dy[i]);
+    return v;
+}
+
+int main(){
+    int n, sx, sy;
+    string s;
+    cin >> n;
+    vector<char> c(n);
+    vector<vector<char>> m(n, c);
+    for (int i = 0; i < n; i++){
+        cin >> s;
+        for (int j = 0; j < n; j++)
+            m[i][j] = s[j];
+    }
+    cin >> sx >> sy;
+    cout << f_pr(m, sx - 1, sy - 1);
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void dfs(int y, int x, int &k, vector<vector<int>> &used, vector<vector<char>>&a)
+{
+	int dx[4] = { -1,0,1,0 };
+	int dy[4] = { 0,-1,0,1 };
+	for (int i = 0; i < 4; i++)
+	{
+		if (a[y + dy[i]][x + dx[i]] != '*' && used[y + dy[i]][x + dx[i]] == 0)
+		{
+			k++;
+			used[y + dy[i]][x + dx[i]] = 1;
+			dfs(y + dy[i], x + dx[i], k, used, a);
+		}
+	}
+}
+int main()
+{
+	int n, k = 0, x, y;
+	cin >> n;
+	vector<vector<char>>a(n + 2);
+	vector<vector<int>>used(n + 2);
+	for (int i = 0; i < n + 2; i++)
+		for (int j = 0; j < n + 2; j++)
+		{
+			a[i].push_back('*');
+			used[i].push_back(0);
+		}
+	for (int i = 1; i <= n; i++)
+	{
+		for (int j = 1; j <= n; j++)
+		{
+			cin >> a[i][j];
+		}
+	}
+	cin >> y >> x;
+	used[y][x] = 1;
+	k++;
+	dfs(y, x, k, used, a);
+	cout << k;
+	return 0;
+}
