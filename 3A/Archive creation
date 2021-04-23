@@ -1,0 +1,168 @@
+s, n = map(int, input().split(' '))
+list1 = []
+for i in range(n):
+    l1 = int(input())
+    list1.append(l1)
+list1.sort()
+sum1 = 0
+cou = 0
+for i in list1:
+    if s >= i + sum1:
+        cou += 1
+        sum1 += i
+print(cou)
+
+
+Хорошие решения
+#include <iostream>
+#include <algorithm>
+#include <string>
+#include <vector>
+using namespace std;
+int main() {
+	int s, n, d = 0;
+	cin >> s >> n;
+	vector <int> a(n);
+	for (int i = 0; i < n; i++) {
+		cin >> a[i];
+	}
+	sort(a.begin(), a.end());
+	for (int i = 0; i < n; i++) {
+		if (s - a[i] >= 0) {
+			s -= a[i];
+			d++;
+		}
+	}
+	cout << d;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <list>
+ 
+using namespace std;
+
+int n;
+long int V, res;
+ 
+int main()
+{
+	cin >> V >> n;
+	list<long int> Vs;
+	for(int i = n; i > 0; i--)
+	{
+		cin >> res;
+		Vs.push_back(res);
+	}
+	Vs.sort();
+	int num = 0;
+	while(!Vs.empty())
+	{
+		if(V >= Vs.front())
+		{
+			V -= Vs.front();
+			num++;
+			Vs.pop_front();
+		} else break;
+	}
+	cout << num;
+}
+Кодировка: 
+Скачать
+#include <bits/stdc++.h>
+
+using namespace std;
+
+//#define DEBUG
+#ifdef DEBUG
+    ifstream fin("input.txt");
+    ofstream fout("output.txt");
+    #define cin fin
+    #define cout fout
+#endif // DEBUG
+
+int main() {
+  int s, n;
+  cin >> s >> n;
+  int a[n] = {0};
+  for (int i = 0; i < n; i += 1) {
+    cin >> a[i];
+  }
+  for (int i = 0; i < n - 1; i += 1) {
+    int min = i;
+    for (int j = i; j < n; j += 1) {
+      if (a[j] < a[min]) {
+        min = j;
+      }
+    }
+    int t = a[min];
+    a[min] = a[i];
+    a[i] = t;
+  }
+  int sum = 0;
+  int i;
+  for (i = 0; i < n; i += 1) {
+    if (sum + a[i] > s) {
+      break;
+    }
+    sum += a[i];
+  }
+  cout << i << endl;
+}
+Кодировка: 
+Скачать
+d , p = map(int,input().split())
+m = []
+for x in range(p):
+    m.append(int(input()))
+
+for x in range(p):
+    mv = 1001
+    mi = 0
+    for y in range(x,p):
+        if m[y] < mv:
+            mv = m[y]
+            mi = y
+            
+    m[mi] = m[x]
+    m[x] = mv
+r = 0
+for x in range(p):
+    d = d - m[x]
+    if d < 0:
+        break
+    r = r + 1
+print(r)
+    
+Кодировка: 
+Скачать
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+int main()
+{
+	vector <int> a;
+	int n,s,ans=0;
+	cin>>s>>n;
+	for (int i=0;i<n;++i)
+	{
+		int t;
+		cin>>t;
+		a.push_back(t);
+	}
+	sort(a.begin(),a.end());
+	for (int i=0;i<n;++i)
+	{
+		if (s-a[i]<0)
+		{
+			break;
+		}
+		else
+		{
+			++ans;
+			s-=a[i];
+		}
+	}
+	cout<<ans<<endl;
+}
