@@ -1,0 +1,12 @@
+n = int(input())
+list1 = list(map(int, input().split()))
+list2 = [0]
+sum1 = 0
+for i in range(n):
+    if list1[i] == 0:
+        sum1 += 1
+    list2.append(sum1)
+l = int(input())
+for i in range(l):
+    a, b = map(int, input().split())
+    print(list2[b] - list2[a-1])
