@@ -1,0 +1,261 @@
+n = int(input())
+ans = [0]*(n+1)
+mas = [-100000000] + [int(x) for x in input().rstrip().split()]
+p = [0]*(n+1)
+for i in range(1, len(mas)):
+    m = -10000
+    for j in range(i):
+        if mas[j] < mas[i] and ans[j] > m:
+            m = ans[j]
+            p[i] = j
+    ans[i] = m + 1
+
+
+pos = -1
+an = -1
+gg = []
+for i in range(n+1):
+    if ans[i] > an:
+        an = ans[i]
+        pos = i
+while pos != 0:
+    gg.append(mas[pos])
+    pos = p[pos]
+print(*gg[::-1])
+
+
+Хорошие решения
+#include <bits/stdc++.h>
+using namespace std;
+
+int n;
+vector<int> nums, path, c;
+void print(int ind){
+    if (path[ind] == -1){
+        cout << nums[ind] << " ";
+        return;
+    }
+    print(path[ind]);
+    cout << nums[ind] << " ";
+}
+
+int main() {
+    cin >> n;
+    nums.resize(n); path.resize(n, -1);
+    for (int i = 0; i < n; ++i) cin >> nums[i];
+    int m = 0, ind = 0;
+    c.resize(n);
+    for (int i = 0; i < n; ++i){
+        int max = 0;
+        int ind1 = -1;
+        for (int j = i-1; j >= 0; --j){
+            if (nums[i] > nums[j] && c[j] > max){
+                max = c[j];
+                ind1 = j;
+            }
+        }
+        c[i] = max+1;
+        path[i] = ind1;
+        if (c[i] > m){ m = c[i]; ind = i;}
+    }
+
+    print(ind);
+
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <list>
+#include <string>
+#include <algorithm>
+#include <cmath>
+using namespace std;
+int main()
+{
+	int n;
+	cin >> n;
+	vector<int> a(n);
+	for (int i = 0; i < n; i++)
+	{
+		cin >> a[i];
+	}
+	vector<int> d(n, 1);
+	vector<int> s(n, -1);
+
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < i; j++)
+		{
+			if (a[j] < a[i] && d[j] >= d[i])
+			{
+				d[i] = d[j] + 1;
+				s[i] = j;
+			}
+		}
+	}
+
+	int m = 0;
+
+	for (int i = 1; i < n; i++)
+	{
+		if (d[i] > d[m])
+		{
+			m = i;
+		}
+	}
+
+	vector<int> r;
+
+	r.push_back(a[m]);
+
+	while (s[m] != -1)
+	{
+		m = s[m];
+		r.push_back(a[m]);
+	}
+	for (int k = r.size(); k > 0; k--)
+	{
+		cout << r[k - 1] << ' ';
+	}
+	cout << endl;
+
+	return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+
+#define INF 1e5
+
+using namespace std;
+
+/*
+ *Repeat of the question*
+ Is it useful to speeding up the input?
+ "ios::sync_with_stdio(0)", "cin.tie(nullptr)"? (By the way, is "scanf" faster?)
+*/
+
+int n;
+vector<int> arr, ans, from;
+
+void out(int i) {
+    if (i == 0) return;
+    out(from[i]);
+    cout << arr[i] << ' ';
+}
+
+int main() {
+    cin >> n;
+    arr.resize(n + 1, -INF);
+    for (int i = 1; i <= n; i++) {
+        cin >> arr[i];
+    }
+    
+    ans.resize(n + 1, 0);
+    from.resize(n + 1, 0);
+    ans[0] = 0;
+    int maxVal, maxIndex = -1;
+    for (int i = 1; i <= n; i++) {
+        maxVal = -1;
+        for (int j = 0; j < i; j++) {
+            if (ans[j] > maxVal && arr[i] > arr[j]) {
+                maxVal = ans[j];
+                maxIndex = j;
+            }
+        }
+        ans[i] = maxVal + 1;
+        from[i] = maxIndex;
+    }
+    
+    maxIndex = 0;
+    for (int i = 1; i <= n; i++) {
+        if (ans[i] > ans[maxIndex])
+            maxIndex = i;
+    }
+    out(maxIndex);
+    
+    return 0;
+}
+Кодировка: 
+Скачать
+n = int(input())
+a = [int(i) for i in input().split()]
+v = [1]*n
+From = [-1]*n
+
+max = -1
+imax = -1
+
+for i in range(1,n):
+    for j in range(i):
+        if v[i]<=v[j] and a[i]>a[j]:
+            v[i] = v[j] + 1
+            From[i] = j
+            if v[i]>max:
+                max = v[i]
+                imax = i
+#print(v)
+ans = [a[imax]]
+while True:
+    imax = From[imax]
+    if imax==-1:
+        break
+    ans.append(a[imax])
+ans.reverse()
+print(*ans)
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+const int MAXN = 100001;
+
+int n, f, k, b, m;
+int d[MAXN], p[MAXN], a[MAXN];     // константа MAXN равна наибольшему возможному значению n
+
+int main() {
+    //freopen("input.txt", "r", stdin);
+    //freopen("output.txt", "w", stdout);
+    cin >> n;
+
+    a[0] = f;
+    for (int i = 0; i < n; i ++){
+        cin >> a[i];
+    }
+
+    for (int i=0; i<n; ++i) {     // заполняем массив d, где d[i] - максмальная длина возрастающей подпоследовательности
+        d[i] = 1;                 // заканчивающейся в a[i]
+        p[i] = -1;                // p - массив номеров предков, p[i] = j - в максимальной подпоследовательности, оканчивающейся
+        for (int j=0; j<i; ++j)   // в a[i], перед элементом a[i] стоит элемент a[j]
+            if (a[j] < a[i])
+                if (1 + d[j] > d[i]) {
+                    d[i] = 1 + d[j];
+                    p[i] = j;
+                }
+    }
+
+    int ans = d[0],  pos = 0;
+    for (int i=0; i<n; ++i)      // находим длину максимальной возастающей подпоследовательности как max(d)
+        if (d[i] > ans) {
+            ans = d[i];
+            pos = i;            // находим позицию последнего элемента максимальной возрастающей подпоследовательности
+        }
+    //cout << ans << endl;
+
+    vector<int> path;
+    while (pos != -1) {         // строим массв индексов элементов максимальной возрастающей подпоследовательности
+        path.push_back (pos);   // идем от последнего элемнта к первому
+        pos = p[pos];
+    }
+    reverse (path.begin(), path.end());
+    for (int i=0; i<(int)path.size(); ++i)
+        cout << a[path[i]] << ' ';        // печатаем максимальную возрастающую подпоследовательность
+
+    return 0;
+}
