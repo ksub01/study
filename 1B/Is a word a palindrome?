@@ -19,115 +19,59 @@ if cos:
 else:
     print('no')
     
-    
-    
-    
-
-Хорошие решения
-{$mode delphi}
-program _01B07;
-type 
-  matrix=array [1..100,1..100] of integer;
-var 
-  a: matrix;
-  i,j,n,f: integer;
-begin 
-  read(n); 
-  for i:=1 to n do 
-    for j:=1 to n do 
-      read(a[i,j]); 
-  f:=0;
-  for i:=1 to n-1 do 
-    for j:=i+1 to n do 
-      if a[i,j]<>a[j,i] then 
-      begin 
-        f:=1; 
-	break;  
-      end; 
-  if f=1 then 
-    write('no') 
-  else 
-    write('yes'); 
-  writeln;
-end.
-Кодировка: 
-Скачать
-a = int(input())
-b = []
-z = "yes"
-for s in range(a):
-    b.append(list(map(int,input().split())))
-for c in range(len(b)):
-    for d in range(len(b)-1): 
-        if b[d][c] != b[c][d]:
-            z = "no"
-print(z)
-Кодировка: 
-Скачать
-# coding: utf-8
-
-# In[12]:
 
 
-n = int(input())
-a = []
-s = 0
-z = 0
-for i in range(n):
-    a.append(list(map(int, input().split())))
-for k in range (0,n):
-    for i in range(k+1,n):
-        if a[k][i]!=a[i][k]:
-            z = 1
-if (z==1):
-    print('no')
+Найди ошибку: Является ли слово палиндромом?
+strok = input()
+flag = True
+maxindex = len(strok) - 1
+for i in range (0,int(maxindex / 2)):
+  if strok[i] != strok[maxindex - i]:
+      flag = False
+      break
+if flag == True:
+    print("yes")
 else:
-    print('yes')
-
-Кодировка: 
-Скачать
-var
-  a: array [0..100, 0..100] of integer;
-  n, i, j: integer;
-  f: boolean;
-
-begin
-  readln(n);
-  for i := 1 to n do 
-    for j := 1 to n do 
-      read(a[i, j]);
-  f := true;
-  for i := 1 to n do 
-    for j := i + 1 to n do 
-    begin
-      if a[i, j] <> a[j, i] then 
-        f := false;
-    end;
-  if f then
-    writeln('yes')
-  else
-    writeln('no');
-end.
-
-
-
+    print("no")
+    
+    
+    
+    
+Хорошие решения
+c = input()
+a = 0
+for i in range(len(c)) :
+    if c[i] != c[len(c)-1-i]  :
+        a = 1
+if a == 1  :
+    print("no")
+else:
+    print("yes")
+        
+        
+        
 Кодировка: 
 Скачать
 {$mode delphi}
-var a:array[0..99,0..99] of integer;
-    i,j,n,b:integer;
-begin
-b:=0;
-read(n);
-for i:=0 to (n-1) do 
- for j:=0 to (n-1) do 
- read(a[i,j]);
-for i:=0 to (n-1) do  
- for j:=0 to (n-1) do
-  if a[i,j]<>a[j,i] then 
-   b:=1;
-if b=1 then 
- writeln('no') else
-  writeln('yes');
+var s:string;
+    i,k:integer;
+begin 
+readln(s);
+k:=0;
+for i:=1 to length(s) do
+ if s[i]<>s[length(s)-i+1] then 
+  k:=k+1;
+if k=0 then writeln('yes')
+ else writeln('no');
 end.
-
+Кодировка: 
+Скачать
+a = input()
+b = 0
+for i in range(len(a) // 2):
+    if a[i] == a[-i - 1]:
+        b += 1
+if b == len(a) // 2:
+    print('yes')
+else:
+    print('no')
