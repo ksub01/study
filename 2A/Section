@@ -1,0 +1,14 @@
+d * (a // d + b // d - 1)
+тут можно раскрыть скобки и будет проще
+
+def nod(a, b):
+    if b > 0:
+        return nod(b, a % b)
+    else:
+        return a
+x1, y1, x2, y2 = map(int, input().split(' '))
+
+a = abs(x1 - x2)
+b = abs(y1 - y2)
+d = nod(a, b)
+print(d * (a // d + b // d - 1))
