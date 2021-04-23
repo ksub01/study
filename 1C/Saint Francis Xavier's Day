@@ -1,0 +1,40 @@
+1В: Продвинутые задачи на условный оператор: в них запрещено пользоваться циклами и массивами
+first, second = map(int, input().rstrip().split())
+ans1 = 0
+if second < 1605:
+    ans1 = 0
+elif first >= second:
+    ans1 = 0
+else:
+    first = max(1596, first)
+    first += 1
+    if first % 10 != 5:
+        first = first + (5 - first % 5)
+    if first % 10 == 0:
+        first += 5
+    ans1 = (second - first)// 10 + 1
+    if second == 1605 and first == 1605:
+        ans1 = 1
+print(ans1)
+
+
+
+
+#ready
+first, second = map(int, input().rstrip().split())
+ans1 = 0
+if second < 1605:
+    ans1 = 0
+elif first >= second:
+    ans1 = 0
+else:
+    first = max(1596, first)
+    first += 1
+    if first % 10 != 5:
+        first = first + (5 - first % 5)
+    if first % 10 == 0:
+        first += 5
+    ans1 = (second - first)// 10 + 1
+    if second == 1605 and first == 1605:
+        ans1 = 1
+print(ans1)
