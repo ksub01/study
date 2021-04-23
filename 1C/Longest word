@@ -24,3 +24,158 @@ for i in s:
         l = len(i)
 print(str)
 print(l)
+
+
+
+Найди ошибку: Самое длинное слово
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+    string temp;
+    cin >> temp;
+    int biggest_size = temp.size();
+    string biggest_word = temp;
+    while(cin >> temp)
+    {
+        if(temp.size() > biggest_size)
+        {
+            biggest_size = temp.size();
+            biggest_word = temp;
+        }
+    }
+    cout << biggest_word << endl << temp;
+}
+
+
+
+s=input()
+ans=''
+ansl=0
+ansp=''
+anslp=0
+for i in range(len(s)):
+    if s[i]!=' ':
+        ansp+=s[i]
+        anslp+=1
+    else:
+        if ansl<anslp:
+            ans=ansp[::]
+            ansl=anslp
+        ansp=''
+        anslp=0
+if ansl==0:
+    ans=ansp[::]
+    ansl=anslp
+print(ans)
+print(ansl)
+
+
+
+Хорошие решения
+{$mode delphi}
+var
+  s: array [1..1000] of string;
+  a, b: string;
+  c, m, i: integer;
+
+begin
+  i := 1;
+  readln(a);
+  a := a + ' ';
+  for c := 1 to length(a) do
+  begin
+    if a[c] <> ' ' then
+      s[i] := s[i] + a[c]
+    else
+      inc(i);
+  end;
+  for c := 1 to i do
+    if length(s[c]) > m then 
+    begin
+      m := length(s[c]);
+      b := s[c];
+    end;
+  writeln(b);
+  writeln(m);
+end.
+Кодировка: 
+Скачать
+#include <iostream>
+#include <string> 
+#include <cmath> 
+
+using namespace std;
+
+int main(){
+	string s;
+	int counter = 0, max_size = 0, r = 0;
+	getline(cin, s);
+	s += ' ';
+	for (int i = 0; i < s.size(); i++){
+		if (s[i] == ' '){
+			if (counter > max_size){
+				max_size = counter;
+				r = i;
+			}
+			counter = 0;
+		}
+		else{
+			counter++;
+		}
+	}
+	for (int i = r - max_size; i < r; i++){
+		cout << s[i];
+	}
+	cout << endl << max_size;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+    string s,ans;
+
+    while (cin >> s){
+        if (s.length() > ans.length()){
+            ans = s;
+        }
+    }
+
+    cout << ans << endl;
+    cout << ans.length() << endl;
+}
+Кодировка: 
+Скачать
+n = input()
+n+=" "
+max = 0
+count = 0
+end = 0
+for i in range(len(n)):
+    if n[i]!=" ":
+        count+= 1
+    else:
+        if count> max:
+            max = count
+            end = i
+        count = 0
+print(n[end-max:end])
+print(max)
+Кодировка: 
+Скачать
+c = 0
+a = input( )
+b = a.split( )
+for i in range(len(b)):
+    if len(b[i]) > c:
+        c = len(b[i])
+        cl = b[i]
+print(cl)
+print(c)
