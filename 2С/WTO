@@ -1,0 +1,134 @@
+def nod(a, b):
+    if b > 0:
+        return nod(b, a % b)
+    else:
+        return a
+
+
+a, b, c = map(int, input().split())
+d = nod(a, b)
+n = d * (a // d + b // d - 1)
+dont = a*b - n
+dont //= 2
+print(c - ((dont - 1)%c + 1))
+
+Найди ошибку: ВТО
+
+def nod(a, b):
+    while b!=0 :
+        a, b = b, a%b
+    return a 
+
+
+N, M, z = map(int, input().split()) 
+k = (N - 1)*(M - 1)
+n = nod(N, M) - 1
+print(z - ((k-n)//2 + n)%z)
+
+
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <stack>
+#include <queue>
+#include <map>
+
+using namespace std;
+
+#define ll long long
+
+int main() {
+	ll a, b, mod, a1, b1, c;
+	cin >> a >> b >> mod;
+	a1 = a;
+	b1 = b;
+	while (b1) {
+		c = a1;
+		a1 = b1;
+		b1 = c % b1;
+	}
+	cout << mod - (((a * b - (a + b - a1)) / 2) % mod) << endl;
+	return 0;
+}
+
+
+Хорошие решения
+m, n, p = map(int, input().split())
+g, h = m, n
+while h != 0:
+    g, h = h, g%h
+s = (m*n - (m+n-g)) // 2
+r = (p-(s%p)) % p
+print(r)
+Кодировка: 
+Скачать
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+long long gcd(long long a, long long b) {
+	while (a != 0) {
+		b %= a;
+		swap(a, b);
+	}
+	return b;
+}
+
+int main() {
+	long long a, b, p;
+	cin >> a >> b >> p;
+	cout << (p - ((a*b - (a + b - gcd(a, b))) / 2) % p) % p;
+}
+Кодировка: 
+Скачать
+a, b, p = map(int, input().split())
+c = a * b - a - b
+while b != 0:
+    a, b = b, a % b
+c += a
+c //= 2
+c %= p
+if c == 0:
+    print('0')
+else:
+    print(p - c)
+Кодировка: 
+Скачать
+#include <iostream>
+#include <cmath>
+using namespace std;
+long long ans=0;
+long long gcd(long long a,long long b)
+{
+    while (b!=0)
+    {
+        int t=a%b;
+        a=b;
+        b=t;
+    }
+    return a;
+}
+int main()
+{
+	long long n,m,p,x;
+	cin>>n>>m>>p;
+	ans=(n*m-(m+n-gcd(n,m)))/2;
+	ans=ans%p;
+	if (ans==0)
+        cout<<ans<<endl;
+	else 
+        cout<<p-ans<<endl;
+}
+Кодировка: 
+Скачать
+def gcd(a,b):
+    while b!=0:
+        a,b=b,a%b
+    return a
+m,n,p = map(int, input().split())
+l = m+n-gcd(m,n)
+k = (m*n-l)//2
+print((p-k%p)%p)
