@@ -4,3 +4,88 @@ l = -1001
 for i in list1:
     l = max(l, i)
 print(l)
+
+
+Найди ошибку: Максимальный элемент массива
+#include <iostream>
+#include<string>
+using namespace std;
+
+int main()
+{
+	int n, max = 0, a;
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		cin >> a;
+		if (a > max) {
+			max = a;
+		}
+	}
+	cout << max;
+	return 0;
+}
+
+
+from math import *
+N=int(input())
+a=list(map(int,input().split()))
+e=0
+m=1
+for i in range(len(a)):
+   if a[i]>e:
+      e=a[i]
+print(e)
+   
+   
+   
+
+
+Хорошие решения
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main() {
+	int n, max=-100500, a;
+	
+	cin >> n;
+	
+	for (int i=0; i<n; i++) {
+		cin >> a;
+		if (a>max) {
+			max = a;
+		}
+	
+	}
+	cout << max;
+	return 0;
+}
+Кодировка: 
+Скачать
+n=int(input())
+a=list(map(int, input().split()))
+b=-1001
+for i in range(n):
+    if a[i]>=b:
+        b=a[i]
+print(b)
+Кодировка: 
+Скачать
+#include <iostream>
+using namespace std;
+int main()
+{
+	int n, max=-2000,x;
+	cin>>n;
+	for (int i=0;i<n;++i)
+	{
+		cin>>x;
+		if (x>max)
+		{
+			max=x;
+		}
+	}
+	cout<<max;
+	return 0;
+}
