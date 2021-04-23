@@ -1,0 +1,35 @@
+Тут на питоне не успеет, но сделайте так,
+чтобы хотя бы на маленьких тестах работало.
+
+def f(k):
+   i = 2
+   prime = [True] * 1300000
+   prime[0] = prime[1] = False
+   while k > 0:
+       i += 1
+       if not prime[i]:
+           continue
+       for j in range(i * i, 1300000, i):
+           if j < len(prime):
+            prime[j] = False
+       k -= 1
+   return i
+
+print(f(int(input())))
+
+
+Зачту, тут на питоне полное решение не успеет.
+def f(k):
+   i = 1
+   prime = [True] * 2000000
+   prime[0] = prime[1] = False
+   while k > 0:
+       i += 1
+       if not prime[i]:
+           continue
+       for j in range(i * i, 1300000, i):
+           prime[j] = False
+       k -= 1
+   return i
+
+print(f(int(input())))
