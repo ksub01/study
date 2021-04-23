@@ -1,0 +1,11 @@
+import math
+
+q = int(input())
+for i in range(q):
+    a, b = map(int, input().rstrip().split())
+    a -= 1 
+    cou = 0
+    for i in bin(a):
+        if i == '1':
+            cou += 1
+    print(cou % b)
