@@ -1,0 +1,89 @@
+Не надо каждый раз заново возводить 2 в степень.
+Используйте значение с предыдущего шага.
+
+
+s = input()
+cou = 0
+ans = 0
+for i in range(len(s)-1, -1, -1):
+    ans += int(s[i]) * 2**cou
+    cou += 1
+print(ans)
+
+
+s = input()
+cou = 1
+ans = 0
+for i in range(len(s)-1, -1, -1):
+    ans += int(s[i]) * cou
+    cou *= 2
+print(ans)
+
+
+
+Хорошие решения
+#include <iostream>
+#include <string>
+#include <cmath>
+
+using namespace std;
+
+void nib(string n) {
+	int prev = 1;
+	int ans = 0;
+	for (int i = n.size() - 1; i > -1; i--) {
+		ans += (n[i] - '0') * prev;
+		prev *= 2;
+	}
+	cout << ans;
+}
+
+int main() {
+	string n;
+	cin >> n;
+	nib(n);
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main(){
+    int n = 0, p = 1;
+    string s;
+    cin >> s;
+    for (int i = (int)s.size() - 1; i >= 0; i--){
+        if (s[i] == '1')
+            n += p;
+        p *= 2;
+    }
+    cout << n;
+}
+Кодировка: 
+Скачать
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    string s;
+    cin >> s;
+    int ans = 0;
+    int k = 1;
+    for(int i = s.size()-1;i >= 0;i--){
+        ans += k*(s[i]-'0');
+        k*=2;
+    }
+    cout << ans;
+
+
+}
+Кодировка: 
+Скачать
+s=input()
+prev=2**(len(s)-1)
+sum=0
+for i in range(len(s)):
+    sum+=int(s[i])*prev
+    prev//=2
+print(sum)
