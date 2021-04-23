@@ -13,110 +13,69 @@ else:
 
 
 
-Хорошие решения
-{$mode delphi}
-program _01B07;
-type 
-  matrix=array [1..100,1..100] of integer;
-var 
-  a: matrix;
-  i,j,n,f: integer;
-begin 
-  read(n); 
-  for i:=1 to n do 
-    for j:=1 to n do 
-      read(a[i,j]); 
-  f:=0;
-  for i:=1 to n-1 do 
-    for j:=i+1 to n do 
-      if a[i,j]<>a[j,i] then 
-      begin 
-        f:=1; 
-	break;  
-      end; 
-  if f=1 then 
-    write('no') 
-  else 
-    write('yes'); 
-  writeln;
-end.
-Кодировка: 
-Скачать
-a = int(input())
-b = []
-z = "yes"
-for s in range(a):
-    b.append(list(map(int,input().split())))
-for c in range(len(b)):
-    for d in range(len(b)-1): 
-        if b[d][c] != b[c][d]:
-            z = "no"
-print(z)
-Кодировка: 
-Скачать
-# coding: utf-8
+Найди ошибку: Совпадают ли строки?
+a = input()
+b = input()
+c = 0
 
-# In[12]:
+if len(a) == len(b):
+    for i in range(len(a)):
+        if ord(a[i]) != ord(a[i]):
+            c += 1
+            break
+elif len(a) != len(b):
+    c += 1
 
-
-n = int(input())
-a = []
-s = 0
-z = 0
-for i in range(n):
-    a.append(list(map(int, input().split())))
-for k in range (0,n):
-    for i in range(k+1,n):
-        if a[k][i]!=a[i][k]:
-            z = 1
-if (z==1):
+if c != 0:
     print('no')
 else:
     print('yes')
-
-Кодировка: 
-Скачать
-var
-  a: array [0..100, 0..100] of integer;
-  n, i, j: integer;
-  f: boolean;
-
-begin
-  readln(n);
-  for i := 1 to n do 
-    for j := 1 to n do 
-      read(a[i, j]);
-  f := true;
-  for i := 1 to n do 
-    for j := i + 1 to n do 
-    begin
-      if a[i, j] <> a[j, i] then 
-        f := false;
-    end;
-  if f then
-    writeln('yes')
-  else
-    writeln('no');
-end.
+    
+    
+s = input()
+d = input()
+f = 0
+if len(s) != len(d):
+    print("no")
+else:
+    for i in range(len(s)):
+        if ord(s[i]) == ord(d[f]):
+            f = f + 1
+            z = "yes"
+        else:
+            z = "no"
+            break
+print(z)
 
 
 
-Кодировка: 
-Скачать
-{$mode delphi}
-var a:array[0..99,0..99] of integer;
-    i,j,n,b:integer;
-begin
-b:=0;
-read(n);
-for i:=0 to (n-1) do 
- for j:=0 to (n-1) do 
- read(a[i,j]);
-for i:=0 to (n-1) do  
- for j:=0 to (n-1) do
-  if a[i,j]<>a[j,i] then 
-   b:=1;
-if b=1 then 
- writeln('no') else
-  writeln('yes');
-end.
+a = input()
+b = input()
+r = len(a)
+t = len(b)
+negativeAns = False
+
+
+if (r != t):
+    negativeAns = True
+
+else:
+    for i in range (r+1):
+        if (a[i] != b[i]):
+            negativeAns = True
+            break
+    
+if (negativeAns):
+    print('no')
+else:
+    print('yes')
+    
+    
+    
+    
+a = input()
+b = input()
+if a == b:
+    print ('yes')
+else:
+    print ('no')
