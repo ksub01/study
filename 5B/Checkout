@@ -1,0 +1,346 @@
+n = int(input())
+END_DAY = 86400
+START_DAY = 0
+END = 1
+START = 0
+mas = []
+for i in range(n):
+    x1, x2, x3, y1, y2, y3 = map(int, input().rstrip().split())
+    time_start = x1*3600 + x2*60 + x3
+    time_end = y1*3600 + y2*60 + y3
+    if time_start == time_end:
+        time_end = END_DAY
+        time_start = START_DAY
+    if time_start > time_end:
+        mas.append((time_start, START))
+        mas.append((END_DAY, END))
+        mas.append((START_DAY, START))
+        mas.append((time_end, END))
+    else:
+        mas.append((time_start, START))
+        mas.append((time_end, END))
+mas.sort()
+cou = 0
+ans = 0
+x = 0
+for i in mas:
+    time, tp = i[0], i[1]
+    if tp == 0:
+        cou += 1
+    elif tp == 1:
+        if cou == n:
+            ans += time - x
+        cou -= 1
+    if cou == n:
+        x = time
+print(ans)
+
+Найди ошибку: Кассы
+#include <bits/stdc++.h>
+
+using namespace std;
+
+typedef long long ll;
+
+struct Event
+{
+	int x;
+	int type;
+};
+
+bool comp(Event a, Event b)
+{
+	return (a.x < b.x || (a.x == b.x && a.type < b.type));
+}
+
+int main()
+{
+	int n, h1, m1, s1, h2, m2, s2, t1, t2, working = 0, ans = 0, cur = 0, prev = 0;
+	cin >> n;
+	vector<Event> arr(2 * n);
+	for (int i = 0; i < n; i++) {
+		cin >> h1 >> m1 >> s1 >> h2 >> m2 >> s2;
+		t1 = h1 * 60 * 60 + m1 * 60 + s1;
+		t2 = h2 * 60 * 60 + m2 * 60 + s2;
+		if (t1 >= t2) working++;
+		arr[cur] = Event{ t1, 1 };
+		arr[cur + 1] = Event{ t2, 0 };
+		if (t1 > prev || prev == 24 * 60 * 60)
+			prev = t1;
+		cur += 2;
+	}
+	prev = -(prev - 24 * 60 * 60);
+	sort(arr.begin(), arr.end(), comp);
+	for (int i = 0; i < 2 * n; i++) {
+		if (arr[i].type == 1) {
+			prev = arr[i].x;
+			working++;
+		}
+		else {
+			if (working == n) ans += abs(arr[i].x - prev);
+			working--;
+		}
+	}
+	cout << ans << endl;
+	return 0;
+}
+
+Хорошие решения
+#include <bits/stdc++.h>
+
+using namespace std;
+
+const int OPEN = 1;
+const int CLOSE = 3;
+const int POINT = 2;
+
+struct Point {
+    int pos;
+    int type;
+    int id;
+
+    Point(int a, int b, int c) {
+        pos = a;
+        type = b;
+        id = c;
+    }
+};
+
+bool operator<(const Point& first, const Point& second) {
+    if (first.pos < second.pos) {
+        return true;
+    } else if (second.pos < first.pos) {
+        return false;
+    } else {
+        if (first.type > second.type) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+int main() {
+    int n;
+    cin >> n;
+
+    vector<Point> arr;
+    int new_n = n;
+    for (int i = 0; i < n; ++i) {
+        int h1, m1, s1, h2, m2, s2;
+        cin >> h1 >> m1 >> s1 >> h2 >> m2 >> s2;
+        int sec1 = h1 * 60 * 60 + m1 * 60 + s1;
+        int sec2 = h2 * 60 * 60 + m2 * 60 + s2;
+        if (sec1 == sec2) {
+            new_n--;
+            continue;
+        }
+        arr.push_back({sec1, OPEN, i});
+        if (sec1 > sec2) {
+            arr.push_back({0, OPEN, -1});
+            arr.push_back({60*60*24, CLOSE, -1});
+        }
+        arr.push_back({sec2, CLOSE, -1});
+    }
+    n = new_n;
+    if (n == 0) {
+        cout << 24 * 60 * 60 << '\n';
+        return 0;
+    }
+    sort(arr.begin(), arr.end());
+
+    int balance = 0;
+    int cnt = 0;
+    for (int i = 0; i < arr.size(); ++i) {
+        // cout << arr[i].pos << '\n';
+        if (arr[i].type == OPEN) {
+            balance += 1;
+            if (balance >= n) {
+                cnt += arr[i + 1].pos - arr[i].pos;
+            }
+        } else if (arr[i].type == CLOSE) {
+            balance -= 1;
+        }
+    }
+
+    cout << cnt << '\n';
+
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <bits/stdc++.h>
+#define f first
+#define s second
+#define int long long
+#define pb push_back
+using namespace std;
+vector < pair <long , long> >a;
+signed main()
+{
+    //freopen("input.txt","r",stdin) ;
+    long long n , m;
+    cin >> n  ;
+    int col=0;
+    for (int i=1;i<=n;i++){
+        int h , m , s , hf, mf , sf ;
+        cin >> h >> m >> s;
+        s=s+m*60+h*3600;
+        cin >> hf >> mf >> sf;
+        sf=sf+mf*60+hf*3600;
+        a.pb( {s , 1} );
+        if (s<sf)
+            a.pb( {sf , -1} );
+        else{
+            a.pb( {sf+24*3600 , -1});
+            a.pb({sf , -1}) ;
+            col++;
+        }
+    }
+    sort(a.begin(), a.end());
+    int sum=0;
+    for (int i=0;i<a.size();i++){
+        //cout << a[i].f << " " << a[i].s << endl;
+        col+=a[i].s;
+        if (col==n)
+            sum=sum+a[i+1].f-a[i].f;
+        //cout << col << endl;
+    }
+    cout << sum << endl;
+    return 0;
+}
+Кодировка: 
+Скачать
+n=int(input())
+matrix=[]
+counter=0
+for i in range(n):
+    sh,sm,ss,eh,em,es=map(int,input().split())
+    start=(3600*sh)+(60*sm)+ss
+    end=(3600*eh)+(60*em)+es
+    matrix.append([start,1])
+    matrix.append([end,-1])
+    if start>=end:
+        counter+=1#если получилось, что касса работает с ночи, то кол-во работающих на сл. день касс надо увеличить
+matrix.sort()
+prev_all=0
+sum=0
+for i,type in matrix:
+    counter+=type
+    if counter==n:
+        prev_all=i
+    if counter==n-1 and type==-1:
+        sum+=i-prev_all
+if counter==n:
+    sum+=24*3600-prev_all
+print(sum)
+Кодировка: 
+Скачать
+#include <iostream>
+#include <cmath>
+#include <stdio.h>
+#include <vector>
+#include <set>
+#include <string>
+#include <algorithm>
+#include <fstream>
+#include <numeric>
+#include <cstdlib>
+#include <map>
+using namespace std;
+ifstream in("input.txt");
+//ofstream out("output.txt");
+bool sr(pair<int,int> a, pair<int,int> b){
+	if(a.first!=b.first){
+		return a.first<b.first;
+	}
+	return a.second>b.second;
+}
+
+int main(){
+	int n;
+	in>>n;
+	int v = 0;  
+	vector< pair<int,int> > a;
+	for(int i=0;i<n;i++){
+		int x,y,z;
+		in>>x>>y>>z;
+		int t1= x*3600+y*60+z;
+		in>>x>>y>>z;
+		int t2 = x*3600+y*60+z;
+		if(t1==t2) 
+			v++;
+		else if(t1<t2){
+			a.push_back(make_pair(t1,0));
+			a.push_back(make_pair(t2,1));
+		}
+		else{
+			a.push_back(make_pair(0,0));
+			a.push_back(make_pair(t1,0));
+			a.push_back(make_pair(t2,1));
+		}				
+	}
+	a.push_back(make_pair(24*3600,1));
+	sort(a.begin(),a.end(),sr);
+	bool T = false;
+	int ans = 0,s = 0;	
+	for(int i=0,end=a.size();i<end;i++){
+		if(a[i].second){
+			v--;
+			if(T){
+				T = false;
+				s += a[i].first;
+				ans += s;
+			}
+		}
+		else{
+			v++;
+			if(v==n){
+				T = true;
+				s = -a[i].first;
+			}
+		}	
+	}
+	if(a.size()==1){
+		printf("%d",24*3600);
+	}
+	else{
+		printf("%d",ans);
+	}
+}
+Кодировка: 
+Скачать
+#include<iostream>
+#include<algorithm>
+
+using namespace std;
+
+const int N = 10000;
+
+int n, sum;
+pair<int, int> arr[2*N+2];
+
+int main(){
+    cin >> n;
+    for(int i = 0; i < n; ++i){
+        int h1, m1, s1, h2, m2, s2;
+        cin >> h1 >> m1 >> s1 >> h2 >> m2 >> s2;
+        m1 += h1 * 60;
+        s1 += m1 * 60;
+        m2 += h2 * 60;
+        s2 += m2 * 60;
+        if(s1 >= s2)
+            ++sum;
+        arr[2*i] = make_pair(s1, 1);
+        arr[2*i+1] = make_pair(s2, -1);
+    }
+    arr[2*n] = make_pair(0, -2);
+    arr[2*n+1] = make_pair(24*60*60, 2);
+    sort(arr, arr + 2*n + 2);
+    int ans = 0;
+    for(int i = 1; i < 2*n+2; ++i){
+        if(sum == n)
+            ans += arr[i].first - arr[i-1].first;
+        sum += arr[i].second;
+    }
+    cout << ans << endl;
