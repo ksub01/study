@@ -24,3 +24,357 @@ if n < 1000000:
         print('second', n)
 else:
     print('botva')
+    
+    
+Найди ошибку: Игра в пьяницу
+perv = list(map(int, input().split()))
+vt = list(map(int, input().split()))
+res = ''
+dop_c = 0
+while res != 'first' and res != 'second' and dop_c != 10 ** 6:
+    kart_1, kart_2 = perv[0], vt[0]
+    perv, vt = perv[1:], vt[1:]
+    if min(kart_1, kart_2) == 0 and max(kart_1, kart_2):
+        if kart_1 == 0:
+            perv.append(kart_1)
+            perv.append(kart_2)
+        else:
+            vt.append(kart_1)
+            vt.append(kart_2)
+    elif kart_1 > kart_2:
+        perv.append(kart_1)
+        perv.append(kart_2)
+    else:
+        vt.append(kart_1)
+        res = 'first'
+    elif len(perv) == 0:
+        res = 'second'
+    dop_c += 1
+if dop_c == 10 ** 6:
+    print('botva')
+else:
+        vt.append(kart_2)
+    if len(vt) == 0:
+    print(res, dop_c)
+    
+   Хорошие решения
+f = map(int, input().split())
+s = map(int, input().split())
+
+class Queue:
+    size = 20
+    def __init__(self, it):
+        self.head = 0
+        self.tail = 0
+        self.length = 0
+        self.a = [0]*self.size
+        for x in it:
+            self.append(x)
+    def append(self, x):
+        self.a[self.head % self.size] = x
+        self.head += 1
+        self.length += 1
+    def pop(self):
+        res = self.a[self.tail % self.size]
+        self.tail += 1
+        self.length -= 1
+        return res
+
+def lt(a, b):
+    if a == 0 and b == 9:
+        return False
+    if a == 9 and b == 0:
+        return True
+    return a < b
+
+first = Queue(f)
+second = Queue(s)
+
+result = "botva"
+for i in range(1000000):
+    card1 = first.pop()
+    card2 = second.pop()
+    if lt(card1, card2):
+        second.append(card1)
+        second.append(card2)
+    else:
+        first.append(card1)
+        first.append(card2)
+    if first.length == 0:
+        print("second", i+1)
+        break
+    if second.length == 0:
+        print("first", i+1)
+        break
+else:
+    print("botva")
+Кодировка: 
+Скачать
+{$mode delphi}
+const dur = 1000000;
+var p1,p2:array [1..10] of integer;
+    i, f1, f2, s2, s1, n, size1, size2, c, t, j : integer;
+    
+procedure cng1;
+begin
+ if f1 <> 10 then f1:=f1 + 1
+ else f1:=1;
+end;
+
+procedure cng2;
+begin
+ if f2 <> 10 then f2:=f2 + 1
+ else f2:=1;
+end;
+
+procedure add1(n:integer);
+begin
+ cng1;
+ p1[f1]:=p1[s1];
+ cng1;
+ p1[f1]:=n;
+ size1:=size1 + 1;
+ size2:=size2 - 1;
+end;
+
+procedure add2(n:integer);
+begin
+ cng2;
+ p2[f2]:=n;
+ cng2;
+ p2[f2]:=p2[s2];
+ size1:=size1 - 1;
+ size2:=size2 + 1;
+end;
+
+procedure next;
+begin
+ if s1 <> 10 then s1:=s1 + 1
+ else s1:=1;
+ if s2 <> 10 then s2:=s2 + 1
+ else s2:=1;
+end;
+
+begin
+ for i:=1 to 5 do
+  read(p1[i]);
+ for i:=1 to 5 do
+  read(p2[i]);
+ size1:=5;
+ size2:=5;
+ s1:=1;
+ f1:=5;
+ s2:=1;
+ f2:=5;
+ c:=0;
+ for i:=1 to dur do begin
+ if (p1[s1] = 0) and (p2[s2] = 9) then begin
+   add1(p2[s2]);
+   next;
+  end
+  else if (p1[s1] = 9) and (p2[s2] = 0) then begin
+   add2(p1[s1]);
+   next;
+  end
+  else if p1[s1] > p2[s2] then begin
+   add1(p2[s2]);
+   next;
+  end
+  else if p1[s1] < p2[s2] then begin
+   add2(p1[s1]);
+   next;
+  end;
+  c:=c + 1;
+  if size1 = 0 then begin
+   write('second ',c);
+   exit;
+  end
+  else if size2 = 0 then begin
+   write('first ',c);
+   exit;
+  end;
+ end;
+ write('botva');
+end.
+Кодировка: 
+Скачать
+#include <iostream>
+#include <queue>
+using namespace std;
+
+int main() {
+    deque<int> D1, D2;
+    for (int i = 0; i < 5; ++i){
+        int a;
+        cin >> a;
+        D1.push_back(a);
+    }
+    for (int i = 0; i < 5; ++i){
+        int a;
+        cin >> a;
+        D2.push_back(a);
+    }
+    int num = 0;
+    while (!D1.empty() && !D2.empty()) {
+
+        int k1 = D1.front(), k2 = D2.front();
+        D1.pop_front();
+        D2.pop_front();
+        num++;
+        if ((k2 == 0 && k1 == 9)|| (k2 > k1 && !(k1 == 0 && k2 == 9))) {
+            D2.push_back(k1);
+            D2.push_back(k2);
+        } else {
+            D1.push_back(k1);
+            D1.push_back(k2);
+        }
+        if (num > 1e6) {
+            cout << "botva";
+            return 0;
+        }
+    }
+    if (D1.empty())
+        cout << "second ";
+    else cout << "first ";
+    cout << num;
+
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class turn_{
+    public:
+        int size(){
+            return n - k;
+        }
+        void push(const int e){
+            a[n % 10] = e;
+            n ++;
+        }
+        int pop(){
+            k++;
+            return a[(k - 1) % 10];
+        }
+    private:
+        int n = 0;
+        int k = 0;
+        int a[10];
+};
+
+int main(){
+    int p, h = 0, t1, t2;
+    turn_ k1, k2;
+    for (int i = 0; i < 5; i++){
+        cin >> p;
+        k1.push(p);
+    }
+    for (int i = 0; i < 5; i++){
+        cin >> p;
+        k2.push(p);
+    }
+    while (true){
+        if (k1.size() == 0){
+            cout << "second " << h;
+            break;
+        }
+        if (k2.size() == 0){
+            cout << "first " << h;
+            break;
+        }
+        if (h == 1000000){
+            cout << "botva";
+            break;
+        }
+        h++;
+        t1 = k1.pop();
+        t2 = k2.pop();
+        if (((t1 > t2) && (t2 != 0)) || ((t2 == 0) && (t1 != 9)) || ((t1 == 0) && (t2 == 9))){
+            k1.push(t1);
+            k1.push(t2);
+        } else {
+            k2.push(t1);
+            k2.push(t2);
+        }
+    }
+}
+Кодировка: 
+Скачать
+class Quenue:
+    def __init__(self, start_list):
+        self.front = 0
+        self.quenue_list = []
+        self.quenue_list.extend(start_list)
+        self.rear = len(start_list)
+
+    def push(self, value):
+        self.quenue_list.append(value)
+        self.rear += 1
+
+    def pop(self):
+        if self.rear != self.front:
+            self.front += 1
+            return self.quenue_list[self.front - 1]
+        else:
+            return 'error'
+
+    def get_front(self):
+        if self.rear != self.front:
+            return self.quenue_list[self.front]
+        else:
+            return 'error'
+
+    def size(self):
+        return self.rear - self.front
+
+    def clear(self):
+        self.quenue_list = []
+        self.rear = 0
+        self.front = 0
+
+
+first = Quenue(map(int, raw_input().split()))
+second = Quenue(map(int, raw_input().split()))
+
+
+def check_first_wins(first, second):
+    if first == 0 and second == 9:
+        return True
+    if first == 9 and second == 0:
+        return False
+    else:
+        if first > second:
+            return True
+        else:
+            return False
+
+
+count = 0
+while True:
+    first_pop = first.pop()
+    second_pop = second.pop()
+    if check_first_wins(first_pop, second_pop):
+        first.push(first_pop)
+        first.push(second_pop)
+    else:
+        second.push(first_pop)
+        second.push(second_pop)
+
+    count += 1
+
+    if first.size() == 0:
+        print 'second {}'.format(count)
+        break
+    if second.size() == 0:
+        print 'first {}'.format(count)
+        break
+
+    if count == 10 ** 6:
+        print 'botva'
+        break
+
+
+
