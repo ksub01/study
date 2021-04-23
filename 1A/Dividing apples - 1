@@ -3,3 +3,61 @@
 N = int(input())
 K = int(input())
 print(K // N)
+
+
+Найди ошибку: Дележ яблок - 1
+#include <iostream>
+
+using namespace  std;
+int main(){
+    int n,k;
+    cin>>n>>k;
+    cout<<n/k;
+    }
+    
+n=int(input())
+k=int(input())
+print(n//k)
+
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main()
+{
+    int n;
+    cin >> n;
+    int k;
+    cin >> k;
+    cout << n/k;
+}
+
+
+
+Хорошие решения
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	int n, k;
+	cin >> n >> k;
+	
+	cout << k / n << endl;
+
+	return 0;
+}
+Кодировка: 
+Скачать
+var N,K: integer;
+begin
+read(N, K) ;
+writeln(K div N) ;
+end.
+Кодировка: 
+Скачать
+n = int(input())
+k = int(input())
+print(k // n)
