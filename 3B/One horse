@@ -1,0 +1,343 @@
+Аналогично, запоминайте, откуда вы пришли.
+Ну и заодно сохранили бы x1+delta_x
+в переменную, чтобы по четыре раза не писать,
+и аналогичн с y
+
+from collections import deque
+
+n = int(input())
+x1, y1 = map(int, input().rstrip().split())
+x2, y2 = map(int, input().rstrip().split())
+
+dist = [[-1] * (n+1) for i in range(n+1)]
+dist[x1][y1] = 0
+
+queue = deque()
+queue.append((x1, y1))
+
+while queue:
+    x1, y1 = queue.popleft()
+    for (delta_x, delta_y) in ((1, 2), (-1, 2), (-2, 1), (-2, -1), (-1, -2), (1, -2), (2, -1), (2, 1)):
+        if (1 <= x1+delta_x <= n) and (1 <= y1+delta_y <= n) and (dist[x1+delta_x][y1+delta_y] == -1):
+            queue.append((x1+delta_x, y1+delta_y))
+            dist[x1+delta_x][y1+delta_y] = dist[x1][y1] + 1
+print(dist[x2][y2])
+
+ans = dist[x2][y2]
+mas_ans = [(x2, y2)]
+for i in range(ans):
+    for (delta_x, delta_y) in ((1, 2), (-1, 2), (-2, 1), (-2, -1), (-1, -2), (1, -2), (2, -1), (2, 1)):
+        if ((1 <= x2+delta_x <= n) and (1 <= y2+delta_y <= n) and (dist[x2+delta_x][y2+delta_y] != -1) and
+            (dist[x2+delta_x][y2+delta_y] + 1 == dist[x2][y2])):
+            x2 = x2+delta_x
+            y2 = y2+delta_y
+            mas_ans.append((x2, y2))
+            break
+
+for i in mas_ans[::-1]:
+    print(*i)
+    
+    
+ from collections import deque
+
+n = int(input())
+x1, y1 = map(int, input().rstrip().split())
+x2, y2 = map(int, input().rstrip().split())
+
+dist = [[-1] * (n+1) for i in range(n+1)]
+p = [[-1] * (n+1) for i in range(n+1)]
+dist[x1][y1] = 0
+p[x1][y1] = -100
+
+queue = deque()
+queue.append((x1, y1))
+
+while queue:
+    x1, y1 = queue.popleft()
+    for (delta_x, delta_y) in ((1, 2), (-1, 2), (-2, 1), (-2, -1), (-1, -2), (1, -2), (2, -1), (2, 1)):
+        if (1 <= x1+delta_x <= n) and (1 <= y1+delta_y <= n) and (dist[x1+delta_x][y1+delta_y] == -1):
+            queue.append((x1+delta_x, y1+delta_y))
+            dist[x1+delta_x][y1+delta_y] = dist[x1][y1] + 1
+            p[x1+delta_x][y1+delta_y] = x1, y1
+print(dist[x2][y2])
+
+ans = [(x2, y2)]
+while p[x2][y2] != -100:
+    ans.append(p[x2][y2])
+    x2, y2 = p[x2][y2]
+for i in ans[::-1]:
+    print(*i)
+    
+    
+Хорошие решения
+from collections import deque
+v = int(input())
+list1 = []
+x1, y1 = map(int, input().split())
+x2, y2 = map(int, input().split())
+lens = []
+for i in range(v):
+     lens.append([None] * v)
+lens[x1 - 1][y1 - 1] = 0
+a = deque()
+a.append([x1, y1])
+froms = []
+for i in range(v):
+     froms.append([None] * v)
+d = [[-1, -1, 1, 1, -2, -2, 2, 2], [-2, 2, -2, 2, -1, 1, -1, 1]]
+while a:
+     k = a.popleft()
+     for j in range(8):
+          x = k[0] + d[0][j]
+          y = k[1] + d[1][j]
+          if x > 0 and x < v + 1 and y > 0 and y < v + 1:
+               if lens[x - 1][y - 1] == None:
+                    lens[x - 1][y - 1] = lens[k[0] - 1][k[1] - 1] + 1
+                    froms[x - 1][y - 1] = k
+                    a.append([x, y])
+newlen = lens[x2 - 1][y2 - 1]
+print(newlen)
+ans = [None] * (newlen + 1)
+ans[-1] = [x2, y2]
+for i in range(newlen - 1, -1, -1):
+     b = ans[i + 1]
+     ans[i] = froms[b[0] - 1][b[1] - 1]
+for i in range(newlen + 1):
+     print(*ans[i])
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+#include <stack>
+#include <queue>
+using namespace std;
+
+typedef long long ll;
+
+int main() {
+	ll num;
+	cin >> num;
+	vector<pair<ll, ll>> dostup = { {2, -1}, {-2, -1}, {-2, 1}, {2, 1}, {-1, 2}, {-1, -2}, {1, -2}, {1, 2} };
+	ll x1, x2, y1, y2;
+	cin >> x1 >> y1 >> x2 >> y2;
+	pair<ll, ll> c_nach = { x1 - 1, y1 - 1 }, c_fin = { x2 - 1, y2 - 1 };
+	queue<pair<ll, ll>> q;
+	vector<ll> dop(num, -1);
+	vector<vector<ll>> dist(num, dop);
+	dist[x2 - 1][y2 - 1] = 0;
+	q.push(c_fin);
+	pair<ll, ll> kl;
+	vector<pair<ll, ll>> dop_2(num, {-1, -1});
+	vector<vector<pair<ll, ll>>> pred(num, dop_2);
+	ll x, y;
+	while (!q.empty()) {
+		kl = q.front();
+		q.pop();
+		for (ll i = 0; i < 8; i++) {
+			x = kl.first + dostup[i].first;
+			y = kl.second + dostup[i].second;
+			if (x >= 0 && x < num &&
+				  y >= 0 && y < num && 
+				  dist[x][y] == -1) {
+				dist[x][y] = dist[kl.first][kl.second] + 1;
+				q.push({ x, y });
+				pred[x][y] = { kl.first, kl.second };
+			}
+		}
+	}
+	cout << dist[x1 - 1][y1 - 1] << "\n";
+	pair<ll, ll> v = { x1 - 1, y1 - 1 };
+	while (v != c_fin) {
+		cout << v.first + 1 << " " << v.second + 1 << "\n";
+		v = pred[v.first][v.second];
+	}
+	cout << x2 << " " << y2;
+	return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <deque>
+
+using namespace std;
+
+deque<pair<int, int>> deq;
+pair<int, int> v[8] = { {2, 1}, {2, -1}, {-2, 1}, {-2, -1}, {1, 2}, {-1, 2}, {1, -2}, {-1, -2} }, last[20][20], ans_way[400];
+int ans[20][20];
+int n;
+
+void bfs(int i, int j) {
+	deq.push_back({i, j});
+	ans[i][j] = 0;
+	while (!deq.empty()) {
+		int t = deq.front().first;
+		int t1 = deq.front().second;
+		deq.pop_front();
+		for (int q = 0; q < 8; q++) {
+			if (t1 + v[q].second >= 0 && t + v[q].first >= 0 && t1 + v[q].second < n && t + v[q].first < n && ans[t + v[q].first][t1 + v[q].second] == -1) {
+				last[t + v[q].first][t1 + v[q].second].first = t;
+				last[t + v[q].first][t1 + v[q].second].second = t1;
+				ans[t + v[q].first][t1 + v[q].second] = ans[t][t1] + 1;
+				deq.push_back({ t + v[q].first, t1 + v[q].second });
+			}
+		}
+	}
+}
+
+int main() {
+	int x, x1, y, y1;
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			ans[i][j] = -1;
+		}
+	}
+	cin >> x >> y >> x1 >> y1;
+	bfs(x - 1, n - y);
+	cout << ans[x1 - 1][n - y1] << "\n";
+	if (x1 == x && y == y1) {
+		exit(0);
+	}
+	int l = x1 - 1;
+	int l1 = n - y1;
+	for (int i = 0; i <= ans[x1 - 1][n - y1]; i++) {
+		ans_way[ans[l][l1]].first = l + 1;
+		ans_way[ans[l][l1]].second = l1 + 1;
+		int t = l;
+		l = last[l][l1].first;
+		l1 = last[t][l1].second;
+	}
+	for (int i = 0; i <= ans[x1 - 1][n - y1]; i++) {
+		cout << ans_way[i].first << " " << n - ans_way[i].second + 1 << "\n";
+	}
+}
+Кодировка: 
+Скачать
+#include <bits/stdc++.h>
+
+using namespace std;
+const int N = 30;
+
+int a[N][N], n, x, y, x1, dd;
+
+pair<int,int> p[N][N];
+
+int dx[] = {-1,-1,1,1,-2,-2,2,2};
+int dy[] = {-2,2,-2,2,-1,1,-1,1};
+int main()
+{
+
+    queue<int> d, d1;
+    cin >> n >> x >> y >> x1 >> dd;
+
+    for (int i = 0; i <= n; i ++)
+    {
+        for (int j = 0; j <= n; j ++)
+        {
+            a[i][j] = 100000;
+        }
+    }
+    d.push(x);
+    d1.push(y);
+    a[x][y] = 0;
+    p[x][y].first = p[x][y].second = -1;
+    while (!d.empty())
+    {
+        for (int i = 0; i < 8; ++i) {
+            int x = d.front();
+            int y = d1.front();
+            int x1 =  x + dx[i];
+            int dd =  y + dy[i];
+            if (1 <= x1 && x1 <= n && 1 <= dd && dd <= n && a[x][y] + 1 <  a[x1][dd]) {
+                a[x1][dd] = a[x][y] + 1;
+                d.push(x1);
+                d1.push(dd);
+                p[x1][dd].first = x;
+                p[x1][dd].second = y;
+            }
+        }
+        d.pop();
+        d1.pop();
+    }
+
+    int curx = x1;
+    int cury = dd;
+
+    int t =  a[x1][dd];
+    stack<pair<int,int> > stack1;
+
+
+    cout << t << endl;
+    while (curx != x || cury != y) {
+                stack1.push({curx, cury});
+                int z1 = curx;
+                int z2 = cury;
+                curx =  p[z1][z2].first;
+                cury =  p[z1][z2].second;
+    }
+
+
+    stack1.push({x,y});
+
+    while (!stack1.empty()){
+        cout << stack1.top().first << " " << stack1.top().second << endl;
+        stack1.pop();
+    }
+
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <queue>
+
+using namespace std;
+
+int main() {
+    int n, kx, ky, tx, ty, sx, sy, s;
+    cin >> n >> kx >> ky >> tx >> ty;
+    vector<int> c(n + 1, -1), cy;
+    vector<vector<int>> ax(n + 1, c), ay(n + 1, c), r(n + 1, c);
+    const int dx[8] = { -2, -1, 1, 2, 2, 1, -1, -2 };
+    const int dy[8] = { 1, 2, 2, 1, -1, -2, -2, -1 };
+    queue<int> qx, qy;
+    r[kx][ky] = 0;
+    qx.push(kx);
+    qy.push(ky);
+    while (r[tx][ty] == -1){
+        sx = qx.front();
+        sy = qy.front();
+        for (int i = 0; i < 8; i++)
+            if ((sx + dx[i] > 0) && (sx + dx[i] <= n) && (sy + dy[i] > 0) && (sy + dy[i] <= n))
+                if (r[sx + dx[i]][sy + dy[i]] == -1) {
+                    qx.push(sx + dx[i]);
+                    qy.push(sy + dy[i]);
+                    r[sx + dx[i]][sy + dy[i]] = r[sx][sy] + 1;
+                    ax[sx + dx[i]][sy + dy[i]] = sx;
+                    ay[sx + dx[i]][sy + dy[i]] = sy;
+                }
+        qx.pop();
+        qy.pop();
+    }
+    cout << r[tx][ty] << endl;
+    if (r[tx][ty] > 0) {
+        c.clear();
+        c.push_back(tx);
+        cy.push_back(ty);
+        sx = tx;
+        sy = ty;
+        for (int i = 0; i < r[tx][ty]; i++) {
+            c.push_back(ax[sx][sy]);
+            cy.push_back(ay[sx][sy]);
+            s = ax[sx][sy];
+            sy = ay[sx][sy];
+            sx = s;
+        }
+        for (int i = (int)c.size() - 1; i >= 0; i--)
+            cout << c[i] << " " << cy[i] << endl;
+    }
+    return 0;
+}
