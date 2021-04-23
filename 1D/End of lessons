@@ -1,0 +1,55 @@
+s = ans // 3600
+ans -= s * 3600
+можно в одно действие
+
+else:
+  print(17, 55)
+?!
+Почему это особый случай?
+
+(А еще, конструкции вида
+ans // 60 - 15
+вообще выглядят очень странными)
+
+n = int(input())
+ans = 9 * 3600
+for i in range(1, n + 1):
+    ans += 45 * 60
+    if i % 2 == 1:
+        ans += 60 * 5
+    else:
+        ans += 60*15
+s = ans // 3600
+ans -= s * 3600
+k = 0
+if n % 2 == 1:
+    k = ans // 60 - 5
+else:
+    k = ans // 60 - 15
+if n != 10:
+  print(s % 24, k)
+else:
+  print(17, 55)
+  
+  
+  n = int(input())
+minutes = 9 * 60
+for i in range(1, n + 1):
+    minutes += 45
+    if i % 2 == 1:
+        minutes += 5
+    else:
+        minutes += 15
+
+perem1 = 5
+perem2 = 15
+
+if n % 2 == 1:
+    minutes -= perem1
+else:
+    minutes -= perem2
+hours = minutes // 60
+minutes %= 60
+
+
+print(hours % 24, minutes)
