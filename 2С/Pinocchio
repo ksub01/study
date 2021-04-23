@@ -1,0 +1,259 @@
+    if second[0].startswith('0'):
+        second[0] = second[0][1:]
+    if second[1].startswith('0'):
+        second[1] = second[1][1:]
+    if second[2].startswith('0'):
+        second[2] = second[2][1:]
+Зачем? Вроде int("02") тоже прекрасно работает, нет?
+
+    if past[start]:
+        for parent in past[start]:
+if не нужен, итерация по пустому массиву
+работает корректно (т.е. не выполняет ничего)
+
+
+import datetime
+n = int(input())
+mas = []
+past = [[] for i in range(32400+1)]
+for i in range(n):
+    second, long = input().rstrip().split()
+    second = second.split(':')
+    if second[0].startswith('0'):
+        second[0] = second[0][1:]
+    if second[1].startswith('0'):
+        second[1] = second[1][1:]
+    if second[2].startswith('0'):
+        second[2] = second[2][1:]
+    second = int(second[0])*3600 + int(second[1])*60 + int(second[2]) - 32400
+    long = int(long)
+    mas.append((second, long))
+mas.append((32401, 10000000))
+
+for i in range(n):
+    time_start = mas[i][0] + mas[i][1]
+    time_finish = mas[i+1][0] + mas[i][1]
+    for may_st_time in range(time_start, time_finish):
+        f1 = may_st_time <= 9*3600
+        f2 = not(4*3600 + 1 <= may_st_time <= 5*3600)
+        f3 = not((may_st_time - mas[i][1] < 5*3600) and may_st_time >= 5*3600)
+        if f1 and f2 and f3:
+            past[may_st_time].append(mas[i][1])
+
+
+answer = [0 for i in range(32400+1)]
+for start in range(32400+1):
+    k = answer[start-1]
+    if past[start]:
+        for parent in past[start]:
+            k = max(answer[start - parent] + 1, k)
+    answer[start] = k
+
+print(answer[-1])
+
+
+Хорошие решения
+#include <bits/stdc++.h>
+
+#define p pair <int, int>
+#define s second
+#define f first
+#define ll long long
+
+using namespace std;
+
+int main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+    int n;
+    cin >> n;
+    int max_time = 32400, h = 3600, m = 60;
+    vector <int> dp(max_time + 1);
+    vector <p> cost(n);
+    for (int i = 0; i < n; i++) {
+        string tmp;
+        cin >> tmp >> cost[i].s;
+        int t = ((tmp[0] - '0') * 10 + tmp[1] - '0') * h + ((tmp[3] - '0') * 10 + tmp[4] - '0') * m +
+                (tmp[6] - '0') * 10 + tmp[7] - '0' - 9 * h;
+        if (i > 0) cost[i - 1].f = t;
+    }
+    cost[n - 1].f = max_time + 1;
+    int now_pos = 0;
+    for (int i = 0; i < max_time; i++) {
+        if (i == (13 - 9) * h) i = (14 - 9) * h;
+        while (cost[now_pos].f <= i) now_pos++;
+        dp[i + 1] = max(dp[i + 1], dp[i]);
+        if (i + cost[now_pos].s <= max_time &&
+           (i + cost[now_pos].s <= (13 - 9) * h || (i + cost[now_pos].s >= (14 - 9) * h && i >= (14 - 9) * h)))
+            dp[i + cost[now_pos].s] = max(dp[i + cost[now_pos].s], dp[i] + 1);
+    }
+    cout << dp[max_time] + dp[(13 - 9) * h];
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+#define f first
+#define s second
+#define pb push_back
+
+const int N = 32400 + 1, st = 9*60*60;
+
+int day[N], tmtbl[N];
+
+int main(){
+    int n;
+    cin >> n;
+    for(int i = 0; i < n; ++i){
+        char t;
+        int h, m, s, p;
+        cin >> h >> t >> m >> t >> s >> p;
+        tmtbl[h*60*60 + m*60 + s - st] = p;
+    }
+    int perf = 0;
+    for(int i = 0; i < 13*60*60 - st; ++i){
+        if(tmtbl[i]){
+            perf = tmtbl[i];
+        }
+        day[i + 1] = max(day[i + 1], day[i]);
+        if(i + perf <= 13*60*60 - st){
+            day[i + perf] = max(day[i + perf], day[i] + 1);
+        }
+    }
+    day[14*60*60 - st] = day[13*60*60 - st];
+    for(int i = 13*60*60 - st + 1; i < 14*60*60 - st; ++i){
+        if(tmtbl[i]){
+            perf = tmtbl[i];
+        }
+    }
+    for(int i = 14*60*60 - st; i < 18*60*60 - st; ++i){
+        if(tmtbl[i]){
+            perf = tmtbl[i];
+        }
+        day[i + 1] = max(day[i + 1], day[i]);
+        if(i + perf <= 18*60*60 - st){
+            day[i + perf] = max(day[i + perf], day[i] + 1);
+        }
+    }
+    cout << day[18*60*60 - st];
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <stdio.h>
+#include <algorithm>
+#include <vector>
+
+using namespace std;
+
+const int MAXT = (18 - 9) * 60 * 60, TIME_OUT_ST = (13 - 9) * 60 * 60, TIME_OUT_END = (14 - 9) * 60 * 60;
+
+int n;
+vector<int> films, boost, dp(2 * MAXT + 5, 0);
+
+inline void skip(int to, int& it) {
+    while (films[it + 1] <= to) ++it;
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(nullptr); cout.tie(nullptr);
+    
+    scanf("%d", &n);
+    films.resize(n);
+    boost.resize(n);
+    
+    int h, m, s, t;
+    for (int i = 0; i < n; ++i) {
+        scanf("%d:%d:%d %d", &h, &m, &s, &t);
+        films[i] = ((h * 60 + m) * 60 + s) - (9 * 60 * 60);
+        boost[i] = t;
+    }
+    films.push_back(MAXT + 5);
+    
+    int film = 0;
+    for (int i = 0; i <= MAXT; ++i) {
+        if (i == TIME_OUT_ST) {
+            i = TIME_OUT_END;
+            dp[TIME_OUT_END] = dp[TIME_OUT_ST];
+        }
+        skip(i, film);
+        
+        dp[i + 1] = max(dp[i + 1], dp[i]);
+        if (!(i < TIME_OUT_ST && i + boost[film] > TIME_OUT_ST))
+            dp[i + boost[film]] = max(dp[i + boost[film]], dp[i] + 1);
+    }
+    printf("%d\n", dp[MAXT]);
+    
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define lli long long int
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int n;
+    cin >> n;
+    vector<int> s(n), t(n);
+    for (int i = 0; i < n; ++i) {
+        string str;
+        cin >> str >> t[i];
+        s[i] += ((str[0] - '0') * 10 + (str[1] - '0')) * 3600;
+        s[i] += ((str[3] - '0') * 10 + (str[4] - '0')) * 60;
+        s[i] += (str[6] - '0') * 10 + (str[7] - '0');
+    }
+    s.push_back(18 * 3600);
+    vector<int> a(18 * 3600 + 1);
+    for (int i = 0; i + 1 < s.size(); ++i) {
+        for (int j = s[i]; j <= s[i + 1]; ++j) {
+            a[j] = t[i];
+        }
+    }
+    vector<int> dp(18 * 3600 + 1);
+    for (int i = 9 * 3600; i < 13 * 3600; ++i) {
+        dp[i + 1] = max(dp[i + 1], dp[i]);
+        if (i + a[i] <= 13 * 3600) {
+            dp[i + a[i]] = max(dp[i + a[i]], dp[i] + 1);
+        }
+    }
+    dp[14 * 3600] = dp[13 * 3600];
+    for (int i = 14 * 3600; i < 18 * 3600; ++i) {
+        dp[i + 1] = max(dp[i + 1], dp[i]);
+        if (i + a[i] <= 18 * 3600) {
+            dp[i + a[i]] = max(dp[i + a[i]], dp[i] + 1);
+        }
+    }
+    cout << dp[18 * 3600];
+}
+
+Кодировка: 
+Скачать
+n=int(input())
+shedule=[]
+times=[]
+for i in range(n):
+    timestring,t=input().split()
+    times.append(int(t))
+    h,m,s=map(int,timestring.split(':'))
+    shedule.append((3600*h+60*m+s)-9*3600+1)
+shedule.append(32401)
+time=[0]*32401
+for i in range(n):
+    for j in range(shedule[i],shedule[i+1]):
+        time[j]=times[i]
+ans=[0]*64801
+for i in range(1,32401):
+    ans[i+1]=max(ans[i+1],ans[i])
+    if (i<4*3600+1 and i+time[i]<=4*3600+1) or i>=5*3600+1:
+        ans[i+time[i]]=max(ans[i+time[i]],ans[i]+1)
+print(ans[32401])
