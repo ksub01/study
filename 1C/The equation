@@ -1,0 +1,19 @@
+int(x)
+тут int не нужен
+
+a, b, c = map(int, input().rstrip().split())
+
+if c >= 0:
+    if a == 0:  
+        if b >= 0 and b == c**2:
+            print('MANY SOLUTIONS')
+        else:
+            print('NO SOLUTION')
+    else:
+        x = (c**2 - b)//a
+        if (a*x + b >= 0) and (a*x + b == c**2):
+            print(int(x))
+        else:
+            print('NO SOLUTION')
+else:
+    print('NO SOLUTION')
