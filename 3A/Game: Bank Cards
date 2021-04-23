@@ -1,0 +1,279 @@
+Я зачту, но у тебя две подзадачи
+почти одинаковые.
+Я бы подумал, как объединить код,
+передавая параметр в функцию.
+См. некоторые из "хороших решений".
+
+
+#
+n = int(input())
+sher = input()
+mor = input()
+sher = [int(x) for x in sorted(sher)]
+mor = [int(x) for x in sorted(mor)]
+sher.reverse()
+mor.reverse()
+left = 0
+right = len(mor) - 1
+ans1 = ans2 = 0
+# точно получим
+for i in range(len(sher)):
+    if sher[i] <= mor[left]:
+        left += 1
+    else:
+        right -= 1
+        ans1 += 1
+left = 0
+right = len(mor) - 1
+# максимум нанесем
+for i in range(len(sher)):
+    if sher[i] < mor[left]:
+        left += 1
+        ans2 += 1
+    else:
+        right -= 1
+print(ans1)
+print(ans2)
+
+
+Хорошие решения
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int Sherlok_i_Moriarti(vector <int> a, vector <int> b, int n, int h)
+{
+    for (int i = 0; i < 10; i++) {
+        for (int j = i + h; j < 10 && a[i] != 0; j++) {
+            if (a[i] >= b[j]) {
+                a[i] -= b[j];
+                b[j] = 0;
+            }
+            else {
+                b[j] -= a[i];
+                a[i] = 0;
+            }
+        }
+    }
+    int s = 0;
+    for (int i = 0; i < 10; i++) {
+        s += a[i];
+    }
+    return s;
+}
+
+int main()
+{
+    int n;
+    cin >> n;
+    vector <int> a(10, 0);
+    vector <int> b(10, 0);
+    for (int i = 0; i < n; i++) {
+        char x;
+        cin >> x;
+        a[x - '0']++;
+    }
+    for (int i = 0; i < n; i++) {
+        char x;
+        cin >> x;
+        b[x - '0']++;
+    }
+
+    cout << Sherlok_i_Moriarti(a, b, n, 0) << "\n" << n - Sherlok_i_Moriarti(a, b, n, 1);
+}
+Кодировка: 
+Скачать
+// https://algoprog.ru/material/pc777pB
+
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <string>
+
+int find_optimal(const std::string &a, const std::string &b, bool attack) {
+  // if attack find optimal aggressive play else find optimal defensive play
+  // attack: find our smallest >  their smallest
+  // defend: find our smallest >= their smallest
+
+  size_t i = 0;
+  int cnt_ok = 0;
+  int cnt_fail = 0;
+  for (const auto e: a) {
+    while (i < b.size() && (b[i] < e || (b[i] == e && attack))) {
+      ++i;
+      ++cnt_fail;
+    }
+    if (i != b.size()) {
+      ++i;
+      ++cnt_ok;
+    }
+  }
+  return attack ? cnt_ok : cnt_fail;
+}
+    
+
+
+
+int main() {
+  int n;
+  std::cin >> n;
+
+  std::string a, b;
+  std::cin >> a >> b;
+  
+  std::sort(a.begin(), a.end());
+  std::sort(b.begin(), b.end());
+
+  std::cout << find_optimal(a, b, false) << std::endl;
+  std::cout << find_optimal(a, b, true ) << std::endl;
+}
+Кодировка: 
+Скачать
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int x;
+	cin >> x;
+	string s, t;
+	cin >> s >> t;
+	sort(s.begin(), s.end());
+	sort(t.begin(), t.end());
+	int ans1 = 0, ans2 = 0, j1 = 0, j2 = 0;
+	for (int i = 0; i < x; i++) {
+		if (j1 < x && t[i] > s[j1]) {
+			ans1++;
+			j1++;
+		}
+		if (j2 < x && t[i] >= s[j2]) {
+			ans2++;
+			j2++;
+		}
+	}
+	cout << x - ans2 << '\n' << ans1;
+
+	return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std; 
+
+int main() {
+    int n;
+    cin >> n;
+    vector<char> s(n);
+    vector<char> m(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> s[i];
+    }
+    for (int i = 0; i < n; ++i)
+    {
+        cin >> m[i];
+    }
+    sort(s.begin(), s.end());
+    sort(m.begin(), m.end());
+    
+    int i, j;
+    for (int x = 0; x < 2; ++x) {
+        i = 0;
+        j = 0;
+        while (i < n && j < n) {        
+            if (s[i] < m[j] || (s[i] == m[j] && x == 0)) {
+                ++i;
+                ++j;
+            } else {
+                ++j;
+            }
+        }
+        if (x == 0) {
+            cout << n - i << endl;
+        } else {
+            cout << i;
+        }
+    } 
+
+    return 0;    
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <iomanip>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+#include <set>
+#include <map>
+#include <queue>
+#include <unordered_map>
+#include <unordered_set>
+#include <stack>
+#include <cassert>
+#include <string.h>
+#include <random>
+#include <chrono>
+#include <ext/rope>
+
+#define sqr(x) ((x) * (x))
+
+using ll = long long;
+using ld = long double;
+using namespace std;
+using namespace __gnu_cxx;
+using namespace __gnu_pbds;
+
+void fastIO() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(nullptr); cout.tie(nullptr);
+}
+
+mt19937 rnd(std::chrono::high_resolution_clock::now().time_since_epoch().count());
+void solve();
+
+signed main() {
+    fastIO();
+
+    int tc = 1;
+    //cin >> tc;
+
+    for (int i = 0; i < tc; ++i) {
+        solve();
+    }
+
+    return 0;
+}
+
+void solve() {
+
+    int n;
+    string s, m;
+    cin >> n >> s >> m;
+
+    sort(s.begin(), s.end());
+    sort(m.begin(), m.end());
+    pair <int, int> ans;
+
+    int j = 0;
+    for (int i = 0; i < n; ++i) {
+        if (s[j] <= m[i]) {
+            ++j;
+            ++ans.first;
+        }
+    }
+    j = 0;
+    for (int i = 0; i < n; ++i) {
+        if (s[j] < m[i]) {
+            ++ans.second;
+            ++j;
+        }
+    }
+    cout << n - ans.first << '\n' << ans.second;
+
+}
