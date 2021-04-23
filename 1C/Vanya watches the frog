@@ -6,3 +6,79 @@ pow(-1, x)
 
 a, b = map(int, input().split(' '))
 print(a*((b//a) % 2) - (-1*pow(-1, (b//a)%2)*(b % a)))
+
+
+
+Найди ошибку: Ваня наблюдает за лягушкой
+K, T = map(int, input().split())
+a = T // K
+a = -a
+a -2
+a //= 2
+a *= 2
+a += 2
+a = -a
+b = abs(a * K - T)
+print(b)
+
+
+
+Хорошие решения
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	int k, t;
+	cin >> k >> t;
+	int stage = (t / k) % 2;
+	int distance = t % k;
+	int result = (stage - 1) * (-distance) + (stage) * (k - distance);
+	cout << result;
+}
+Кодировка: 
+Скачать
+var t,k,s,a: integer;
+
+begin
+
+  read(k,t);
+  
+  s:= t div k;
+  a:=s mod 2;
+  k:=(s+a)*k;
+  writeln(abs(k - t));
+  
+end.
+Кодировка: 
+Скачать
+#include <iostream>
+using namespace std;
+
+
+int main() {
+    int k, t;
+    cin >> k >> t;
+    int turn = t / k % 2;
+    cout <<  turn * (k - t % k) + -1 * (turn - 1) * t % k;
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main()
+{
+	int k, t, s;
+	cin >> k >> t;
+	s = abs(k * ((t / k) % 2) - t % k);
+	cout << s << endl;
+}
+Кодировка: 
+Скачать
+k,t = map(int, input().split(' '))
+print(abs(k*((t//k)%2)-t%k))
