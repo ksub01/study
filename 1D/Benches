@@ -43,3 +43,54 @@ else:
         else:
             right.append(i)
     print(left[-1], right[0])
+
+
+Найди ошибку: Лавочки
+#include <iomanip>
+#include <math.h>
+#include <stdlib.h>
+#include <map>
+#include <unordered_map>
+#include <tuple>
+#include <cmath>
+#include <functional>
+#include <cassert>
+#include <algorithm>
+#include <set>
+#include <unordered_set>
+#include <random>
+#include <deque>
+#include <numeric>
+using namespace std;
+#define kekek ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0); srand(time(0))	
+#define int long long
+
+signed main() {
+	kekek;
+	
+	int L, n;
+	cin >> L >> n;
+	vector<int> kek(n);
+	int cntL = 0, cntR = 0;
+	for (auto &i : kek) {
+		cin >> i;
+		
+		if (L % 2 && i == L / 2) {
+			cntL++, cntR++;
+		}
+		else if (i <= L / 2) {
+			cntL++;
+		}
+		else cntR++;
+	}
+
+	if (cntL + cntR != n + 1) {
+		cout << kek[cntL - 1] << " " << kek[cntL];
+	}
+	else {
+		cout << kek[cntL - 1];
+	}
+
+	//system("pause");
+	return 0;
+}
