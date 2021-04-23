@@ -1,0 +1,27 @@
+    else:
+        pass
+зачем?
+Если в else ничего делать не надо,
+так и не пишите else вообще
+
+n = int(input())
+list1 = list(map(int, input().split(' ')))
+l = list1[0]
+cou = 0
+for i in range(1, len(list1)):
+    if list1[i-1] + 1 != list1[i]:
+        cou += 1
+    else:
+        pass
+print(cou)
+
+#ready
+
+n = int(input())
+list1 = list(map(int, input().split(' ')))
+l = list1[0]
+cou = 0
+for i in range(1, len(list1)):
+    if list1[i-1] + 1 != list1[i]:
+        cou += 1
+print(cou)
