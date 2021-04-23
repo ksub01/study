@@ -1,0 +1,34 @@
+n = int(input())
+ans = 0
+for i in range(n):
+    mas = [int(x) for x in input().rstrip().split()]
+    print(mas.count(1))
+    
+    
+Хорошие решения
+#include <iostream>
+#include<vector>
+#include<string>
+#include<algorithm>
+#include<cmath>
+//lvl_3v_4_5
+using namespace std;
+
+int main()
+{
+	int n;
+	cin >> n;
+	vector<int> ans = vector<int>(n, { 0 });
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			int cur;
+			cin >> cur;
+			ans[i] += cur;
+		}
+	}
+	for (int i = 0; i < n; i++)
+		cout << ans[i] << '\n';
+	return 0;
+}
