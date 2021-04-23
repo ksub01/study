@@ -1,0 +1,33 @@
+number, k = map(int, input().split())
+list1 = input().rstrip().split(' ')
+
+
+num = 0
+flag = False
+position = 0
+result = True
+
+# расстояние
+for start in range(number):
+    s = list1[start:number:k]
+    if s.count('1') == len(s):
+        pass
+    elif s.count('0') == len(s):
+        pass
+    elif s.count('1') == len(s) - 1 and not flag:
+        position = start + s.index('0') * k + 1
+        list1[position-1] = '1'
+        flag = True
+    elif s.count('0') == len(s) - 1 and not flag:
+        position = start + s.index('1') * k + 1
+        list1[position-1] = '0'
+        flag = True
+    else:
+        result = False
+        break
+
+if result:
+    print('OK')
+    print(position)
+else:
+    print('FAIL')
