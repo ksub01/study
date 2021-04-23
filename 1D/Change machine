@@ -13,3 +13,142 @@ if cou_f < 0:
     print(-cou_f)
 else:
     print(0)
+
+
+Найди ошибку: Автомат со сдачей
+N = int(input())
+b = 0
+c = 0
+x = 0
+y = 0
+a = list(map(int, input().split()))
+for i in range(N):
+    if a[i] != 5:
+        b = (a[i] - 5) // 5
+        y = b
+    else:
+        c += 1
+    if b != 0:
+        x += b - c
+    c -= y
+    if x < 0:
+        x = 0
+    if c < 0:
+        c = 0
+    b = 0
+    y = 0
+print(x)
+
+
+Хорошие решения
+n = int(input())
+arr = list(map(int, input().split()))
+balance = 0
+min_balance = 0
+for i in range(n):
+    if arr[i] == 5:
+        balance += 1
+        continue
+
+    balance -= (arr[i] - 5) // 5
+    min_balance = min(balance, min_balance)
+print(abs(min_balance))
+Кодировка: 
+Скачать
+#include<bits/stdc++.h>
+#define ll long long
+#define fi first
+#define se second
+#define pb push_back
+#define in insert
+#define mp make_pair
+using namespace std;
+const int N = 1e5+123;
+int a[N];
+int n,m,k;
+string s;
+set<int>setik;
+int ans;
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(0);
+	cin >> n;
+	for(int i = 0; i < n; i++)cin >> a[i];
+	int have = 0;
+	int need = 0;
+	int sum = 0;
+	for(int i = 0; i < n; i++)
+	{
+		if(a[i]!=5)
+		{
+			sum+=(a[i] - 5) / 5;
+		}else{
+			sum--;
+		}
+		if(sum > need)
+			need = sum;
+	}
+	if(need <= 0)
+		need = 0;
+	cout << need;
+	
+}
+Кодировка: 
+Скачать
+n=int(input())
+a=list(map(int, input().split()))
+b=0
+c=0
+for i in range(n):
+    m=a[i]//5-1
+    if m==0:
+        c=c+1
+    else:
+        c=c-m
+        if c<0:
+            b=b-c
+            c=0
+print(b)
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+	int n, s = 0, max = 0;
+	cin >> n;
+	vector<int> ns(n);
+	for (int i = 0; i < n; i++) {
+		cin >> ns[i];
+		if (ns[i] == 5) {
+			s--;
+		}
+		else {
+			s += (ns[i] / 5) - 1;
+		}
+		if (s > max) {
+			max = s;
+		}
+	}
+	cout << max << endl;
+}
+Кодировка: 
+Скачать
+n=int(input())
+data = list(map(int, input().split()))
+result=0
+money=0
+for i in range(n):
+    if data[i]==5:
+        money=money+1
+    else:
+        if (data[i]-5)//5>money:
+            result=result+(data[i]-5)//5-money
+            money=0
+        else:
+            money=money-(data[i]-5)//5
+print(result)
