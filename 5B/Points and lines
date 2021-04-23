@@ -1,0 +1,244 @@
+key=lambda x: (x[0], -x[1])
+не надо key, это увеличивает
+расход памяти в два раза.
+Просто сразу инвертируйте знак
+у второго элемента.
+
+А еще, тут вовсе не гарантируется, 
+что l<r во входных данных
+n, m = map(int, input().rstrip().split())
+mas = []
+for i in range(n):
+    v1, v2 = map(int, input().rstrip().split())
+    mas.append((v1, 100000000))
+    mas.append((v2, 1))
+points = [int(x) for x in input().rstrip().split()]
+ans = [0]*(m+1)
+for i in range(len(points)):
+    mas.append((points[i], i+2))
+mas = sorted(mas, key=lambda x: (x[0], -x[1]))
+cou = 0
+for i in mas:
+    t = i[1]
+    if t == 100000000:
+        cou += 1
+    elif t == 1:
+        cou -= 1
+    else:
+        points[t-2] = cou
+print(*points)
+
+100000000000000000
+я бы сохранил в константу
+
+n, m = map(int, input().rstrip().split())
+mas = []
+for i in range(n):
+    v1, v2 = map(int, input().rstrip().split())
+    v1, v2 = min(v1, v2), max(v1, v2)
+    mas.append((v1, 0))
+    mas.append((v2, 100000000000000000))
+points = [0] + [int(x) for x in input().rstrip().split()]
+
+
+ans = [0]*(m+1)
+for i in range(1, len(points)):
+    mas.append((points[i], i))
+
+mas.sort()
+cou = 0
+for i in mas:
+    t = i[1]
+    if t == 0:
+        cou += 1
+    elif t == 100000000000000000:
+        cou -= 1
+    else:
+        ans[t] = cou
+print(*ans[1:])
+
+
+Хорошие решения
+#include <bits/stdc++.h>
+
+using namespace std;
+map <int, int> ans;
+int main () {
+    int n, m;
+    cin >> n >> m;
+    vector <pair <int, int> > v;
+    for (int i=0; i<n; i++) {
+        int x, y;
+        cin >> x >> y;
+        if (x > y) swap(x, y);
+        v.push_back({x, 1});
+        v.push_back({y+1, -1});
+    }
+    vector <int> t;
+    for (int i=0; i<m; i++) {
+        int x;
+        cin >> x;
+        t.push_back(x);
+        v.push_back({x, 2});
+    }
+    sort(v.begin(), v.end());
+    int cnt = 0;
+    for (int i = 0; i < v.size(); i++) {
+        if (v[i].second == 2) {
+            ans[v[i].first] = cnt;
+        }
+        else {
+            cnt += v[i].second;
+        }
+    }
+    for (auto it : t) {
+        cout << ans[it] << ' ';
+    }
+}
+Кодировка: 
+Скачать
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+    unsigned int n, m;
+    scanf("%d %d", &n, &m);
+    vector <pair <int, int>> segments;
+    for (int i = 0; i < n; i++){
+        int a, b;
+        scanf("%d %d", &a, &b);
+        if (a > b) swap(a, b);
+        segments.push_back({a, 0});
+        segments.push_back({b, m + 1});
+    }
+    for (int i = 0; i < m; i++){
+        int point;
+        scanf("%d", &point);
+        segments.push_back({point, i + 1});
+    }
+    sort(segments.begin(), segments.end());
+    vector <int> res(m);
+    int now_res = 0;
+    for (int i = 0; i < n * 2 + m; i++){
+        if (segments[i].second == 0) now_res++;
+        else if (segments[i].second == m + 1) now_res--;
+        else res[segments[i].second - 1] = now_res;
+    }
+    for (int i : res) printf("%d ", i);
+    return 0;
+}
+Кодировка: 
+Скачать
+n, m = map(int, input().split())
+a = []
+for i in range(n):
+    l, r = map(int, input().split())
+    if l > r:
+        l, r = r, l
+    a.append((l, 1))
+    a.append((r, 3))
+b = list(map(int, input().split()))
+for i in range(m):
+    a.append((b[i], 2, i))
+
+a = sorted(a)
+ans = 0
+for i in a:
+    if i[1] == 1:
+        ans += 1
+    elif i[1] == 2:
+        b[i[2]] = ans
+    else:
+        ans -= 1
+
+print(*b)
+Кодировка: 
+Скачать
+#include <cstdio>
+#include <vector>
+#include <algorithm>
+using namespace std;
+struct point 
+{
+   int x;
+   int type;
+   int indx;
+   point( int x , int type, int indx)
+   :
+      x(x),
+      type(type),
+      indx(indx)
+   {}
+};
+bool comp(point x,point y)
+{
+   if (x.x==y.x)
+   {
+      return x.type>y.type;
+   }
+   else
+   {
+      return x.x<y.x;
+   }
+}
+int main()
+{
+   int n,m,cnt=0;
+   vector <point> points;
+   scanf("%d %d",&n,&m);
+   for (int i=0;i<n;++i)
+   {
+      int a,b;
+      scanf("%d %d",&a,&b);
+      points.push_back(point(min(a,b),1,-1));
+      points.push_back(point(max(a,b),-1,-1));
+   }
+   for (int i=0;i<m;++i)
+   {
+      int t;
+      scanf("%d",&t);
+      points.push_back(point(t,0,i));
+   }
+   vector <int> answer(m+1);
+   sort(points.begin(),points.end(),comp);
+   for (int i=0;i<points.size();++i)
+   {
+      cnt+=points[i].type;
+      if (points[i].type==0)
+      {
+         answer[points[i].indx]=cnt;
+      }
+   }
+   for (int i=0;i<m;++i)
+   {
+      printf("%d ", answer[i]);
+   }
+}
+Кодировка: 
+Скачать
+n,m=map(int,input().split())
+matrix=[]
+for i in range(n):
+    first,last=map(int,input().split())
+    first,last=min(first,last),max(first,last)
+    matrix.append([first,-1])#здесь надо, чтобы начала шли раньше концов, иначе не получится вывод при случае
+    #общих точек
+    matrix.append([last,1])
+s=list(map(int,input().split()))
+for i in s:
+    matrix.append([i,0])
+matrix.sort()
+count=0
+res_dict={}
+for i in matrix:
+    if i[1]==-1:
+       count+=1
+    elif i[1]==0:
+        res_dict[i[0]]=count
+    elif i[1]==1:
+        count-=1
+for i in s:
+    print(res_dict[i],end=' ')
