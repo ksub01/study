@@ -1,0 +1,35 @@
+Реализуйте стек вручную 
+на массиве фиксированной длины
+(т.е. сделайте длинный массив заранее и двигайтесь 
+по нему указателем-индексом)
+
+file1 = open('input.txt')
+file2 = open('output.txt', 'w')
+
+mas = []
+for i in file1.readlines():
+    mas.append(i.rstrip())
+
+
+stack = []
+number = -100000
+for i in mas:
+    command = i.split()[0]
+    if len(i.split()) == 2:
+        number = i.split()[1]
+    
+    if command == 'push':
+        stack.append(number)
+        file2.write('ok\n')
+    elif command == 'pop':
+        file2.write(str(stack.pop()) + '\n')
+    elif command == 'back':
+        file2.write(str(stack[-1]) + '\n')
+    elif command == 'size':
+        file2.write(str(len(stack)) + '\n')
+    elif command == 'clear':
+        stack.clear()
+        file2.write('ok\n')
+    elif command == 'exit':
+        file2.write('bye\n')
+        break
