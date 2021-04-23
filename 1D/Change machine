@@ -1,0 +1,15 @@
+n = int(input().rstrip())
+list1 = [int(x) for x in input().rstrip().split(' ')]
+
+cou_f = 1e6
+cou = 0
+for i in range(n):
+    if list1[i] > 5:
+        cou -= (list1[i] - 5)// 5
+        cou_f = min(cou_f, cou)
+    elif list1[i] == 5:
+        cou += 1
+if cou_f < 0:
+    print(-cou_f)
+else:
+    print(0)
