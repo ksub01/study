@@ -25,3 +25,87 @@ for i in range(1, len(list1)):
     if list1[i-1] + 1 != list1[i]:
         cou += 1
 print(cou)
+
+
+
+
+Хорошие решения
+//#include "stdafx.h"
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+	short n, answer = 0, temp = 0;
+	cin >> n;
+	vector<short> Train(n);
+	for (short i = 0; i < n; i++) {
+		cin >> Train[i];
+	}
+	for (short i = 0; i < n - 1; i++) {
+		if (Train[i + 1] - Train[i] != 1) {
+			answer++;
+		}
+	}
+	cout << answer << endl;
+	return 0;
+}
+Кодировка: 
+Скачать
+n = int(input())
+a = list(map(int, input().split()))
+r = 0
+for i in range(1, n):
+    if a[i-1] != a[i]-1:
+        r += 1
+print(r)
+Кодировка: 
+Скачать
+var a: array [1..105] of integer;
+    i,n,k,j,d: integer;
+begin
+
+  read(n);
+  for i:=1 to n do 
+    read(a[i]);
+    
+  for i:=1 to n-1 do
+   if a[i]+1 <> a[i+1] then inc(k);
+  
+  writeln(k);
+  
+end.
+  
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+	int n, s = 0;
+	cin >> n;
+	vector <int> ns(n);
+	for (int i = 0; i < n; i++) {
+		cin >> ns[i];
+	}
+	for (int i = 0; i < n - 1; i++) {
+		if (ns[i] != ns[i + 1] - 1) {
+			s++;
+		}
+	}
+	cout << s << endl;
+}
+Кодировка: 
+Скачать
+n=int(input())
+wagons=list(map(int, input().split(' ')))
+result=0
+i=0
+for i in range(n-1):
+    if wagons[i+1]!=wagons[i]+1:
+        result=result+1
+print(result)
