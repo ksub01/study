@@ -5,3 +5,194 @@ for i in range(len(lst)):
         print(i)
         print(*lst[:i][::-1])
         break
+
+
+Найди ошибку: Симметричная последовательность
+#include <iostream>
+
+using namespace std;
+int n = 0, g = 0;
+bool m;
+int mas[100];
+bool cim(int k){
+    m = true;
+    for (int j = 0; j < k / 2; ++j){
+        if (mas[j] != mas[k - j - 1]){
+            m = false;
+            break;
+        }
+    }
+    return m;
+}
+int main()
+{   cin >> n;
+    for (int i = 0; i < n; ++i){
+        cin >> mas[i];
+    }
+    for (int i = 0; i < n; ++i){
+        for (int j = 0; j < i; ++j){
+            mas[n + j] = mas[i - 1 - j];
+        }
+        if (cim(n + i)) {
+            cout << i << endl;
+            for (int h = 0; h < i; ++h){
+                cout << mas[n + h] << ' ';
+            }
+            return 0;
+        }
+    }
+    return 0;
+}
+
+
+Хорошие решения
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    vector < int > a(n * 2);
+    for (int i = 0; i < n; i++)
+        cin >> a[i];
+    
+    int end = n - 1;
+    for (int i = 0; i < n; i++) {
+        if (a[i] != a[end - i]) {
+            end = n - 1;
+            for (int j = i, jj = n; j >= 0; j--, jj++) {
+                a[jj] = a[j];
+                end++;
+            }
+        }
+    }
+    
+    cout << end + 1 - n << "\n";
+    for (int i = n; i < a.size(); i++)
+        if (a[i] != 0)
+            cout << a[i] << " ";
+    return 0;
+}
+Кодировка: 
+Скачать
+def proverka(arr, posl_el):
+    count_1, count_2 = 0, posl_el
+    dop = 0
+    while count_2 > count_1:
+        if arr[count_1] == arr[count_2]:
+            dop += 1
+            count_1 += 1
+            count_2 -= 1
+        else:
+            break
+    if dop == (posl_el + 1) // 2:
+        return True
+    
+    
+kolvo = int(input())
+mass = list(map(int, input().split()))
+if proverka(mass, kolvo - 1):
+    print(0)
+else:
+    for i in range(kolvo - 1):
+        mass.append(0)    
+    for i in range(kolvo - 1):
+        for j in range(i + 1):
+            mass[kolvo + j] = mass[i - j]
+        if proverka(mass, kolvo + i):
+            print(i + 1)
+            break
+    for i in range(kolvo, kolvo + i + 1):
+        print(mass[i], end=" ")
+Кодировка: 
+Скачать
+{$mode delphi}
+var b: array [1..100] of integer;
+    c: array [1..100] of integer;
+    a,f,r,k,i: integer;
+
+begin
+k:=0;
+readln(a);
+for i:=1 to a do 
+ read (b[i]);
+for i:=1 to (a div 2) do
+ if b[i]<>b[a-i+1] then 
+ begin
+  k:=1;
+  break;
+ end;
+if k=0 then writeln(0)
+else begin
+ for i:=1 to a do begin
+  f:=i;
+  k:=0;
+  c[i]:=b[i];
+  for r:=(f+1) to ((a+f) div 2) do
+   if b[r]<>b[a+f-r+1] then 
+   begin
+    k:=1;
+    break;
+   end;
+  if k=0 then break;
+ end;   
+writeln(f);
+for i:=f downto 1 do
+ write(b[i],' ');
+end;
+end.
+Кодировка: 
+Скачать
+def is_pal(arr):
+    for i in range(len(arr)):
+        if arr[i] != arr[-i - 1]:
+            return False
+    return True
+
+n = int(input())
+arr = list(input().split())
+arr.reverse()
+max_i = 0
+for i in range(n):
+    if is_pal(arr[:i + 1]):
+        max_i = i
+print(n - max_i - 1)
+print(' '.join(reversed(arr[n:max_i:-1])))
+Кодировка: 
+Скачать
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+  // in
+  int n;
+  cin >> n;
+  int seq[n] = {};
+  for (int i = 0; i < n; i += 1) {
+    cin >> seq[i];
+  }
+
+  int j;
+  for (j = 0; j < n - 1; j += 1) {
+    bool isPalindrome = true;
+    for (int i = j; i < (n + i) / 2; i += 1) {
+      if (seq[i] != seq[n-i+j-1]) {
+        isPalindrome = false;
+        break;
+      }
+    }
+    if (isPalindrome) {
+      break;
+    }
+  }
+  cout << j << endl;
+  for(int i = j; i > 0; i -= 1) {
+    cout << seq[i - 1] << " ";
+  }
+  cout << endl;
+}
