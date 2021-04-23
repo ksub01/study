@@ -12,3 +12,231 @@ if x1 > a-e and x2 > b-e and x3 > c-e:
 else:
     print('NO')
 #print(x1, x2, x3)
+
+
+Найди ошибку: Диета
+X, Y, Z = map(float,input().split())
+A = 0
+B = 0
+C = 0
+flag = True
+N = int(input())
+eps = 1e-5
+
+for i in range(N):
+    Ai, Bi, Ci, Qi  = map(float,input().split())
+    A += Ai * Qi
+    B += Bi * Qi
+    C += Ci * Qi
+
+if A - eps < X or B - eps < Y or C - eps < Z:
+    print("NO")
+else:
+    print("YES")
+    
+    
+x,y,z = map(float, input().split())
+n = int(input())
+
+m = [[float(j) for j in input().split()] for i in range(n)]
+
+a,b,c = 0,0,0
+eps = 1e-8
+
+for i in range(n):
+    a +=m[i][0]*m[i][3]
+    b +=m[i][1]*m[i][3]
+    c +=m[i][2]*m[i][3]
+if a >= x - eps and b >= y and c >= z - eps:
+    print('YES')
+else:
+    print('NO')
+    
+    
+#include <iostream>
+using namespace std;
+
+const double eps = 1e-6;
+
+int main()
+{
+	double x, y, z;
+	cin >> x >> y >> z;
+	int n;
+	cin >> n;
+
+	for (int i = 0; i < n; i++)
+	{
+		double a, b, c, q;
+		cin >> a >> b >> c >> q;
+		x -= a * q;
+		y -= b * q;
+		z -= c * q;
+	}
+
+	if (x <= 0 && y <= 0 && z <= 0) cout << "YES";
+	else cout << "NO";
+
+	return 0;
+}
+
+
+
+x, y, z = map(float, input().split())
+n = int(input())
+eps = 1e-8
+b = False
+belki = 0
+ziri = 0
+uglevodi = 0
+a = []
+for i in range(n):
+    a.append(list(map(float, input().split())))
+for g in range(n):
+    a[g][0] = a[g][0] * a[g][3]
+    a[g][1] = a[g][1] * a[g][3]
+    a[g][2] = a[g][2] * a[g][3]
+for h in range(1, n):
+    belki = belki + a[h][0]
+    ziri = ziri + a[h][1]
+    uglevodi = uglevodi + a[h][2]
+if x - eps <= belki and y - eps <= ziri and z - eps <= uglevodi:
+    b = True
+if b == True:
+    print("YES")
+else:
+    print("NO")
+    
+    
+
+
+Хорошие решения
+#include <iostream>
+#include <string>
+#include <math.h>
+
+using namespace std;
+
+int main()
+{
+	double reqP, reqF, reqC;
+	cin >> reqP >> reqF >> reqC;
+	int foodTypes;
+	cin >> foodTypes;
+	for (int i = 0; i < foodTypes; i++)
+	{
+		double givenP, givenF, givenC;
+		double count;
+		cin >> givenP >> givenF >> givenC >> count;
+		givenP *= count;
+		givenF *= count;
+		givenC *= count;
+		reqP -= givenP;
+		reqF -= givenF;
+		reqC -= givenC;
+	}
+	const double eps = 1e-6;
+	if (reqP <= eps && reqF <= eps && reqC <= eps) {
+		cout << "YES";
+	}
+	else
+	{
+		cout << "NO";
+	}
+	return 0;
+}
+Кодировка: 
+Скачать
+const eps = 1e-10;
+var x,y,z,a,b,c,q: double;
+    i,n:integer;
+    
+begin
+
+  read(x,y,z);
+  readln(n);
+  
+  for i:=1 to n do begin
+    read(a,b,c,q);
+    x:=x-a*q;
+    y:=y-b*q;
+    z:=z-c*q;
+  end;
+  
+  if (x<=eps) and (y<=eps) and (z<=eps) then writeln('YES')
+  else writeln('NO');
+  
+end.
+Кодировка: 
+Скачать
+from math import * 
+x,y,z = map(float, input().split())
+n = int(input())
+a = [[float(j) for j in input().split()] for i in range(n)]
+eps = 1e-5
+x1 = 0.0
+y1 = 0.0
+z1 = 0.0
+for i in range(n):
+    x1 += a[i][0]*a[i][3]
+    y1 += a[i][1]*a[i][3]
+    z1 += a[i][2]*a[i][3]
+if (x1>=x-eps) and (y1>=y-eps) and (z1>=z-eps):
+    print("YES")
+else:
+    print("NO")
+Кодировка: 
+Скачать
+#include <iostream>
+#include <cmath>
+#include <vector>
+
+using namespace std;
+
+struct food {
+	double x;
+	double y;
+	double z;
+	double n;
+};
+
+int main()
+{
+	double x = 0, y = 0, z = 0, eps = 1e-8;
+	food a;
+	cin >> a.x >> a.y >> a.z;
+	cin >> a.n;
+	vector <food> b(a.n);
+	for (int i = 0; i < a.n; i++) {
+		cin >> b[i].x >> b[i].y >> b[i].z >> b[i].n;
+	}
+	for (int i = 0; i < a.n; i++) {
+		x += b[i].x * b[i].n;
+		y += b[i].y * b[i].n;
+		z += b[i].z * b[i].n;
+	}
+	if (x >= a.x - eps && y >= a.y - eps && z >= a.z - eps) {
+		cout << "YES" << endl;
+	}
+	else {
+		cout << "NO" << endl;
+	}
+	return 0;
+}
+Кодировка: 
+Скачать
+x, y, z = map(float, input().split())
+n = int(input())
+m = [[float(j) for j in input().split()] for i in range(n)]
+a = 0
+b = 0
+c = 0
+eps = 1e-8
+for i in range(n):
+    a += m[i][0] * m[i][3]
+    b += m[i][1] * m[i][3]
+    c += m[i][2] * m[i][3]
+if a >= x - eps and b >= y - eps and c >= z - eps:
+    print('YES')
+else:
+    print('NO')
