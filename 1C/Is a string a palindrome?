@@ -81,3 +81,162 @@ public class L1_C6_3 {
     }
 
 }
+
+
+
+
+
+Хорошие решения
+using System;
+
+namespace Algoprog
+{
+    class Program
+    {
+
+        static void Main(String[] args)
+        {
+            String i = Console.ReadLine();
+            int lIndex = i.Length - 1, fIndex = 0;
+            while (fIndex < i.Length && lIndex >= 0)
+            {
+                if (i[fIndex] == ' ')
+                {
+                    fIndex++;
+                    continue;
+                }
+                if (i[lIndex] == ' ')
+                {
+                    lIndex--;
+                    continue;
+                }
+                if (i[fIndex] != i[lIndex])
+                {
+                    Console.WriteLine("no");
+                    return;
+                }
+                fIndex++;
+                lIndex--;
+            }
+            Console.WriteLine("yes");
+        }
+    }
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <cstdlib>
+#include <cstdio>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+#include <set>
+#include <queue>
+#include <iomanip>
+#include <string>
+
+using namespace std;
+
+int m[26];
+int main()
+{
+    string s;
+    getline(cin, s);
+
+
+    int cnt1 = 0, cnt2 = s.length() - 1;
+    while((cnt1 + 1) <= cnt2)
+    {
+        //cout << cnt1 << " " << cnt2 << endl;
+        if(s[cnt1] == ' ')
+        {
+            cnt1++;
+            continue;
+        }
+
+        if(s[cnt2] == ' ')
+        {
+            cnt2--;
+            continue;
+        }
+
+        if(s[cnt1] != s[cnt2])
+        {
+            cout << "no" << endl;
+            return 0;
+        }
+
+        cnt1++;
+        cnt2--;
+
+
+    }
+
+    cout << "yes" << endl;
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+bool isPalindrome(string s){
+    int l = s.length();
+    for (int i = 0; i < l; ++i) {
+        if (s[i] != s[l - i - 1])
+            return false;
+    }
+    return true;
+}
+int main() {
+    string s,s1;
+
+    getline(cin,s);
+
+    for (int i = 0; i < s.length(); ++i) {
+        if (s[i] == ' ')
+            continue;
+        s1 =  s1 + s[i];
+    }
+
+    cout << (isPalindrome(s1) ? "yes" : "no");
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <string> 
+#include <cmath> 
+
+using namespace std;
+
+int main(){
+	string s, s1;
+	getline(cin, s);
+	for (int i = 0; i < s.size(); i++){
+		if (s[i] != ' '){
+			s1 += s[i];
+		}
+	}
+	for (int i = 0; i < s1.size() / 2; i++){
+		if (s1[i] != s1[s1.size() - i - 1]){
+			cout << "no";
+			exit(0);
+		}
+	}
+	cout << "yes";
+}
+Кодировка: 
+Скачать
+s = input()
+p = ''
+for i in range(len(s)):
+    if s[i] != ' ':
+        p += s[i]
+for i in range(len(p) // 2):
+    if p[i] != p[-i - 1]:
+        print('no')
+        break
+else:
+    print('yes')
