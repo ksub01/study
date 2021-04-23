@@ -1,0 +1,15 @@
+Сравнение ans с h дублируется,
+я бы подумал, как без этого обойтись
+
+h = int(input())
+a = int(input())
+b = int(input())
+ans = 0
+day = 0
+while(ans < h):
+    ans += a
+    day += 1
+    if ans >= h:
+        print(day)
+        break
+    ans -= b
