@@ -1,0 +1,83 @@
+a1 = int(input())
+for i in range(1, int(a1**0.5)+1):
+    print(i**2)
+    
+    
+Найди ошибку: Список квадратов
+#include <iostream>
+using namespace std;
+int main() {
+	int N;
+	cin >> N;
+	for (int counter = 1; counter*counter < N; counter++) {
+		cout << counter * counter << " ";
+	}
+	return 0;
+}
+
+
+
+b = int(input())
+for i in range (1, b + 1):
+   if b > i * i:
+      print(i * i)
+      
+
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    int i=1;
+    int k=1;
+    while (k<n) {
+        cout << k << endl;
+        i+=1;
+        k=i*i;
+    }
+    return 0;
+}
+
+
+Хорошие решения
+num = int(input())
+i = 1
+while i ** 2 <= num:
+    print(i ** 2)
+    i += 1
+Кодировка: 
+Скачать
+N = int(input())
+for i in range(1, N+1):
+    if i ** 2 <= N:
+        print(i ** 2)
+    
+Кодировка: 
+Скачать
+#include <iostream>
+using namespace std;
+
+
+int main() {
+	int n;
+	cin >> n;
+	int i = 1;
+	while (i * i <= n) {
+		cout << (i * i) << endl;
+		++i;
+	}
+	return 0;
+}
+Кодировка: 
+Скачать
+var
+  n, i: integer;
+
+begin
+  readln(n);
+  for i := 1 to n do
+    if i * i <= n then writeln(i * i);
+end.
