@@ -1,0 +1,385 @@
+        if not(x1 == 1 and y1 == 1) and not(x1 == n and y1 == n):
+            if (x1 == 1 and y1 == n) or (x1 == n and y1 == 1):
+                cou += 2
+            elif x1 == 1 or x1 == n or y1 == 1 or y1 == n:
+                cou += 1
+сложновато, можно просто в конце из cou вычесть 4
+
+
+from collections import deque
+
+n = int(input())
+list1 = ([['0']*(n+1)])
+for i in range(n):
+    list1.append(list(('0' + input())))
+
+used = [[False] * (n+1) for j in range(n+1)]
+
+x1, y1 = 1, 1
+x2, y2 = n, n
+qeque = deque(((x1, y1), (n, n)))
+cou = 0
+while qeque:
+    x1, y1 = qeque.popleft()
+    if not used[x1][y1]:
+        for delta_x, delta_y in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+            x2, y2 = x1+delta_x, y1+delta_y
+            if (1 <= x2 <= n) and (1 <= y2 <= n):
+                if list1[x2][y2] == '#':
+                    cou += 1
+                else:
+                    qeque.append((x2, y2))
+        if not(x1 == 1 and y1 == 1) and not(x1 == n and y1 == n):
+            if (x1 == 1 and y1 == n) or (x1 == n and y1 == 1):
+                cou += 2
+            elif x1 == 1 or x1 == n or y1 == 1 or y1 == n:
+                cou += 1
+        used[x1][y1] = True
+print(cou*9)
+
+
+
+Найди ошибку: Покраска лабиринта
+#include <iostream>
+#include <queue>
+
+using namespace std;
+
+int main()
+{
+    int i, j, n;
+    char arr[35][35];
+    cin >> n;
+    for (i = 0; i <= n + 1; i++)
+    {
+        arr[i][0] = '0';
+        arr[0][i] = '0';
+        arr[n + 1][i] = '0';
+        arr[i][n + 1] = '0';
+    }
+    int k = 1;
+    bool visited[33][33];
+    for (i = 1; i <= n ; i++)
+    {
+        for (j = 1; j <= n ; j++)
+        {
+            cin >> arr[i][j];
+            visited[i][j] = false;
+        }
+    }
+    queue <pair <int, int>> q;
+    q.push({1, n});
+    q.push({n, 1});
+    int dx[4] = {-1, 1, 0, 0};
+    int dy[4] = {0, 0, -1, 1};
+    visited[1][n] = true;
+    visited[n][1] = true;
+    int walls = 0, temp_walls;
+    while (!q.empty())
+    {
+        int vx = q.front().first;
+        int vy = q.front().second;
+        q.pop();
+        temp_walls = 4;
+        for (i = 0; i < 4; i++)
+        {
+            int nx = vx + dx[i];
+            int ny = vy + dy[i];
+            if (arr[nx][ny] == '.')
+            {
+                temp_walls--;
+                if(!visited[nx][ny])
+                {
+                    visited[nx][ny] = true;
+                    q.push({nx, ny});
+                }
+            }
+        }
+        walls += temp_walls;
+    }
+    cout << (walls - 4) * 9;
+    return 0;
+}
+
+
+
+Хорошие решения
+#include <iostream>
+#include <iomanip>
+#include <vector>
+#include <deque>
+#include <algorithm>
+
+using namespace std;
+int main()
+{
+	int n;
+	cin >> n;
+	vector<pair<int, int>> step = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
+
+	deque<pair<int, int>> a;
+	vector<vector<bool>> used(n, vector<bool>(n, 0));
+	vector<vector<char>> map(n + 2, vector<char>(n + 2, '#'));
+
+	char ch;
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			cin >> map[i + 1][j + 1];
+		}
+	}
+	map[0][1] = 'X';
+	map[1][0] = 'X';
+	map[n][n + 1] = 'X';
+	map[n + 1][n] = 'X';
+
+	a.push_back({ 1, 1 });
+	a.push_back({ n, n });
+	used[0][0] = 1;
+	used[n - 1][n - 1] = 1;
+
+	bool p = 0;
+	int r = 0;
+	while (a.size() > 0)
+	{
+		auto c = a.front();
+		a.pop_front();
+		for (auto i : step)
+		{
+			switch (map[i.first + c.first][i.second + c.second])
+			{
+			case '.':
+				if (!used[i.first + c.first - 1][i.second + c.second - 1])
+				{
+					a.push_back({ i.first + c.first, i.second + c.second });
+					used[i.first + c.first - 1][i.second + c.second - 1] = 1;
+				}
+				break;
+			case '#':
+				r++;
+				break;
+			}
+		}
+	}
+
+	cout << r * 9 << endl;
+	cin >> n;
+	return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <queue>
+
+using namespace std;
+
+int main() {
+    int n,v1,v2,u1,u2,w=0,i,j;
+    cin >> n;
+    vector<vector<int> > neigh = {{-1,0},{1,0},{0,-1},{0,1}};
+    vector<vector<bool> > lab;
+    lab.assign(n, vector<bool>(n,false));
+    vector<vector<bool> > vis;
+    vis.assign(n, vector<bool>(n,false));
+    queue<vector<int> > vert;
+    vector<int> p(2);
+    char ch;
+    for(i=0; i<n; i++) {
+        for (j=0; j<n; j++) {
+            cin >> ch;
+            if (ch == '.') {
+                lab[i][j] = true;
+            }
+        }
+    }
+    vis[0][0] = true; vis[n-1][n-1] = true;
+    vert.push({0,0}); vert.push({n-1,n-1});
+    while (!vert.empty()) {
+        p = vert.front();
+        v1 = p[0]; v2 = p[1];
+        vert.pop();
+        for (i=0; i<neigh.size(); i++) {
+            u1 = v1+neigh[i][0]; u2 = v2+neigh[i][1];
+            if (u1>=0 && u2>=0 && u1<n && u2<n && lab[u1][u2]) {
+                if (!vis[u1][u2]) {
+                    vis[u1][u2] = true;
+                    vert.push({u1,u2});
+                }
+            }
+            else {
+                w++;
+            }
+        }
+    }
+    cout << (w-4)*3*3 << endl;
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <queue>
+#include <set>
+
+using namespace std;
+
+int main() {
+    int n; cin >> n;
+    int start_x = 1, start_y = 1, need = 0;
+    char c;
+    queue <pair <int, int>> q;
+    set <pair <int, int>> cant_go;
+    vector <vector <int>> dist(n + 2);
+
+    for (int i = 0; i < n; i++){
+        for (int j = 0; j < n; j++){
+            cin >> c;
+            if (c == '#') cant_go.insert(std::make_pair(i + 1, j + 1));
+        }
+    }
+
+    for (int i = 0; i < n + 2; i++) {
+        for (int j = 0; j < n + 2; j++) dist[i].push_back(-1);
+    }
+
+    for (int i = 0; i < n + 2; i++) {
+        cant_go.insert({0, i}); cant_go.insert({i, 0});
+        cant_go.insert({n + 1, i}); cant_go.insert({i, n + 1});
+    }
+
+    dist[start_x][start_y] = 0;
+    dist[n][n] = 0;
+    q.push({start_x, start_y});
+    q.push({n, n});
+    vector<pair<int, int>> can_go = {{-1, 0}, {1,  0}, {0,  1}, {0,  -1}};
+    while (!q.empty()) {
+        pair<int, int> v = q.front();
+        q.pop();
+        int now_x = v.first, now_y = v.second;
+        for (int i = 0; i < can_go.size(); i++) {
+            int now_go_x = now_x + can_go[i].first, now_go_y = now_y + can_go[i].second;
+            if (cant_go.find({now_go_x, now_go_y}) != cant_go.end()) need++;
+            if (dist[now_go_x][now_go_y] == -1 && cant_go.find({now_go_x, now_go_y}) == cant_go.end()) {
+                dist[now_go_x][now_go_y] = dist[now_x][now_y] + 1;
+                q.push({now_go_x, now_go_y});
+            }
+        }
+    }
+    cout << (need - 4) * 9;
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <queue>
+#include <algorithm>
+using namespace std;
+
+int main()
+{
+	int n, k = -4;
+	char t;
+	cin >> n;
+	vector<vector<char>>a(n + 2);
+	const vector<int>dx{ 1,-1,0,0 };
+	const vector<int>dy{ 0,0,1,-1 };
+	for (int i = 0; i < n + 2; i++)
+		for (int j = 0; j < n + 2; j++)
+		{
+			if (i == 0 || j == 0 || i == n + 1 || j == n + 1)
+				a[i].push_back('#');
+			else
+			{
+				cin >> t;
+				a[i].push_back(t);
+			}
+		}
+	vector<vector<int>> used(n + 2);
+	for (int i = 0; i < n + 2; i++)
+		for (int j = 0; j < n + 2; j++)
+		{
+			used[i].push_back(0);
+		}
+	queue<pair<int, int>>q;
+	used[1][1] = 1;
+	used[n][n] = 1;
+	q.push(pair<int, int>(n, n));
+	q.push(pair<int, int>(1, 1));
+	while (!q.empty())
+	{
+		int x = q.front().first;
+		int y = q.front().second;
+		q.pop();
+		for (int i = 0; i < 4; i++)
+			if (a[x + dx[i]][y + dy[i]] != '#')
+			{
+				if (used[x + dx[i]][y + dy[i]] != 1)
+				{
+					used[x + dx[i]][y + dy[i]] = 1;
+					q.push(pair<int, int>(x + dx[i], y + dy[i]));
+				}
+			}
+	}
+	for (int i = 1; i < n + 1; i++)
+		for (int j = 1; j < n + 1; j++)
+		{
+			if (used[i][j] == 1)
+			{
+				for (int c = 0; c < 4; c++)
+					if (used[i + dx[c]][j + dy[c]] == 0)
+					{
+						k++;
+					}
+			}
+		}
+	cout << 9 * k;
+	return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <string>
+#include <cmath>
+#include <algorithm>
+#include <cstdlib>
+#include <deque>
+using namespace std;
+
+int main() {
+	int n, ans = 0;
+	cin >> n;
+	vector<pair<int, int>> help{ { 1,0 }, { 0,1 }, {-1,0},{0, -1} };
+	vector<vector<char>> my(n+2, vector<char>(n+2, '#'));	//. - ������, # - �����, � - ���� �� ����
+	my[0][1] = 'x';
+	my[1][0] = 'x';
+	my[n + 1][n] = 'x';
+	my[n][n + 1] = 'x';
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= n; j++) cin >> my[i][j];
+	}
+	my[1][1] = 'x';
+	my[n][n] = 'x';
+	deque<pair<int, int>> buf;
+	buf.push_back(make_pair(1, 1));
+	buf.push_back(make_pair(n, n));
+
+	while (!buf.empty()) {
+		int x = buf[0].first, y = buf[0].second;
+		buf.pop_front();
+		//cout << x << " " << y << '\n';
+		//my[x][y] = 'x';
+		for (int i = 0; i < 4; i++) {
+			if (my[x + help[i].first][y + help[i].second] == '.') {
+				my[x + help[i].first][y + help[i].second] = 'x';
+				buf.push_back(make_pair(x + help[i].first, y + help[i].second));
+			}
+			else if (my[x + help[i].first][y + help[i].second] == '#') ans++;
+		}
+	}
+	cout << ans * 3 * 3;
+
+	//system("pause");
+	return 0;
+}
