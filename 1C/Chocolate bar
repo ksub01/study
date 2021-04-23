@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n, m, k;
+double z, l;
+int main(){
+    cin >> n  >> m >> k;
+    if ((k % n == 0 || k % m == 0) and k <= n*m)
+        cout << "YES";
+    else
+        cout << "NO";
+            }
+
+#or
+
+#include <bits/stdc++.h>
+using namespace std;
+int n, m, k;
+double z, l;
+int main(){
+    cin >> n  >> m >> k;
+    if ((k % n == 0 || k % m == 0) and k <= n*m)
+        cout << "YES";
+    else
+        cout << "NO";
+            }
