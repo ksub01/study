@@ -1,0 +1,10 @@
+list1 = []
+size = int(input())
+for i in range(size):
+    list1.append(input().split(' '))
+flag = 'yes'
+for i in range(size):
+    for k in range(size):
+        if list1[i][k] != list1[k][i]:
+            flag = 'no'
+print(flag)
