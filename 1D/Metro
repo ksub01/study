@@ -1,2 +1,94 @@
 N, a, b = map(int, input().split(' '))
 print(min(abs(a-b) - 1, N - abs(a-b) - 1))
+
+
+Хорошие решения
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int main () {
+	int n;
+	cin >> n;
+
+
+	int a[3 * n];
+	for (int i = 1; i <= n; i++) {
+		a[i] = i;
+		a[i+n] = i;
+		a[i+n*2] = i;
+	}
+	int na, k;
+	cin >> na >> k;
+
+
+	int res = 0;
+	int res1 = 0;
+	for (int i = na+n; a[i]!=k; i++) {
+		res++;
+	}
+
+	for (int i = na+n; a[i]!=k; i--) {
+		res1++;
+	}
+
+	//cout << res << " " << res1 << endl;
+	cout << min(res, res1) - 1;
+}
+Кодировка: 
+Скачать
+kolvo, otk, kud = map(int, input().split())
+if otk > kud:
+    dop = otk - kud
+else:
+    dop = kud - otk
+dop_2 = kolvo - dop
+if dop < dop_2:
+    print(dop - 1)
+else:
+    print(dop_2 - 1)
+Кодировка: 
+Скачать
+a, b, c = map(int, input().split())
+d = abs(b - c) - 1
+e = min(b, c)
+f = max(b, c)
+g = (a - f) + e - 1
+if d > g:
+    print(g)
+else:
+    print(d)
+Кодировка: 
+Скачать
+var tmp,min1,min2,n,i,j:integer;
+begin
+read(n,i,j);
+if j<i then begin
+  tmp:=i;
+  i:=j;
+  j:=tmp;
+end;
+min1:=j-i-1;
+min2:=i-1+n-j;
+if min1<min2 then
+  writeln(min1)
+else 
+  writeln(min2);
+end.
+Кодировка: 
+Скачать
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	int l, a, b;
+	cin >> l >> a >> b;
+	int result = abs(a - b);
+	if(result > l / 2) {
+		result = l - result;
+	}
+	cout << result - 1;
+}
