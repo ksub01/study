@@ -23,3 +23,88 @@ a = float(input())
 b = float(input())
 c = float(input())
 print(a*(360/12) + b*(360/(12*60)) + c*(360/(12*60*60)))
+
+
+Найди ошибку: Часы - 1
+#include <iostream>
+#include <list>
+#include <algorithm>
+#include <cmath>
+using namespace std;
+
+int main() {
+	double S, M, H, grad;
+	cin >> H >> M >> S;
+	grad = 360 / 12 * H + M * (360 / 12 / 60) + S / 120;
+	cout << grad;
+	return 0;
+}
+
+
+Хорошие решения
+var
+  H,M,S,n,k,l,a:double;
+begin
+  readln(H,M,S);
+  n:=(360/12);
+  k:=(n/60);
+  l:=(k/60);
+  a:=(H*n+M*k+S*l);
+  write(a);
+end.
+Кодировка: 
+Скачать
+# coding: utf-8
+
+# In[3]:
+
+
+h = (int(input()))*360/12
+m = (int(input()))*360/12/60
+s = (int(input()))*360/12/60/60
+print(h+m+s)
+
+Кодировка: 
+Скачать
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <vector>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+int main()
+{
+    int h,m,s;
+    cin >> h >> m >> s;
+    s = s + h * 60 * 60 + m * 60;
+    double grad;
+    grad = ((360.0 / 3600.0) / 12.0);
+    cout << grad * s;
+    return 0;
+}
+Кодировка: 
+Скачать
+a=int(input())
+b=int(input())
+c=int(input())
+anglePerHour = 360/12
+anglePerMinute = anglePerHour/60
+anglePerSecond = anglePerMinute/60
+d=a*anglePerHour + b*anglePerMinute + c*anglePerSecond
+print(d)
+Кодировка: 
+Скачать
+from math import *
+H = int(input())
+M = int(input())
+S = int(input())
+degree = 360/60/60/12
+print((H*3600+M*60+S)*degree)
+
+        
+
+
+    
