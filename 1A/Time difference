@@ -5,3 +5,34 @@ a2 = int(input())
 b2 = int(input())
 c2 = int(input())
 print(abs((a1*3600 + b1* 60 + c1)- (a2*3600 + b2*60 + c2)))
+
+
+Хорошие решения
+  var a, b, c, d, e, f, j, i, h: integer;
+begin
+  read (a, b, c, d, e, f);
+  j:=(a*3600)+(b*60)+c;
+  i:=(d*3600)+(e*60)+f;
+  h:=i-j;
+  write (h);
+end.
+Кодировка: 
+Скачать
+a = int(input())
+b = int(input())
+c = int(input())
+d = int(input())
+e = int(input())
+f = int(input())
+print((d-a)*3600 + (e-b)*60 + f - c)
+Кодировка: 
+Скачать
+a1 = int(input())
+b1 = int(input())
+c1 = int(input())
+a2 = int(input())
+b2 = int(input())
+c2 = int(input())
+c1 = a1 * 3600 + b1 * 60 + c1
+c2 = a2 * 3600 + b2 * 60 + c2
+print(c2 - c1)
