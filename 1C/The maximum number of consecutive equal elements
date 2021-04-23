@@ -11,3 +11,137 @@ while p!=0:
     if p!=v:
         c=1
 print(b)
+
+
+
+Хорошие решения
+var
+  a, i, s, s1, s2: integer;
+
+begin
+  s := 0;
+  s1 := 1;
+  s2 := 1;
+  while true do
+  begin
+    read(a);
+    if a = 0 then break;
+    if s = a then s1 := s1 + 1
+    else s1 := 1;
+    if s2 < s1 then s2 := s1;
+    s := a;
+  end;
+  writeln(s2);
+end.
+Кодировка: 
+Скачать
+var n,ch,k,k1:integer;
+
+begin
+
+  read(n);
+  k:=1;
+  k1:=k;
+  ch:=n;
+  while n<>0 do begin
+    read(n);
+    if ch=n then 
+      inc(k)
+    else k:=1;
+    if k > k1 then k1:=k;
+    ch:=n;
+     
+  end;
+  writeln(k1);
+end.
+Кодировка: 
+Скачать
+//#include "stdafx.h"
+#include <iostream>
+//#include <cmath>
+#include <vector>
+//#include <string>
+//#include <windows.h>
+
+//using namespace std;
+
+
+int main()
+{
+	// Input
+
+	int counter(1), max(1), var, previous_var;
+	std::cin >> var;
+	while (true)
+	{
+		previous_var = var;
+		std::cin >> var;
+		if (var == 0)
+			break;
+		if (previous_var == var)
+			counter++;
+		else {
+			if (counter > max)
+				max = counter;
+			counter = 1;
+		}
+	
+	}
+	
+
+
+	/***************************************************/
+
+	/**************************************************/
+
+	// Output
+	if (max > counter)
+		std::cout << max << std::endl;
+	else
+		std::cout << counter << std::endl;
+	return 0;
+}
+Кодировка: 
+Скачать
+a=int(input())
+b=a
+c=1
+d=1
+while a!=0:
+    a=int(input())
+    if a==b:
+        c=c+1
+    else:
+        if c>d:
+            d=c
+        b=a
+        c=1
+print(d)
+        
+        
+    
+    
+    
+    
+Кодировка: 
+Скачать
+# coding: utf-8
+
+answer = 1
+old_answer = 1
+
+pre_number = int(input())
+
+while pre_number != 0:
+    number = int(input())
+    if number == 0:
+        break
+    if pre_number == number:
+        answer += 1
+    else:
+        if answer > old_answer:
+            old_answer = answer
+        pre_number = number
+        answer = 1
+
+print(max(answer, old_answer))
