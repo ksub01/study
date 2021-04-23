@@ -32,3 +32,12 @@ i=int(input())
 N=int(input())
 c=(a+b)*(N-1)*2+i*2+a
 print(c)
+
+
+
+Найди ошибку: Шнурки
+a = int(input())
+b = int(input())
+l = int(input())
+n = int(input())
+print(l * 2 + a * (n - 1 * 2) + a + b * ((n - 1) * 2))
