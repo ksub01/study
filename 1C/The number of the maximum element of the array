@@ -1,0 +1,9 @@
+n = input()
+list1 = list(map(int, input().split()))
+l = -1001
+cou = 0
+for i in range(len(list1)):
+    if list1[i] > l:
+        cou = i
+        l = list1[i]
+print(cou+1)
