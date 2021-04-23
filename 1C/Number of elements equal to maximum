@@ -1,0 +1,41 @@
+1В: Продвинутые задачи на циклы: в них запрещается пользоваться массивами
+j = 1
+list1 = []
+while j != 0:
+    j = int(input())
+    list1.append(j)
+#   print(list1)
+l = -1001
+for i in list1:
+    l = max(l, i)
+cou = 0
+for i in list1:
+    if i == l:
+        cou += 1
+print(cou)
+
+
+
+#ready
+Опять-таки, если в одной из веток if'а 
+у вас pass, то я бы подумал, как обойтись без этого.
+Тут это, кажется, несложно
+    if k == j:
+        cou += 1
+    elif k < j:
+        k = j
+        cou = 1
+
+j = -1
+k = -1
+cou = 0
+while j != 0:
+    j = int(input())
+    if k > j:
+        pass
+    elif k == j:
+        cou += 1
+    else:
+        k = j
+        cou = 1
+print(cou)
