@@ -1,0 +1,12 @@
+n = int(input())
+list2 = [None] * n
+list2[0] = 1
+if n >= 2:
+    list2[1] = 1
+#print(list2)
+if n != 1 or n!= 2:
+    for i in range(2, n):
+        list2[i] = list2[i-1] + list2[i-2]
+    print(list2[-1])
+else:
+    print(1)
