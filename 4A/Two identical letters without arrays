@@ -7,3 +7,148 @@ for i in s:
         ans = i
     letters = letters | bits
 print(ans)
+
+
+Хорошие решения
+s = input()
+a = 0
+for i in range(len(s)):
+    c = ord(s[i]) - ord('a')
+    if (a >> c) % 2 == 1:
+        print(s[i])
+    else:
+        a += 1 << c
+Кодировка: 
+Скачать
+#include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+#include <ext/rope>
+
+using namespace std;
+using namespace __gnu_cxx;
+using namespace __gnu_pbds;
+
+#define all(x) x.begin(), x.end()
+#define endl '\n'
+#define fastIO ios::sync_with_stdio(0); cout.tie(0); cin.tie(0);
+#define fi first
+#define mp make_pair
+#define pb emplace_back
+#define re return
+#define rep(i, n) for (int i = 0; i < (n); i++)
+#define rrep(i, n) for (int i = (n) - 1; i >= 0; i--)
+#define se second
+#define sqr(x) ((x) * (x))
+#define sqrt(x) sqrt(abs(x))
+#define sz(x) int(x.size())
+#define unq(x) (x.resize(unique(all(x)) - x.begin()))
+typedef long double ld;
+typedef long long ll;
+typedef pair<int, int> ii;
+typedef vector<bool> vb;
+typedef vector<char> vc;
+typedef vector<int> vi;
+typedef vector<pair<int, int>> vii;
+typedef vector<long long> vll;
+typedef vector<string> vs;
+typedef vector<vector<bool>> vvb;
+typedef vector<vector<char>> vvc;
+typedef vector<vector<int>> vvi;
+typedef tree <int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
+
+mt19937 rnd(chrono::high_resolution_clock::now().time_since_epoch().count());
+
+void solve()
+{
+    string s;
+    cin >> s;
+    int x = 0;
+    rep(i, sz(s))
+    {
+        int id = s[i] - 'a';
+        if (x & (1 << id)) cout << s[i];
+        else x |= (1 << id);
+    }
+}
+
+int main()
+{
+    fastIO;
+    //freopen("input.txt", "r", stdin);
+    //freopen("output.txt", "w", stdout);
+    int t = 1;
+    //cin >> t;
+    while (t--) solve();
+    re 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <fstream>
+#include <algorithm>
+#include <functional>
+#include <array>
+#include <chrono>
+#include <random>
+#include <vector>
+#include <string>
+#include <cmath>
+#include <bitset>
+#include <list>
+#include <stack>
+#include <queue>
+#include <set>
+#include <map>
+#include <cassert>
+
+using namespace std;
+
+using ll = long long;
+using ull = unsigned long long;
+using ld = long double;
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(nullptr); cout.tie(nullptr);
+    
+    string s;
+    cin >> s;
+    
+    int msk = 0;
+    for (char x : s) {
+        x -= 'a';
+        if ((msk >> x) & 1) {
+            cout << char(x + 'a') << '\n';
+            break;
+        }
+        msk |= 1 << x;
+    }
+    
+    return 0;
+}
+Кодировка: 
+Скачать
+//package algoprog.level4.a.c_bit_operations;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class SameLetters {
+
+    public static void main(String[] args) throws IOException {
+        final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        final char[] arr = br.readLine().toCharArray();
+
+        int checker = 0;
+        for (char c : arr) {
+            int bit = c - 'a';
+            if (((checker >> bit) & 1) == 1) {
+                System.out.println(c);
+                return;
+            }
+            checker |= (1 << bit);
+        }
+    }
+}
