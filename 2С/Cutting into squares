@@ -1,0 +1,17 @@
+Не надо писать max и min, вы же заранее знаете,
+после %, какое число больше.
+Вы же в НОДе не пишете max и min.
+Осознайте, что здесь тот же НОД по сути.
+
+n, m = map(int, input().rstrip().split())
+cou = 0
+a = n
+b = m
+while a != 0 and b != 0:
+    k = a
+    l = b
+    a = max(k, l)
+    b = min(k, l)
+    cou += a // b
+    a = a % b
+print(cou + 1 - 1)
