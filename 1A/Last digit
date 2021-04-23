@@ -1,2 +1,28 @@
 b = int(input())
 print(b%10)
+
+
+Хорошие решения
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	int a;
+	cin >> a;
+	cout << a % 10 << endl;
+	return 0;
+}
+Кодировка: 
+Скачать
+
+var a:integer;
+begin
+read(a);
+writeln(a mod 10);
+end.
+Кодировка: 
+Скачать
+a = int(input())
+print(a % 10)
