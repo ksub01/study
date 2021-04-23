@@ -38,3 +38,90 @@ else:
     if second == 1605 and first == 1605:
         ans1 = 1
 print(ans1)
+
+
+
+Хорошие решения
+'''
+1610 1640
+1615
+1625
+1635
+Нужно как-то преобразовать 1610 в 1615 и 1640 в 1635.
+Впоследствии достаточно посчитать разницу и разделить её на 10: (1635 - 1615) / 10 + 1
+
+1615 1645
+1625
+1635
+1645
+Нужно как-то преобразовать 1615 в 1625 и 1645 в 1645.
+
+Год  Год-5 (Год-5)%10 Год+10-(Год-5)%10
+1610 1605  5          1615
+1611 1606  6          1615
+...
+1614 1609  9          1615
+1615 1610  0          1625
+
+Год  Год-5 (Год-5)%10 Год-(Год-5)%10
+1640 1635  5          1635
+1641 1636  6          1635
+...
+1644 1639  9          1635
+1645 1640  0          1645
+
+Теперь осталось добавить поддержку годов рождения меньших 1605.
+'''
+(born, died) = map(int, input().split())
+born += 10 - (born-5) % 10
+died -= (died-5) % 10
+print(max(0, (died - max(born, 1605)) // 10 + 1))
+Кодировка: 
+Скачать
+#include <bits/stdc++.h>
+using namespace std;
+
+// let suppose 1605 == 0, then compute full tens from 0 to death day,
+// and negate birth full tens (negative means way seen 0th, therefore +1)
+int main()
+{
+    int b,d;
+    scanf("%d %d",&b,&d);
+    b=b-1605;
+    d=d-1605;
+    if(d<0)
+        printf("0\n");
+    else{
+        int d_dt=d/10; // full 10th since 0 till d
+        if(b<0)
+            b=-10;   // we need add 1 to seen days if born early than 1605 
+        int ans=d_dt-(b/10);
+        printf("%d\n",ans);
+    }
+    return 0;
+}
+Кодировка: 
+Скачать
+a, b = list(map(int, input().split()))
+a -= 1605
+b -= 1605
+a = a - (a % 10) + 10
+if a < 0:
+  a = 0
+if b < a:
+  print(0)
+else:
+  print((b - a) // 10 + 1)
+Кодировка: 
+Скачать
+year_b, year_d = map(int, input().split())
+year_b -= 1605
+year_d -= 1605
+first_y = year_b - year_b  % 10 + 10
+if first_y < 0:
+    first_y = 0
+last_y = year_d - year_d % 10
+if last_y < first_y:
+    print(0)
+else:
+    print((last_y - first_y) // 10 + 1)
