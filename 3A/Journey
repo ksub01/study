@@ -1,0 +1,182 @@
+n, k = [int(i) for i in input().split()]
+s = [int(i) for i in input().split()]
+
+# добавили заправку "очень далеко"
+s.append(2000)
+
+ans = 0
+
+# now = до какой координаты можем доехать при текущем запасе бензина
+now = k
+
+i = 1
+# пока не можем доехать до финиша
+while now < n:
+    # если не можем доехать до следующей заправки
+    if s[i + 1] > now:
+        # если и до текущей не можем, то решения нет
+        if s[i] > now:
+            print(-1)
+            break
+        else:
+            # иначе надо заправиться на текущей заправке
+            ans += 1
+            now = s[i] + k
+    i += 1
+# else после while в питоне работает только если из while мы вышли не по break
+else:
+    print(ans)
+    
+    
+
+Найди ошибку: Путешествие
+a,b=[int(i) for i in input().split()]
+s=[int(i) for i in input().split()]
+s.append(2000)
+c=0
+now=b
+i=1
+while d<a:
+    if s[i+1]>d:
+        if s[i]>d:
+            print(-1)
+            break
+        else:
+            c+=1
+            d=s[i]+b
+    i+=1
+else:
+    print(c)
+    
+    
+    
+Хорошие решения
+l,b = map(int,input().split())
+m = list(map(int,input().split()))
+m.append(l)
+m[0] = 0
+s = 0 
+r = 0
+x = 1
+while x < len(m):
+    if m[x] - s > b:
+        x = x - 1
+        if m[x] != s:
+            s = m[x]
+
+            r = r + 1
+        else:
+            print(-1)
+            break
+    x = x + 1
+else:
+    print(r)
+Кодировка: 
+Скачать
+def Main():
+    distance, canDrive = map(int, input().split())
+    fuels = list(map(int, input().split()))
+    fuelsNum = fuels[0] + 2
+    fuels[0] = 0
+    fuels.append(distance)
+
+    needToStop = 0
+    lastStop = 0
+    for i in range(1, fuelsNum):
+        if fuels[i] - lastStop > canDrive:
+            lastStop = fuels[i - 1]
+            if fuels[i] - lastStop > canDrive:
+                return -1
+            needToStop += 1
+    return needToStop
+
+
+print(Main())
+Кодировка: 
+Скачать
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int n, k, s, way, res = 0;
+    cin >> n >> k >> s;
+    int *stations = new int[s+1];
+    stations[s] = 2000000;
+
+    for(int i = 0; i < s; i++)
+    {
+        cin >> stations[i];
+    }
+
+    way = k;
+    for(int i = 0; i < s && way <  n; i++)
+    {
+        if(way < stations[i+1] && way >= stations[i]){
+            way = stations[i] + k;
+            res++;
+        }
+        else if(way < stations[i]){
+            break;
+        }
+    }
+
+    if(way < n){
+        res = -1;
+    }
+
+    cout << res;
+
+    return 0;
+}
+Кодировка: 
+Скачать
+n,k=map(int,input().split())
+stations=[int(i) for i in input().split()]
+stations.pop(0)
+curr=k
+i=0
+counter=0
+stations.append(n)
+while curr<n:
+    if stations[i+1]>curr:
+        if stations[i]<=curr:
+            curr=k+stations[i]
+            counter+=1
+        else:
+            print('-1')
+            exit(0)
+    i+=1
+print(counter)
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int main(){
+    int N, k, S, pos, ans = 0;
+    cin >> N >> k >> S;
+    vector <int> a(S);
+    for (int i = 0; i < S; i++)
+        cin >> a[i];
+    sort(a.begin(), a.end());
+    a.push_back(N);
+    for (int i = S; i > 0; i--){
+        if (a[i]-a[i-1] > k){
+            cout << -1;
+            return 0;
+        }
+    }
+    pos = 0;
+    for (int i = 0; i < S+1; i++){
+        if (a[i] - pos > k){
+            pos = a[i-1];
+            ans++;
+        }
+    }
+    cout << ans;
+}
