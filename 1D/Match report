@@ -1,0 +1,55 @@
+Вместо этих сложных if'ов
+можно было просто вычитать из 3.
+Например, вместо
+        if cou_player == 1:
+            cou_player = 2
+        else:
+            cou_player = 1
+написать
+cou_player = 3 - cou_player
+и аналогично в других местах
+
+word = ''
+# кто последний коснулся мяча
+cou_player = 1
+# количество подач
+value = 0
+# следующий подающий
+player = 1
+# очки
+cou = [0, 0, 0]
+
+while word != 'eom':
+    
+    word = input()
+
+    if word == 'service':
+        if value < 5:
+            cou_player = 1
+            player = 1
+        elif 5 <= value < 10:
+            cou_player = 2
+            player = 2
+        else:
+            player = 1
+            cou_player = 1
+            value -= 10
+        value += 1
+    
+    elif word == 'return':
+        if cou_player == 1:
+            cou_player = 2
+        else:
+            cou_player = 1
+          
+    elif word == 'goal':
+        cou[cou_player] += 1
+    
+    elif word == 'net' or word == 'out':
+        if cou_player == 1:
+            cou[2] += 1
+        else:
+            cou[1] += 1
+
+
+print(cou[1], cou[2])
