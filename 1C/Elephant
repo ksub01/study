@@ -25,24 +25,19 @@ else:
 
 
 
-Найди ошибку: Ход ладьи
-// Ð¥Ð¾Ð´ Ð»Ð°Ð´ÑÐ¸
-
-#include <iostream>
-
-using namespace std;
-
-int main() {
-  int i0, j0, i1, j1;
-  cin >> i0 >> j0 >> i1 >> j1;
-  if ( i0 == j0 || j0 == j1) {
-    cout << "YES" << endl;
-  } else {
-    cout << "NO" << endl;
-  }
-}
-
-
+Найди ошибку: Слон
+from math import *
+a = int(input())
+b = int(input())
+c = int(input())
+d = int(input())
+if abs(a - b) == abs(c - d):
+    print('YES')
+else:
+    print("NO")
+    
+    
+    
 Хорошие решения
 x1 = int(input())
 y1 = int(input())
@@ -50,22 +45,26 @@ y1 = int(input())
 x2 = int(input())
 y2 = int(input())
 
-if x1 == x2 or y1 == y2:
+if abs(x1-x2) == abs(y1-y2):
     print('YES')
 else:
     print('NO')
 
 Кодировка: 
 Скачать
-x1, y1, x2, y2 = int(input()), int(input()), int(input()), int(input())
-
-if x1 == x2 or y1 == y2:
+a=int(input())
+b=int(input())
+c=int(input())
+d=int(input())
+if abs(a-c)==abs(b-d):
     print('YES')
 else:
-    print("NO")
+    print('NO')
+
 Кодировка: 
 Скачать
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
@@ -73,7 +72,7 @@ int main()
 {
 	int x, y, x1, y1;
 	cin >> x >> y >> x1 >> y1;
-	if (x == x1 || y == y1)
+	if (abs(x - x1) == abs(y - y1))
 	{
 		cout << "YES" << endl;
 	}
@@ -82,4 +81,3 @@ int main()
 		cout << "NO" << endl;
 	}
 }
-
