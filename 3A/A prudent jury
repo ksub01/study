@@ -1,0 +1,114 @@
+f1 = open('input.txt', 'r')
+f2 = open('output.txt', 'w')
+mas = []
+for sr in f1.readlines():
+    if sr != '\n':
+        for i in sr.rstrip().split():
+            mas.append(i)
+n = int(mas[0])
+tasks = [(int(x), y) for x, y in zip(mas[1:], range(1, 1001))]
+tasks.sort()
+tasks.reverse()
+for i in tasks:
+    f2.write(str(i[1]) + ' ')
+    
+    
+    
+Хорошие решения
+#include <iostream>
+#include <vector>
+#include <map>
+#include <queue>
+#include <algorithm>
+#include <cstdio>
+
+using namespace std;
+typedef long long ll;
+
+const ll INF = 1000000000000000;
+
+int main()
+{
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+
+	ll n;
+	cin >> n;
+	vector<pair<ll, ll>> time(n);
+	for (ll i = 0; i < n; i++) {
+		cin >> time[i].first;
+		time[i].second = i;
+	}
+	sort(time.rbegin(), time.rend());
+	for (ll i = 0; i < n; i++)
+		cout << time[i].second + 1 << " ";
+	return 0;
+}
+Кодировка: 
+Скачать
+#pragma optimizitaion_level 3
+#pragma GCC optimize("Ofast,no-stack-protector")
+#pragma GCC optimize("unroll-loops")
+#pragma GCC optimize("fast-math")
+#include <iostream>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <math.h>
+#include <stdlib.h>
+#include <map>
+#include <unordered_map>
+#include <tuple>
+#include <cmath>
+#include <functional>
+#include <algorithm>
+#include <set>
+#include <deque>
+#include <numeric>
+using namespace std;
+
+int n;
+vector<pair<int, int>> dat;
+
+int main() {
+	ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+	
+	cin >> n;
+	dat.resize(n);
+
+	for (int i = 0; i < n; i++) {
+		cin >> dat[i].first;
+		dat[i].second = i + 1;
+	}
+
+	sort(dat.rbegin(), dat.rend());
+
+	for (auto i : dat) {
+		cout << i.second << " ";
+	}
+
+	//system("pause");
+	return 0;
+}
+Кодировка: 
+Скачать
+#include<iostream>
+#include<algorithm>
+
+using namespace std;
+
+int n;
+pair<int, int> arr[20];
+
+int main(){
+    cin >> n;
+    for(int i = 0; i < n; ++i){
+        int num;
+        cin >> num;
+        arr[i] = {num, i};
+    }
+    sort(arr, arr + n, greater<pair<int, int> >());
+    for(int i = 0; i < n; ++i)
+        cout << arr[i].second+1 << ' ';
+}
