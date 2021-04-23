@@ -1,0 +1,198 @@
+Это не выбор максимума,
+это пузырек.
+...ну или не пузырек, а сортировка вставками
+
+n = int(input())
+mas = [int(x) for x in input().rstrip().split()]
+for i in range(len(mas)):
+    j = i
+    while j > 0 and mas[j] < mas[j-1]:
+        mas[j-1], mas[j] = mas[j], mas[j-1]
+        j -= 1
+print(*mas)
+
+Не надо выделять и копировать конец массива.
+Такое решение три раза пробегается по остатку массива
+(один -- в a[i:], второй -- в min, третий в index).
+Найдите максимум вручную за один проход.
+
+n = int(input())
+mas = [int(x) for x in input().rstrip().split()]
+
+
+def sort(m):
+    a = m[:]
+    for i in range(len(a) - 1):
+        tail = a[i:]
+        j = i + tail.index(min(tail))
+        a[i], a[j] = a[j], a[i]
+    return a
+
+print(*sort(mas))
+
+n = int(input())
+mas = [int(x) for x in input().rstrip().split()]
+
+
+def sort(m):
+    a = m[:]
+    for i in range(len(a) - 1):
+        x = a[i]
+        idx = i
+        for j in range(i, len(a)):
+            if a[j] < x:
+                x = a[j]
+                idx = j
+
+        a[i], a[idx] = a[idx], a[i]
+    return a
+
+print(*sort(mas))
+
+Найди ошибку: Сортировка выбором максимума
+n = int(input())
+m = list(map(int, input().split()))
+
+def sortmass (mass):
+    for i in range (len(mass)):
+        r = 0
+        t = 0
+        
+        for j in range (len(mass) - i):
+            if r < mass[j]:
+                r, t = mass[j], j
+
+        mass[t] = mass[len(mass) - i - 1]
+        mass[len(mass) - i - 1] = r
+        
+    return mass
+    
+print(*sortmass (m))
+
+
+Хорошие решения
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+  int n;
+  cin >> n;
+  int a[n] = {};
+  for (int i = 0; i < n; i += 1) {
+    cin >> a[i];
+  }
+  for (int i = 0; i < n - 1; i += 1) {
+    int max = n - i - 1;
+    for (int j = 0; j < n - i; j += 1) {
+      if (a[max] < a[j]) {
+        max = j;
+      }
+    }
+    int t = a[n - i - 1];
+    a[n - i - 1] = a[max];
+    a[max] = t;
+  }
+  for (int i = 0; i < n; i += 1) {
+    cout << a[i] << " ";
+  }
+  cout << endl;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <deque>
+#include <queue>
+#include <stack>
+
+using namespace std;
+
+int main()
+{
+    int n;
+    cin >> n;
+    int a[n];
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    int k, mn;
+    for (int i = 0; i < n; i++) {
+        k = i, mn = a[i];
+        for (int j = i + 1; j < n; j++) {
+            if (mn > a[j]) {
+                mn = a[j];
+                k = j;
+            }
+        }
+        a[k] = a[i];
+        a[i] = mn;
+    }
+    for (int i = 0; i < n; i++) {
+        cout << a[i] << " ";
+    }
+    return 0;
+
+}
+Кодировка: 
+Скачать
+# coding: utf-8
+
+"""
+FIXME
+"""
+
+
+def get_index_minimal(start_index, arr):
+    min_element = arr[start_index]
+    min_element_index = start_index
+
+    for index in range(start_index + 1, len(arr)):
+        if arr[index] < min_element:
+            min_element = arr[index]
+            min_element_index = index
+
+    return min_element_index
+
+
+n = int(input())
+
+arr = list(map(int, input().split()))
+
+for index in range(n):
+    min_index = get_index_minimal(index, arr)
+    arr[index], arr[min_index] = arr[min_index], arr[index]
+
+print(*arr)
+Кодировка: 
+Скачать
+l=int(input())
+mas=list(map(int, input().split()))
+for i in range(l-1):
+    mn=float("+inf")
+    for k in range(i,l):
+        if mas[k]<mn:
+            mn=mas[k]
+            p=k
+    mas[i],mas[p]=mas[p],mas[i]
+print(* mas)
+Кодировка: 
+Скачать
+var i,j,t,n,min:int64;
+a:array [1..1000] of int64;
+begin
+readln(N);
+for i:=1 to n do read(a[i]);
+for i := 1 to n - 1 do begin
+    min := i;
+    for j := i + 1 to n do
+        if a[min] > a[j] then
+            min := j;
+    if min<>i then begin
+        t := a[i];
+        a[i] := a[min];
+        a[min] := t;
+    end;
+end;
+for i:=1 to n do write(a[i],' ');
+end.
