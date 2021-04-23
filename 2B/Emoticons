@@ -1,0 +1,187 @@
+s = input().rstrip()
+k = ''
+for i in s:
+    if i != '-':
+        k = k + i
+t = ''
+for i in range(1, len(k)):
+    if k[i] == k[i-1] and (k[i] == '(' or k[i] == ')' or k[i] == '[' or k[i] == ']'):
+        t = t + ''
+    else:
+        t = t + k[i]
+t = k[0] + t
+cou = 0
+flag = False
+i = 0
+while i < len(t)-1:
+    if (t[i] == ':' or t[i] == ';') and (t[i+1] == ')' or t[i+1] == '(' or t[i+1] == '[' or t[i+1] == ']'):
+        cou += 1
+        i += 1
+    i += 1
+print(cou)
+
+
+Найди ошибку: Смайлики
+//#include "stdafx.h"
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
+#include <cmath>
+
+using namespace std;
+
+#define ll long long
+
+int main() {
+	bool beg = false;
+	short ans = 0;
+	string smile;
+	cin >> smile;
+	for (short i = 0; i < smile.length(); i++) {
+		if (smile[i] == ':' || smile[i] == ';') {
+			beg = true;
+		}
+		else if (smile[i] == '[' || smile[i] == ']' || smile[i] == ')' || smile[i] == '(') {
+			if (beg) {
+				ans++;
+				beg = false;
+			}
+		}
+		else if (smile[i] != '-') {
+			beg = false;
+		}
+	}
+	cout << ans << endl;
+	return 0;
+}
+
+a = input()
+b = 0
+c = 0
+for i in range(len(a)):
+    t = a[i]
+    if (t == ':' or t == ';') and c == 0:
+        c = 1
+        continue
+    if c == 1:
+        if t == '(' or t == ')' or t == ']' or t == ']':
+            b += 1
+            c = 0
+            continue
+        if t == '-' or t == ':' or t == ';':
+            continue
+        else:
+            c = 0
+            continue
+print(b)
+
+
+Хорошие решения
+see_to_smile = 0
+smails = 0
+a = input()
+for i in range(len(a)):
+    if (a[i] == ";" or a[i] == ":"):
+        if (see_to_smile == 0):
+            see_to_smile = 1
+            continue
+    elif (a[i] == "-" and  see_to_smile == 1):
+        continue
+    elif ((a[i] == "[" or a[i] == "]" or a[i] == "("or a[i] == ")") and  see_to_smile == 1):
+        smails += 1
+        see_to_smile = 0
+    else:
+        see_to_smile = 0
+print(smails)
+Кодировка: 
+Скачать
+s = input() + 'P'
+state = 0
+skob = ''
+cnt = 0
+for i in range(len(s)):
+    if state == 0:
+        if s[i] in [':', ';']:
+            state = 1
+    elif state == 1:
+        if s[i] in ['(', ')', '[', ']']:
+            skob = s[i]
+            state = 2
+        elif s[i] == '-':
+            pass
+        else:
+            state = 0
+            if s[i] in [':', ';']:
+                state = 1
+    elif state == 2:
+        if s[i] != skob:
+            cnt += 1
+            state = 0
+            if s[i] in [':', ';']:
+                state = 1
+print(cnt)
+Кодировка: 
+Скачать
+#include <iostream>
+#include <cstdlib>
+#include <cstdio>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+#include <set>
+#include <queue>
+#include <iomanip>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+    string s;
+    getline (cin, s);
+    int cnt = 0;
+
+
+    for(int i = 0; i < s.length() - 1; i++)
+    {
+        if(s[i] == ';' || s[i] == ':')
+        {
+            i++;
+            while(s[i] == '-')
+                i++;
+
+            //cout << s[i] << endl;
+            if(s[i] == '(' || s[i] == ')' || s[i] == '[' || s[i] == ']')
+                cnt++;
+
+            else
+                i--;
+        }
+    }
+
+    cout << cnt << endl;
+    return 0;
+}
+Кодировка: 
+Скачать
+s = input()
+total = 0
+cur = 0
+for i in range(len(s)):
+    if s[i] == ";" or s[i] == ":":
+        cur = 1
+    elif (cur == 1) and (s[i] == ")" or s[i] == "(" or s[i] == "]" or s[i] == "["):
+        total += 1
+        cur = 0
+    elif s[i] != "-":
+        cur = 0
+print(total)
+Кодировка: 
+Скачать
+a=input().replace("-","")
+s=0
+for i in range(len(a)-1):
+    if (a[i]==";" or a[i]==":") and (a[i+1]=="(" or a[i+1]==")" or a[i+1]=="[" or a[i+1]=="]"):
+        s+=1
+print(s)
