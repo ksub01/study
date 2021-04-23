@@ -24,3 +24,131 @@ def str1(n, t, s):
         print(s)
 
 str1(1, int(input()), '')
+
+
+
+Хорошие решения
+n = int(input())
+
+def f(n):
+    if n == 1:
+        return 'A'
+    return f(n - 1) + chr(ord('A') + n - 1) + f(n - 1)
+
+print(f(n))
+Кодировка: 
+Скачать
+#include <random>
+#include <iostream>
+#include <list>
+#include <cmath>
+#include <vector>
+#include <sstream>
+#include <fstream>
+#include <iostream>
+#include <cstring>
+#include <algorithm>
+#include <string>
+
+#define pb push_back
+
+using namespace std;
+
+string rek(int q){
+    if(q==1){
+        return "A";
+    }
+    string str = rek(q-1);
+    char n = (char)('A'+q-1);
+    return str+n+str;
+}
+int main()
+{
+    int q;
+    cin >> q;
+    cout << rek(q);
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <fstream>
+#include <algorithm>
+#include <functional>
+#include <array>
+#include <chrono>
+#include <random>
+#include <vector>
+#include <string>
+#include <cmath>
+#include <bitset>
+#include <list>
+#include <stack>
+#include <queue>
+#include <set>
+#include <map>
+#include <cassert>
+
+using namespace std;
+
+using ll = long long;
+using ull = unsigned long long;
+using ld = long double;
+
+void out(int n) {
+    if (n == 1)
+        cout << "A";
+    else {
+        out(n - 1);
+        cout << (char)('A' + (n - 1));
+        out(n - 1);
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(nullptr); cout.tie(nullptr);
+
+    int n;
+    cin >> n;
+    
+    out(n);
+    cout << '\n';
+    
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+string draw(int n) {
+  if (n == 1) return "A";
+  char ch = 'A' + (n - 1);
+  return draw(n-1) + ch + draw(n-1);
+}
+
+int main() {
+  int n;
+  cin >> n;
+  cout << draw(n);
+  return 0;
+}
+Кодировка: 
+Скачать
+//package level_2_a.A;
+
+import java.util.Scanner;
+
+public class ABACABA {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println(abcaba(scanner.nextInt() - 1));
+    }
+
+    private static String abcaba(int n) {
+        if (n == 0) return "A";
+        return abcaba(n - 1) + (char) (n + 'A') + abcaba(n - 1);
+    }
+}
