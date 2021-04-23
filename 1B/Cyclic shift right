@@ -1,0 +1,9 @@
+b1 = int(input())
+mas = input().split(' ')
+mas = [int(x) for x in mas]
+a = mas[-1]
+for i in range(len(mas)-1, -1, -1):
+    mas[i] = mas[i-1]
+mas[0] = a
+for i in range(len(mas)):
+    print(mas[i], end=' ')
