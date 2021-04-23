@@ -1,0 +1,9 @@
+def factorial(a, b):
+    if b == 0:
+        return a
+    else:
+        return factorial(b, a % b)
+
+
+h1, h2 = map(int, input().split())
+print(factorial(h1, h2))
