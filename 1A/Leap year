@@ -1,0 +1,57 @@
+a1 = int(input())
+if (a1 % 4 == 0 and a1 % 100 != 0) or a1 % 400 == 0:
+    print("YES")
+else:
+    print("NO")
+    
+    
+    
+Хорошие решения
+//#include "stdafx.h"
+#include <iostream>
+//#include <windows.h>
+
+//using namespace std;
+
+
+int main()
+{
+	// Input
+	int year;
+	std::cin >> year;
+
+	// Output
+	if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0))
+		std::cout << "YES" << std::endl;
+	else
+		std::cout << "NO" << std::endl;
+
+	return 0;
+}
+
+
+Кодировка: 
+Скачать
+var a:integer;
+begin
+read(a);
+if ( (a mod 4 = 0) and (a mod 100 <>0) ) or (a mod 400 = 0) then 
+ writeln ('YES')
+else 
+ writeln ('NO');
+end.
+Кодировка: 
+Скачать
+x = int(input())
+
+if (x % 4 != 0) or ((x % 100 == 0) and (x % 400 != 0)):
+    print('NO')
+else:
+    print('YES')
+Кодировка: 
+Скачать
+x = int(input())
+if (x % 4 == 0 and x % 100 != 0) or x % 400 == 0:
+    print("YES")
+else:
+    print("NO")
