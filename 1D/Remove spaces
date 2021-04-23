@@ -1,0 +1,8 @@
+s = input()
+d = s[0]
+for i in range(1, len(s)):
+    if s[i-1] == ' ' and s[i] == ' ':
+        pass
+    else:
+        d = d + s[i]
+print(d)
