@@ -23,3 +23,12 @@ int main(){
     else
         cout << "NO";
             }
+
+
+Найди ошибку: Шоколадка
+ï»¿var m,n,k:integer;
+begin
+ read(m,n,k);
+ if (k < m*n) and (k mod n = 0) or (k mod m = 0) then write('YES')
+ else write('NO');
+end.
