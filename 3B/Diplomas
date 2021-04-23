@@ -1,0 +1,107 @@
+w, h, n = map(int, input().rstrip().split())
+left = -1
+right = max(w, h) * n
+
+
+def fit(length):
+    window = (length // w) * (length//h)
+    return window >= n
+
+
+while right - left > 1:
+    middle = (right + left)//2
+    if fit(middle):
+        right = middle
+    else:
+        left = middle
+print(right)
+
+
+Хорошие решения
+def dipl(s,w,h):
+    w = s // w
+    h = s // h
+    return(w * h)
+w,h,c = map(int,input().split())
+mi = 0
+ma = max(w,h) * c
+while ma - mi > 1:
+    mt = mi + ((ma - mi) // 2)
+    d = dipl(mt,w,h)
+    if d >= c:
+        ma = mt
+    else:
+        mi = mt
+print(ma)
+
+            
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+    long long w, h, n, l = 0, r, d;
+    cin >> w >> h >> n;
+    r = (w + h) * n;
+    while (r - l > 1) {
+        d = (l + r) / 2;
+        if ((d / w) * (d / h) >= n)
+            r = d;
+        else
+            l = d;
+    
+    }
+    cout << r;
+    return 0;
+}
+Кодировка: 
+Скачать
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    long long int w,h,n;
+    cin >> w >> h >> n;
+    long long int l = min(h,w) - 1, r = max(h,w)*n + 1;
+    while(r - l > 1){
+        long long int m = (r+l)/2, k = m / w, p = m / h ,t = 0;
+        t = p*k;
+        if(t >= n){
+            r = m;
+        }
+        else{
+            l = m;
+        }
+
+    }
+    cout << r;
+}
+Кодировка: 
+Скачать
+w,h,n=map(int, input().split())
+def good(l):
+    return (l//h)*(l//w)>=n
+l=0
+r=n*w+n*h
+while r-l>1:
+    m=(r+l)//2
+    if good(m):
+        r=m
+    else:
+        l=m
+print(r)
+Кодировка: 
+Скачать
+w,h,n = map(int,input().split())
+l = 0
+r = max(h,w)*n+1
+while r-l>1:
+    i = (l+r)//2
+    
+    if (i//w)*(i//h)<n:
+        l = i
+    else:
+        r = i
+print(r)
