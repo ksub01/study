@@ -1,0 +1,6 @@
+n = input()
+list1 = list(map(int, input().split()))
+l = -1001
+for i in list1:
+    l = max(l, i)
+print(l)
