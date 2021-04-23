@@ -1,0 +1,360 @@
+INF = 10000000
+
+n = int(input())
+s, f = map(int, input().rstrip().split())
+mas = []
+
+
+for i in range(n+1):
+    z = [[] for x in range(n+1)]
+    mas.append(z)
+
+
+k = int(input())
+for k in range(k):
+    v1, st_time, v2, fn_time = map(int, input().rstrip().split())
+    mas[v1][v2].append((st_time, fn_time))
+
+
+weight = [INF]*(n+1)
+
+weight[s] = 0
+valid = [False]*(n+1)
+for i in range(n):
+    max_v = INF - 1
+    idx = -1
+    for v in range(1, n+1):
+        if not valid[v] and weight[v] < max_v:
+            max_v = weight[v]
+            idx = v
+    for v in range(1, n+1):
+        for t in mas[idx][v]:
+            start, finish = t[0], t[1]
+            if start >= weight[idx] and finish < weight[v]:
+                weight[v] = finish
+    valid[idx] = True
+
+
+if weight[f] == INF:
+    print(-1)
+else:
+    print(weight[f])
+    
+    
+    
+Хорошие решения
+#include <stdio.h>
+#include <stdlib.h>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <deque>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+
+int main()
+{
+	int n;
+	cin >> n;
+	int s, v;
+	cin >> s >> v;
+	int r;
+	cin >> r;
+	int i, j, k;
+	struct table {
+		int depart;
+		int arrive;
+	};
+	table t;
+	vector<vector<pair<int, table> >> g(n + 1);
+	int from, depart, dest, arrive, table[2];
+	for (i = 0; i < r; i++)
+	{
+		cin >> from >> depart >> dest >> arrive;
+		t = { depart,arrive };
+		g[from].push_back({ dest,t });
+
+	}
+	vector<int> d(n + 1, 1e6);
+	d[s] = 0;
+	vector<bool> u(n + 1, false);
+	for (i = 0; i < n; i++)
+	{
+		int next = -1;
+		for (j = 1; j <= n; j++)
+			if (!u[j] && (next == -1 || d[j] < d[next]))
+				next = j;
+		if (d[next] == 1e6)
+			break;
+		u[next] = true;
+		for (auto neib : g[next])
+			if (neib.second.depart >= d[next])
+				d[neib.first] = min(d[neib.first], neib.second.arrive);
+	}
+	cout << (d[v] == 1e6 ? -1 : d[v]);
+	return 0;
+}
+Кодировка: 
+Скачать
+#include <bits/stdc++.h>
+#define tm1 second.first
+#define tm2 second.second
+#define tov first
+using namespace std;
+const int N = 1e5 + 1;
+const int inf = 1e9 + 1;
+typedef pair <int, pair <int, int> > ppi;
+typedef pair <int, int> pi;
+int dx, vx;
+int m;
+int n;
+vector <ppi> gr[N];
+int main () {
+    cin >> n;
+    cin >> dx >> vx;
+    dx--; vx--;
+    cin >> m;
+    for (int i=0; i<m; i++) {
+        int u, t1, v, t2;
+        cin >> u >> t1 >> v >> t2;
+        u--; v--;
+        gr[u].push_back({v, {t1, t2}});
+    }
+    set <pi> st;
+    vector <int> d(n, inf);
+    d[dx] = 0;
+    st.insert({0, dx});
+    while (!st.empty()) {
+        pi cp = *st.begin();
+        st.erase(st.begin());
+        int cur = cp.second;
+        int t = cp.first;
+        for (auto it : gr[cur]) {
+            if (d[it.tov] >= it.tm2 && it.tm1 >= t) {
+                st.erase({it.tm2, it.tov});
+                d[it.tov] = it.tm2;
+                st.insert({it.tm2, it.tov});
+            }
+        }
+    }
+    if (d[vx] == inf) {
+        cout << -1;
+        return 0;
+    }
+    cout << d[vx];
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <deque>
+#include <string>
+#include <algorithm>
+#include <cmath>
+using namespace std;
+
+struct race
+{
+	int s, d, f;
+	race(int _s, int _d, int _f)
+	{
+		s = _s;
+		d = _d;
+		f = _f;
+	}
+};
+
+int main()
+{
+	int n, s, f, m;
+
+	cin >> n >> s >> f >> m;
+
+	s--;
+	f--;
+
+	int inf = 1000000;
+
+	vector<vector<race>> g(n);
+	vector<int> d(n, inf);
+	vector<bool> used(n, 0);
+
+	int b1, b2, b3, b4;
+
+	for (int i = 0; i < m; i++)
+	{
+		cin >> b1 >> b2 >> b3 >> b4;
+		g[b1 - 1].push_back(race(b2, b3 - 1, b4));
+	}
+
+	d[s] = 0;
+
+	for (int j = 0; j < n; j++)
+	{
+		int ind = 0;
+		for (int i = 0; i < n; i++)
+		{
+			if (!used[i] && (used[ind] || d[i] < d[ind]))
+			{
+				ind = i;
+			}
+		}
+
+		if (used[ind] || d[ind] == inf || ind == f)
+		{
+			break;
+		}
+
+		for (int i = 0; i < g[ind].size(); i++)
+		{
+			auto p = g[ind][i];
+			if (d[ind] <= p.s && d[p.d] > p.f)
+			{
+				d[p.d] = p.f;
+			}
+		}
+
+		used[ind] = 1;
+	}
+
+	if (d[f] == inf)
+	{
+		cout << -1 << endl;
+	}
+	else
+	{
+		cout << d[f] << endl;
+	}
+
+//	cin >> n;
+
+	return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <list>
+
+using namespace std;
+
+const int INF = 1e9 + 7;
+
+struct edge {
+    int to, stTime, endTime;
+    edge(int x, int y, int z) : to(x), stTime(y), endTime(z){}
+};
+
+int n, m, s, f;
+vector<int> dist, was;
+vector<list<edge>> graph;
+
+void dijkstra(int start) {
+    int v;
+    dist[start] = 0;
+    for (int i = 0; i < n; ++i) {
+        v = -1;
+        for (int j = 0; j < n; ++j) {
+            if (!was[j] && (v == -1 || dist[v] > dist[j]))
+                v = j;
+        }
+        if (dist[v] == INF)
+            break;
+        was[v] = 1;
+        
+        for (const auto& e : graph[v]) {
+            if (dist[v] <= e.stTime && dist[e.to] > e.endTime)
+                dist[e.to] = e.endTime;
+        }
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(nullptr); cout.tie(nullptr);
+    
+    cin >> n >> s >> f >> m;
+    dist.resize(n, INF);
+    was.resize(n, 0);
+    graph.resize(n);
+    
+    int fr, t, fTime, tTime;
+    for (int i = 0; i < m; ++i) {
+        cin >> fr >> fTime >> t >> tTime;
+        graph[fr - 1].push_front(edge(t - 1, fTime, tTime));
+    }
+    
+    dijkstra(s - 1);
+    if (dist[f - 1] == INF)
+        cout << -1;
+    else
+        cout << dist[f - 1];
+    
+    return 0;
+}
+Кодировка: 
+Скачать
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <vector>
+#include <string>
+#include <deque>
+#include <set>
+#include <cstdio>
+#include <cmath>
+#include <algorithm>
+using namespace std;
+
+struct trip {
+	int to;
+	int arrive;
+	int dep;
+};
+
+int main() {
+	int n, r, st, fin;
+	cin >> n >> st >> fin >> r;
+	vector<vector<trip>> my(n + 1, vector<trip>());
+	vector<int> time(n + 1, 2000000000);
+	vector<int> been(n + 1);
+	time[0] = 0;
+	time[st] = 0;
+
+	for (int i = 0; i < r; i++) {
+		int from, to_, st_t, fin_t;
+		cin >> from >> st_t >> to_ >> fin_t;
+		my[from].push_back({ to_, st_t, fin_t });
+	}
+
+	int v;
+
+	while (true) {
+		int buf = 2000000001;
+		v = -1;
+
+		for (int i = 1; i <= n; i++) {
+			if (!been[i] && buf > time[i]) {
+				buf = time[i];
+				v = i;
+			}
+		}
+		if (v == -1 || v == fin || time[v] == 2000000000) break;
+		been[v] = 1;
+
+		for (auto trip_now : my[v]) {
+			if (trip_now.arrive >= time[v] && time[trip_now.to] > trip_now.dep) {
+				time[trip_now.to] = trip_now.dep;
+			}
+		}
+
+	}
+
+	if (time[fin] == 2000000000) time[fin] = -1;
+	cout << time[fin];
+
+
+	//system("pause");
+	return 0;
+}
