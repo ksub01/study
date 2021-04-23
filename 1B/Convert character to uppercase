@@ -1,0 +1,5 @@
+k = input()
+if 'a' <= k <= 'z':
+    print(chr(ord(k)-(ord('a')-ord('A'))))
+else:
+    print(k)
