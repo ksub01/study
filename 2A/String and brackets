@@ -1,0 +1,8 @@
+def AB(st):
+    if len(st) == 1:
+        return st
+    elif len(st) == 2:
+        return st
+    else:
+        return st[0] + '(' + AB(st[1:-1]) + ')' + st[-1]
+print(AB(input()))
