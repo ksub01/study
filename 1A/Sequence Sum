@@ -1,0 +1,77 @@
+b1 = 2
+sum1 = 0
+while 1:
+    b = int(input())
+    if b == 0:
+        break
+    sum1 += b
+print(sum1)
+
+
+
+Хорошие решения
+sum = 0 
+while True: 
+    n = int(input()) 
+    if n == 0: 
+        break 
+    sum += n 
+print(sum) 
+Кодировка: 
+Скачать
+var
+  n, s: integer;
+
+begin
+  s := 0;
+  while true do 
+  begin
+    read(n);
+    if n = 0 then break;
+    s := s + n;
+  end;
+  writeln(s);
+end.
+Кодировка: 
+Скачать
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+    int a,b=0;
+    while(cin >> a){
+        if (a == 0)break;
+        b=a+b;
+    }
+    cout<<b;
+    return 0;
+}
+Кодировка: 
+Скачать
+import java.util.*;
+
+public class z1a3_9 {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int s = 0;
+		while (true) {
+			int a = sc.nextInt();
+			if (a == 0)
+				break;
+			s += a;
+		}
+		System.out.print(s);
+	}
+}
+Кодировка: 
+Скачать
+x = 1
+z = 0
+while True:
+    x = int(input())
+    if x == 0:
+        break
+    z += x
+print(z)
