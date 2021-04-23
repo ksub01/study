@@ -1,0 +1,10 @@
+Я бы делал без третьего списка
+
+s = input()
+list1 = [x for x in s if x != ' ']
+list2 = list1[:]
+list2.reverse()
+if list2 == list1:
+    print('yes')
+else:
+    print('no')
