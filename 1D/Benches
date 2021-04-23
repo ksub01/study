@@ -1,0 +1,45 @@
+Избавьтесь от дублирования кода
+
+lengh, number = map(int, input().rstrip().split())
+number_leg = [int(x) for x in input().rstrip().split()]
+
+left = []
+right = []
+
+
+if lengh % 2 == 0:
+    for i in number_leg:
+        if i < lengh//2:
+            left.append(i)
+        else:
+            right.append(i)
+    print(left[-1], right[0])
+else:
+    if (lengh//2) in number_leg:
+        print(lengh//2)
+    else:
+        for i in number_leg:
+            if i < lengh//2:
+                left.append(i)
+            else:
+                right.append(i)
+        print(left[-1], right[0])
+
+
+
+lengh, number = map(int, input().rstrip().split())
+number_leg = [int(x) for x in input().rstrip().split()]
+
+left = []
+right = []
+
+
+if (lengh//2) in number_leg and lengh % 2 != 0:
+    print(lengh//2)
+else:
+    for i in number_leg:
+        if i < lengh//2:
+            left.append(i)
+        else:
+            right.append(i)
+    print(left[-1], right[0])
