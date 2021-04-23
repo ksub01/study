@@ -1,0 +1,558 @@
+Аналогично, сохраняйте, откуда вы пришли
+from collections import deque
+
+x1 = y1 = x2 = y2 = -100000
+
+n = int(input())
+list1 = [list('0'*(n+1))]
+for i in range(1, n+1):
+    k = list('0' + input())
+    list1.append(k)
+    if '@' in k:
+        x1 = i
+        y1 = k.index('@')
+    if 'X' in k:
+        x2 = i
+        y2 = k.index('X')
+x4, y4 = x1, y1
+x5, y5 = x2, y2
+
+dist = [[-1] * (n+1) for j in range(n+1)]
+
+dist[x1][y1] = 0
+qeque = deque(((x1, y1),))
+cou = 0
+
+while qeque:
+    x1, y1 = qeque.popleft()
+    for delta_x, delta_y in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+        x2, y2 = x1+delta_x, y1+delta_y
+        if (1 <= x2 <= n) and (1 <= y2 <= n) and dist[x2][y2] == -1:
+            if list1[x2][y2] == '.' or list1[x2][y2] == 'X':
+                dist[x2][y2] = dist[x1][y1] + 1
+                qeque.append((x2, y2))
+
+
+if dist[x5][y5] != -1:
+    print('Y')
+    answ = list1.copy()
+    x1 = x5
+    y1 = y5
+    ans = dist[x5][y5]
+    answ[x4][y4] = '@'
+    answ[x5][y5] = '+'
+    for i in range(ans-1):
+        for delta_x, delta_y in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+            x2, y2 = x1+delta_x, y1+delta_y
+            if (1 <= x2 <= n) and (1 <= y2 <= n) and dist[x2][y2] + 1 == dist[x1][y1]:
+                answ[x2][y2] = '+'
+                x1, y1 = x2, y2
+                break
+    for i in range(1, n+1):
+        print(*answ[i][1:], sep='')
+else:
+    print('N')
+
+
+
+from collections import deque
+
+x1 = y1 = x2 = y2 = -100000
+
+n = int(input())
+list1 = [list('0'*(n+1))]
+for i in range(1, n+1):
+    k = list('0' + input())
+    list1.append(k)
+    if '@' in k:
+        x1 = i
+        y1 = k.index('@')
+    if 'X' in k:
+        x2 = i
+        y2 = k.index('X')
+x4, y4 = x1, y1
+x5, y5 = x2, y2
+
+dist = [[-1] * (n+1) for j in range(n+1)]
+p = [[-1] * (n+1) for j in range(n+1)]
+p[x1][y1] = -100
+dist[x1][y1] = 0
+qeque = deque(((x1, y1),))
+cou = 0
+
+while qeque:
+    x1, y1 = qeque.popleft()
+    for delta_x, delta_y in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+        x2, y2 = x1+delta_x, y1+delta_y
+        if (1 <= x2 <= n) and (1 <= y2 <= n) and dist[x2][y2] == -1:
+            if list1[x2][y2] == '.' or list1[x2][y2] == 'X':
+                dist[x2][y2] = dist[x1][y1] + 1
+                p[x2][y2] = x1, y1
+                qeque.append((x2, y2))
+if dist[x5][y5] != -1:
+    print('Y')
+    x3 = y3 = -100000
+    list1[x5][y5] = '+'
+    while p[x5][y5] != (x4, y4):
+        x3, y3 = p[x5][y5]
+        list1[x3][y3] = '+'
+        x5, y5 = x3, y3
+    for i in list1[1:]:
+        print(*i[1:], sep='')
+else:
+    print('N')
+    
+Хорошие решения
+#include <iostream>
+#include <queue>
+using namespace std;
+
+int main()
+{
+	int n;
+	cin >> n;
+	char g[42][42];
+	int sx, sy, fx, fy;
+	for (int i = 1; i < n + 1; i++)
+		for (int j = 1; j < n + 1; j++)
+		{
+			cin >> g[i][j];
+			if (g[i][j] == '@')
+			{
+				sx = i;
+				sy = j;
+			}
+			if (g[i][j] == 'X')
+			{
+				fx = i;
+				fy = j;
+			}
+		}
+	for (int i = 0; i < n + 2; i++)
+	{
+		g[0][i] = g[n + 1][i] = g[i][0] = g[i][n + 1] = 'O';
+	}
+	int s[2][4] =
+	{
+		{ -1, 0, 1, 0 },
+		{ 0, 1, 0, -1 }
+	};
+	queue <int> qx;
+	queue <int> qy;
+	qx.push(sx);
+	qy.push(sy);
+	int d[42][42];
+	d[sx][sy] = 0;
+	int p[42][42];
+	bool tf[42][42];
+	for (int i = 1; i < n + 1; i++)
+		for (int j = 1; j < n + 1; j++)
+			tf[i][j] = false;
+	tf[sx][sy] = true;
+
+
+	while (!qx.empty())
+	{
+		int x = qx.front();
+		int y = qy.front();
+		qx.pop();
+		qy.pop();
+		for (int i = 0; i < 4; i++)
+		{
+			int x1 = x + s[0][i];
+			int y1 = y + s[1][i];
+			if ((g[x1][y1] == '.' || g[x1][y1] == 'X') && !tf[x1][y1])
+			{
+				d[x1][y1] = d[x][y] + 1;
+				p[x1][y1] = i;
+				qx.push(x1);
+				qy.push(y1);
+				tf[x1][y1] = true;
+			}
+		}
+	}
+	
+
+	if (!tf[fx][fy]) cout << "N";
+	else
+	{
+		int i = fx, j = fy;
+		while (true)
+		{
+			int prevx = i - s[0][p[i][j]], prevy = j - s[1][p[i][j]];
+			g[i][j] = '+';
+			if (prevx == sx && prevy == sy) break;
+			i = prevx;
+			j = prevy;
+		}
+		cout << "Y" << "\n";
+		for (int i = 1; i < n + 1; i++)
+		{
+			for (int j = 1; j < n + 1; j++)
+				cout << g[i][j];
+			cout << "\n";
+		}
+	}
+	return 0;
+}
+Кодировка: 
+Скачать
+#include<iostream>
+#include<vector>
+#include<string>
+using namespace std;
+
+vector<vector<int> > queue(2,vector<int>(10000));
+int top = 0, botton = 0;
+
+void push(int xx, int yy) {
+  queue[0][botton] = xx;
+  queue[1][botton] = yy;
+  botton++;
+}
+void pop() {
+  top++;
+}
+
+
+
+int main() {
+  int n,px,py,p;
+  bool f = true;
+  cin >> n;
+  vector<vector<int> > labyrinth(n+3,vector<int>(n+3,-1));
+  vector<vector<int> > start(2,vector<int>(1));
+  vector<vector<int> > finish(2,vector<int>(1));
+  vector<vector<int> > wayx(n+3,vector<int>(n+3,-1));
+  vector<vector<int> > wayy(n+3,vector<int>(n+3,-1));
+  vector<vector<string> > lines(n+2,vector<string>(n+2));
+  int p1[] = {1, 0, 0,-1};
+  int p2[] = {0, 1,-1, 0};
+  //input
+  for (int i = 1; i<=n; i++)
+    for(int j = 1; j<=n; j++)
+      labyrinth[i][j] = 0;
+  string s;
+  for (int i = 1; i<=n; i++) {
+    cin >> s;
+    for (int j = 0; j<s.size(); j++) {
+      if (s[j] == 'O') labyrinth[i][j+1] = -1;
+      if (s[j] == '@') {
+        start[0][0] = i;
+        start[1][0] = j+1;
+      }
+      if (s[j] == 'X') {
+        finish[0][0] = i;
+        finish[1][0] = j+1;
+        push(i,j+1);
+      }
+      lines[i][j+1] = s[j];
+    }
+  }
+  labyrinth[finish[0][0]][finish[1][0]] = 1;
+  wayx[finish[0][0]][finish[1][0]] = 0;
+  wayy[finish[0][0]][finish[1][0]] = 0;
+  //general program
+  while (top != botton && f) {
+    pop();
+    px = queue[0][top-1];
+    py = queue[1][top-1];
+    for (int i = 0; i<4; i++) {
+      if (labyrinth[px+p1[i]][py+p2[i]] == 0) {
+        labyrinth[px+p1[i]][py+p2[i]] = labyrinth[px][py]+1;
+        wayx[px+p1[i]][py+p2[i]] = px;
+        wayy[px+p1[i]][py+p2[i]] = py;
+        push(px+p1[i],py+p2[i]);
+        if (px+p1[i] == start[0][0] && py+p2[i] == start[1][0]) f = false;
+      }
+    }
+  }
+  //output
+  if (labyrinth[start[0][0]][start[1][0]] == 0) {
+    cout << "N";
+    return 0;
+  }
+  px = wayx[start[0][0]][start[1][0]];
+  py = wayy[start[0][0]][start[1][0]];
+
+  cout << "Y" << endl;
+  while (lines[px][py] != "X") {
+    lines[px][py] = "+";
+    p = px;
+    px = wayx[px][py];
+    py = wayy[p][py];
+  }
+  lines[px][py] = "+";
+  for (int i = 1; i<=n; i++) {
+    for (int j = 1; j<=n; j++)
+      cout << lines[i][j];
+    cout << endl;
+  }
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <iomanip>
+#include <vector>
+#include <deque>
+#include <algorithm>
+
+using namespace std;
+int main()
+{
+	int n;
+	cin >> n;
+	vector<pair<int, int>> step = { {1, 0}, {0, 1}, {-1, 0}, {0, -1} };
+
+	int x1, y1, x2, y2;
+	deque<pair<int, int>> a;
+	vector<vector<bool>> used(n, vector<bool>(n, 0));
+	vector<vector<pair<int, int>>> way(n + 2, vector<pair<int, int>>(n + 2, { -1, -1 }));
+
+	vector<vector<char>> map(n + 2, vector<char>(n + 2, 'O'));
+
+	char ch;
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			cin >> ch;
+			map[i + 1][j + 1] = ch;
+			switch (ch)
+			{
+			case '.':
+				break;
+			case '@':
+				y1 = i + 1;
+				x1 = j + 1;
+				break;
+			case 'X':
+				y2 = i + 1;
+				x2 = j + 1;
+				break;
+			}
+		}
+	}
+
+	a.push_back({ y1, x1 });
+	used[y1 - 1][x1 - 1] = 1;
+
+	bool p = 0;
+	while (a.size() > 0)
+	{
+		auto c = a.front();
+		a.pop_front();
+
+		if (c.first == y2 && c.second == x2)
+		{
+			p = 1;
+			break;
+		}
+
+		for (auto i : step)
+		{
+			int f = i.first + c.first;
+			int s = i.second + c.second;
+
+			if (map[f][s] != 'O' &&
+				!used[f - 1][s - 1])
+			{
+				a.push_back({ f, s });
+				used[f - 1][s - 1] = 1;
+				way[f][s] = { c.first, c.second };
+			}
+		}
+	}
+
+	if (p)
+	{
+		cout << "Y" << endl;
+		vector<vector<char>> w = map;
+		pair<int, int> pos = { y2, x2 };
+		while (!(pos.second == x1 && pos.first == y1))
+		{
+			w[pos.first][pos.second] = '+';
+			pos = way[pos.first][pos.second];
+		}
+		for (int i = 0; i < n; i++)
+		{
+			for (int j = 0; j < n; j++)
+			{
+				cout << w[i + 1][j + 1];
+			}
+			cout << endl;
+		}
+	}
+	else
+	{
+		cout << "N" << endl;
+	}
+	cin >> n;
+	return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <set>
+#include <bits/stdc++.h>
+#define f first
+#define s second
+using namespace std;
+bool cicl=false;
+char a[100][100];
+bool used[100][100];
+pair <int, int> pr[100][100];
+int n ;
+vector < pair<int ,int> > v={{0,1}, {1,0} , {-1,0} ,{0,-1} };
+int main()
+{
+    //freopen("input.txt","r",stdin);
+    cin.tie(0);cout.tie(0);
+    ios_base :: sync_with_stdio(0);
+    cin >> n;
+    pair <int ,int> start;
+    pair <int, int> fin;
+    for (int i=1;i<=n;i++)
+        for (int j=1;j<=n;j++)
+        {
+            cin >> a[i][j];
+            if (a[i][j]=='@')
+            {
+                start.f=i;
+                start.s=j;
+            }
+            if (a[i][j]=='X')
+            {
+                fin.f=i;
+                fin.s=j;
+            }
+        }
+    for (int i=1;i<=n;i++)
+    {
+        a[i][0]='O';
+        a[0][i]='O';
+    }
+    for (int i=0;i<=n;i++)
+    {
+        a[i][n+1]='O';
+        a[n+1][i]='O';
+    }
+    queue < pair <int, int> > q;
+    q.push(start);
+    bool flag=false;
+    pr[start.f][start.s]={-1,-1};
+    while (q.size()!=0)
+    {
+        pair <int , int> ans=q.front();
+        if (ans==fin)
+        {
+            flag=true;
+            break;
+        }
+        q.pop();
+        int x=ans.f;
+        int y=ans.s;
+        used[x][y]=true;
+        for (int i=0;i<v.size();i++)
+        {
+            int x1=x+v[i].f;
+            int y1=y+v[i].s;
+            if (a[x1][y1]!='O' && used[x1][y1]==false)
+            {
+                used[x1][y1]=true;
+                q.push({x1,y1});
+                pr[x1][y1]={x,y};
+            }
+        }
+    }
+    if (flag==false)
+    {
+        cout << "N" << endl;
+        return 0;
+    }
+    pair <int ,int> p=pr[fin.f][fin.s];
+    a[fin.f][fin.s]='+';
+    while (p.s+p.f!=-2)
+    {
+        a[p.f][p.s]='+';
+        p=pr[p.f][p.s];
+    }
+    a[start.f][start.s]='@';
+    cout << "Y" << endl;
+    for (int i=1;i<=n;i++)
+    {
+        for (int j=1;j<=n;j++)
+            cout << a[i][j] ;
+        cout << endl;
+    }
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <string>
+
+using namespace std;
+
+int main() {
+    int n, ex, ey, hx, hy;
+    cin >> n;
+    string s;
+    vector<char> c(n);
+    vector<vector<char>> a(n, c);
+    vector<int> c1(n, -1);
+    vector<vector<int>> px(n, c1), py(n, c1);
+    const vector<int> dx = { 1, 0, -1, 0 }, dy = { 0, 1, 0, -1 };
+    queue<int> x, y;
+    for (int i = 0; i < n; i++) {
+        cin >> s;
+        for (int j = 0; j < n; j++) {
+            a[i][j] = s[j];
+            if (s[j] == '@') {
+                x.push(i);
+                y.push(j);
+                px[i][j] = -5;
+            }
+            else if (s[j] == 'X') {
+                ex = i;
+                ey = j;
+            }
+        }
+    }
+    while ((x.size() > 0) && (px[ex][ey] == -1)) {
+        for (int i = 0; i < 4; i++) {
+            hx = x.front() + dx[i];
+            hy = y.front() + dy[i];
+            if ((hx >= 0) && (hx < n) && (hy >= 0) && (hy < n)) {
+                if ((a[hx][hy] != 'O') &&  (px[hx][hy] == -1)){
+                    px[hx][hy] = x.front();
+                    py[hx][hy] = y.front();
+                    x.push(hx);
+                    y.push(hy);
+                }
+            }
+        }
+        x.pop();
+        y.pop();
+    }
+    if (px[ex][ey] == -1)
+        cout << "N";
+    else {
+        cout << "Y" << endl;
+        while (a[ex][ey] != '@') {
+            a[ex][ey] = '+';
+            hx = px[ex][ey];
+            ey = py[ex][ey];
+            ex = hx;
+        }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++)
+                cout << a[i][j];
+            cout << endl;
+        }
+    }
+    return 0;
+}
