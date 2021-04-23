@@ -1,0 +1,93 @@
+n = int(input())
+mas = [int(x) for x in input().rstrip().split()]
+cou = 0
+for i in range(n - 1):
+    for j in range(n - i - 1):
+        if mas[j] > mas[j + 1]:
+            mas[j], mas[j + 1] = mas[j + 1], mas[j]
+            cou += 1
+print(cou)
+
+
+Хорошие решения
+n = int(input())
+a = [int(i) for i in input().split()]
+sum1 = 0 
+for i in range(n):
+	for j in range(n-1):
+		if a[j]>a[j+1]:
+			a[j],a[j+1] = a[j+1],a[j]
+			sum1 += 1	
+print(sum1)
+Кодировка: 
+Скачать
+var a: array [1..10001] of integer;
+    i,j,k,n,k1: integer;
+begin
+  read(n);
+  for i:=1 to n do
+    read(a[i]);
+
+  for i:=1 to n-1 do begin
+    for j:=1 to n-i do begin
+      if a[j]>a[j+1] then begin
+        k:=a[j];
+        a[j]:=a[j+1];
+        a[j+1]:=k;
+        inc(k1);
+      end;
+     end;
+   end;
+ writeln(k1);
+    
+end.
+Кодировка: 
+Скачать
+#include <iostream>
+#include <set>
+#include <vector>
+#include <algorithm>
+#include <list>
+#include <fstream>
+#include <cmath>
+#include <queue>
+
+using namespace std;
+
+int main()
+{
+    long long n;
+    cin >> n;
+    long long a[n];
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    long long ans = 0;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n - 1; j++) {
+            if (a[j] > a[j + 1]) {
+                long long buff = a[j + 1];
+                a[j + 1] = a[j];
+                a[j] = buff;
+                ans++;
+            }
+        }
+    }
+    cout << ans;
+    return 0;
+}
+Кодировка: 
+Скачать
+m = int(input())
+a = input().split()
+l = 0
+for i in range(len(a)) :
+  a[i] = int(a[i])
+for i in range(len(a) - 1):
+  for j in range(len(a) - i - 1):
+    if a[j] > a[j + 1]:
+      k = a[j]
+      a[j] = a[j + 1]
+      a[j + 1] = k
+      l = l + 1
+print(l)
