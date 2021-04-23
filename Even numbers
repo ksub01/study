@@ -1,0 +1,96 @@
+while a1 <= b1:
+используйте цикл for, он специально придуман
+чтобы перебирать числа по порядку
+
+a1 = int(input())
+b1 = int(input())
+while a1 <= b1:
+    if a1 % 2 == 0:
+        print(a1)
+    a1 += 1
+    
+    
+a1 = int(input())
+b1 = int(input())
+for i in range(a1, b1+1):
+    if i % 2 == 0:
+        print(i)
+        
+        
+Найди ошибку: Четные числа
+#include <iostream>
+using namespace std;
+int main() {
+	int a, b;
+	cin >> a >> b;
+	while (a != b) {
+		if (a % 2 == 0) {
+			cout << a << " ";
+		}
+		a++;
+	}
+	return 0;
+}
+
+
+a= int(input())
+b= int(input())
+z=0
+for z in range (a, b):
+    if (z % 2 == 0):
+        print(z, end=" ")
+        
+        
+Хорошие решения
+#include <iostream>
+
+using std::cin;
+using std::cout;
+
+int main() {
+    int min,
+    max;
+    cin >> min >> max;
+    for (int i = min; i < max + 1; i++) {
+        if (i % 2 == 0) {
+            cout << i << " ";
+        }
+    }
+}
+Кодировка: 
+Скачать
+a=int(input())
+b=int(input())
+if a % 2 > 0 :
+    a = a + 1
+for i in range(a, b + 1, 2) :
+    print(i, end=" ") 
+Кодировка: 
+Скачать
+var a,b,i:integer;
+begin 
+read(a,b);
+for i:=a to b do 
+ if i mod 2 = 0 then 
+  write(i,' ');
+end.  
+ 
+ 
+Кодировка: 
+Скачать
+a = int(input())
+b = int(input())
+
+if a % 2 != 0:
+    a += 1
+
+while a <= b:
+    print(a, end = ' ')
+    a += 2
+Кодировка: 
+Скачать
+a = int(input())
+b = int(input())
+for i in range(a, b + 1):
+    if i % 2 == 0:
+        print(i, end = " ")
