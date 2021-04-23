@@ -6,3 +6,128 @@ if abs(a + b - c) < eps:
     print("YES")
 else:
     print("NO")
+
+
+Найди ошибку: a + b = c
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class aplusb {
+    public static void main(String[] args) throws IOException {
+        final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        var eps = 1e-6;
+        var first = Double.parseDouble(br.readLine());
+        var second = Double.parseDouble(br.readLine());
+        var third = Double.parseDouble(br.readLine());
+
+        var result = first + second;
+
+        if (Math.abs(result - third) < eps) {
+            System.out.println("YES");
+        } else {
+            System.out.println("NO");
+        }
+    }
+}
+
+a = float(input())
+b = float(input())
+c = float(input())
+eps=1e-5
+
+if abs(a + b - c) < eps:
+    print('YES')
+else:
+    print('NO')
+    
+    
+#include <bits/stdc++.h>
+
+#define int long long
+#define eps 1e-7
+
+using namespace std;
+
+int32_t main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+
+
+    float  a, b, c;
+    cin >> a >> b >> c;
+    if(abs(a + b - c) < eps)
+        cout << "YES\n";
+    else
+        cout << "NO\n";
+
+    return 0;
+}
+
+
+
+Хорошие решения
+#include <bits/stdc++.h>
+
+using namespace std;
+const double EPS = 1e-9;
+int main () {
+    double a, b, c;
+    cin >> a >> b >> c;
+    if (abs(a + b - c) <= EPS) cout << "YES";
+    else cout << "NO";
+    return 0;
+}
+Кодировка: 
+Скачать
+const
+  eps = 1e-7;
+
+var
+  a, b, c: double;
+
+begin
+  read(a, b, c);
+  if abs(a + b - c)<eps then writeln('YES')
+  else writeln('NO');
+end.
+Кодировка: 
+Скачать
+a = float(input())
+b = float(input())
+c = float(input())
+eps = 1e-9
+if abs(a + b - c) < eps:
+    print("YES")
+else:
+    print("NO")
+Кодировка: 
+Скачать
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main(){
+    double a, b, c, eps = 1e-8;
+    cin >> a >> b >> c;
+    if (abs(a + b - c) < eps)
+        cout << "YES";
+    else
+        cout << "NO";
+}
+Кодировка: 
+Скачать
+from math import *
+eps = 1e-8
+
+a = float(input())
+b = float(input())
+c = float(input())
+
+if abs(a+b-c) < eps :
+    print("YES")
+else:
+    print("NO")
