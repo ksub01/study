@@ -1,0 +1,266 @@
+INF = 10000000
+
+n = int(input())
+weight = [INF]*(n+1)
+buy = [0] + [int(x) for x in input().rstrip().split()]
+mas = [[INF]*(n+1) for x in range(n+1)]
+k = int(input())
+for k in range(k):
+    v1, v2 = map(int, input().rstrip().split())
+    mas[v1][v2] = buy[v1]
+    mas[v2][v1] = buy[v2]
+
+weight[1] = 0
+valid = [False]*(n+1)
+for i in range(n):
+    max_v = INF - 1
+    idx = -1
+    for v in range(1, n+1):
+        if not valid[v] and weight[v] < max_v:
+            max_v = weight[v]
+            idx = v
+    for v in range(1, n+1):
+        if weight[idx] + mas[idx][v] < weight[v]:
+            weight[v] = weight[idx] + mas[idx][v]
+    valid[idx] = True
+
+if weight[-1] == INF:
+    print(-1)
+else:
+    print(weight[-1])
+    
+    
+
+
+Хорошие решения
+#include <iostream>
+#include <vector>
+using namespace std;
+typedef long long lli;
+const char ln = '\n';
+
+const int INF = 1e8;
+
+int main() {
+    int n; cin >> n;
+    vector<int> w (n);
+    for (int& a: w)
+        cin >> a;
+    int m; cin >> m;
+    vector< vector<int> > g (n);
+    for (int i = 0, u, v; i < m; ++i) {
+        cin >> u >> v;
+        g[u-1].push_back(v-1);
+        g[v-1].push_back(u-1);
+    }
+    vector<int> d (n, INF);
+    d[0] = 0;
+    vector<bool> u (n, false);
+    for (int k = 0; k < n; ++k) {
+        int v = -1;
+        for (int i = 0; i < n; ++i) if (!u[i])
+            if (v == -1 || d[i] < d[v])
+                v = i;
+        if (d[v] == INF)
+            break;
+        u[v] = true;
+        for (int to: g[v])
+            d[to] = min(d[to], d[v] + w[v]);
+    }
+    if (d[n-1] == INF)
+        d[n-1] = -1;
+    cout << d[n-1] << ln;
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+    unsigned int n, m;
+    cin >> n;
+    vector <vector <int>> graf(n);
+    vector <int> weights(n);
+    for (int i = 0; i < n; i++) cin >> weights[i];
+    cin >> m;
+    for (int i = 0; i < m; i++){
+        int from, to;
+        cin >> from >> to;
+        from--; to--;
+        graf[from].push_back(to);
+        graf[to].push_back(from);
+    }
+    auto inf = (int)1e9;
+    vector <int> d(n, inf);
+    vector <bool> was(n);
+    d[0] = 0;
+    for (int i = 0; i < n; i++){
+        int v = -1;
+        for (int j = 0; j < n; j++)
+            if (!was[j] && (v == -1 || d[j] < d[v]))
+                v = j;
+        if (d[v] == inf) break;
+        was[v] = true;
+        for (int j : graf[v]) {
+            if (d[v] + weights[v] < d[j]) {
+                d[j] = d[v] + weights[v];
+            }
+        }
+    }
+    if (d[n - 1] != inf) cout << d[n - 1] << '\n';
+    else cout << -1;
+    return 0;
+}
+Кодировка: 
+Скачать
+#include <iostream>
+#include <algorithm>
+#include <stack>
+#include <cstdio>
+#include <vector>
+#include <set>
+#include <queue>
+
+using namespace std;
+
+int main()
+{
+    int inf = 1000000000;
+    int start = 0;
+    int n;
+    cin >> n;
+    vector <int> cost(n);
+    vector <int> d(n, inf);
+    for (int i = 0; i < n; i++) {
+        cin >> cost[i];
+    }
+    int m;
+    cin >> m;
+
+    vector <vector  <int>> a(n);
+    for (int i = 0; i < m; i++) {
+        int f, s;
+        cin >> f >> s;
+        a[f - 1].push_back(s - 1);
+        a[s - 1].push_back(f - 1);
+    }
+    set <pair <int, int>> s;
+    d[start] = 0;
+    s.insert({d[start], start});
+    while (!s.empty()) {
+        int cur = s.begin()->second;
+        s.erase(s.begin());
+        for (int g : a[cur]) {
+            int to = g;
+            int len = cost[cur];
+            if (d[cur] + len < d[to]) {
+                if (s.count({d[to], to}) > 0)
+                    s.erase({d[to], to});
+
+                d[to] = d[cur] + len;
+                //cout << d[to] << " " << d[cur] << " " << len << " " << cur + 1 << " " << to + 1 << '\n';
+                s.insert({d[to], to});
+            }
+        }
+    }
+    if (d[n - 1] == inf) {
+        cout << -1;
+    } else
+        cout << d[n - 1];
+    return 0;
+}
+Кодировка: 
+Скачать
+n=int(input())
+INF=1000000000
+prices=list(map(int,input().split()))
+m=int(input())
+gr=[[0 for i in range(n)] for j in range(n)]
+for i in range(m):
+    fr,to=map(int,input().split())
+    fr-=1
+    to-=1
+    gr[fr][to]=1
+    gr[to][fr]=1
+dist=[INF for i in range(n)]
+dist[0]=0
+used=[False for i in range(n)]
+for i in range(n):
+    v=-1
+    for j in range(n):
+        if used[j]==False and (v==-1 or dist[j]<dist[v]):
+            v=j
+    if dist[v]==INF:
+        print(-1)
+        exit(0)
+    used[v]=True
+    for j in range(n):
+        if gr[v][j]==1:
+            if dist[v]+prices[v]<dist[j]:
+                dist[j]=dist[v]+prices[v]
+print(dist[n-1])
+Кодировка: 
+Скачать
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <vector>
+#include <string>
+#include <deque>
+#include <set>
+#include <cstdio>
+#include <cmath>
+#include <algorithm>
+#include <stdio.h>
+using namespace std;
+
+int main() {
+	int n, road, ans = 0;
+	cin >> n;
+	vector<int> worth(n+1);
+	vector<vector<int>> buf(n+1, vector<int>());
+	for (int i = 1; i < worth.size(); i++) cin >> worth[i];
+
+	cin >> road;
+	for (int i = 0; i < road; i++) {
+		int a, b;
+		cin >> a >> b;
+		buf[a].push_back(b);
+		buf[b].push_back(a);
+	}
+
+	vector<int> cost(n+1, 100000000);
+	cost[1] = 0;
+	cost[0] = 0;
+	vector<int> been(n+1);
+	int v = 0;
+
+	while (true){
+		been[v] = 1;
+
+		int buf_ = 1000000000;
+		v = -1;
+		for (int i = 1; i <= n; i++) {
+			if (!been[i] && cost[i] < buf_) {
+				buf_ = cost[i];
+				v = i;
+			}
+		}
+		if (v == -1 || cost[v] == 100000000 || v == n) break;
+
+		for (int i = 0; i < buf[v].size(); i++) {
+			if (cost[buf[v][i]] > cost[v] + worth[v]) 
+				cost[buf[v][i]] = cost[v] + worth[v];
+		}
+
+	}
+
+	if (cost[n] == 100000000) cost[n] = -1;
+	cout << cost[n];
+
+	//system("pause");
+	return 0;
+}
