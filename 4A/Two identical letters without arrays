@@ -1,0 +1,9 @@
+s = input()
+ans = 'a'
+letters = 0
+for i in s:
+    bits = 1 << (ord(i) - ord('a'))
+    if bits & letters > 0:
+        ans = i
+    letters = letters | bits
+print(ans)
