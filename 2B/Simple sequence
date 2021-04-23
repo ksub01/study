@@ -8,3 +8,72 @@ for i in range(2, n + 1):
     else:
         list1[i] = list1[(i - 1) // 2] - list1[(i - 1) // 2 - 1]
 print(list1[n])
+
+
+
+Хорошие решения
+n = int(input())
+numbers_array = [1, 1]
+for i in range(2, n + 1):
+    if (i % 2 == 0):
+        numbers_array.append(numbers_array[i // 2] + numbers_array[i // 2 - 1])
+    else:
+        numbers_array.append(numbers_array[i // 2] - numbers_array[i // 2 - 1])
+print(numbers_array[-1])
+Кодировка: 
+Скачать
+var
+  a: array [0..1001] of integer;
+  n, i: integer;
+
+begin
+  read(n);
+  a[0] := 1;
+  a[1] := 1;
+  for i := 2 to n do
+    if i mod 2 = 1 then
+      a[i] := a[ i div 2 ] - a[i div 2 - 1]
+    else
+      a[i] := a[ i div 2 ] + a[i div 2 - 1];
+  write(a[n]);
+end. 
+Кодировка: 
+Скачать
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main()
+{
+    int n;
+    cin >> n;
+    vector<int> arr(n + 2);
+    arr[0] = arr[1] = 1;
+    for(int i = 1; i <= n / 2; i++)
+    {
+        arr[2*i] = arr[i] + arr[i - 1];
+        arr[2*i + 1] = arr[i] - arr[i - 1];
+    }
+
+    cout << arr[n];
+
+    return 0;
+}
+Кодировка: 
+Скачать
+n=int(input())
+a = [1]*(n+1)
+for i in range(2,n+1):
+    if i%2==0:
+        a[i] = a[i//2]+a[i//2-1]
+    else:
+        a[i] = a[i//2]-a[i//2-1]
+print(a[n])
+Кодировка: 
+Скачать
+n = int(input())
+a = [1, 1]
+for i in range(1, n//2+1):
+    a.append(a[i] + a[i-1])
+    a.append(a[i] - a[i-1])
+print(a[n])
